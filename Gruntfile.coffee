@@ -2,7 +2,7 @@ module.exports = (grunt) ->
   grunt.initConfig
     concat:
       dist:
-        src: ['lib/d3.v4.min.js', 'lib/d3-selection-multi.v0.4.min.js']
+        src: ['lib/esv.js', 'lib/d3.v4.min.js', 'lib/d3-selection-multi.v0.4.min.js']
         dest: 'lib/libs.js'
     coffee:
       compile:
