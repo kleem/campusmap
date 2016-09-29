@@ -4,6 +4,10 @@ module.exports = (grunt) ->
       dist:
         src: ['lib/esv.js', 'lib/d3.v4.min.js', 'lib/d3-selection-multi.v0.4.min.js']
         dest: 'lib/libs.js'
+    concat_css:
+      dist:
+        src: ['*.css', '*/*.css']
+        dest: 'app.css'
     coffee:
       compile:
         options:
@@ -18,16 +22,20 @@ module.exports = (grunt) ->
     watch:
       files: [
         'index.coffee',
-        '*/*.coffee'
+        '*/*.coffee',
+        'index.css',
+        '*/*.css'
       ]
       tasks:
         [
           'coffee',
-          'concat'
+          'concat',
+          'concat_css'
         ]
 
   grunt.loadNpmTasks 'grunt-contrib-concat'
+  grunt.loadNpmTasks 'grunt-concat-css'
   grunt.loadNpmTasks 'grunt-contrib-coffee'
   grunt.loadNpmTasks 'grunt-contrib-watch'
 
-  grunt.registerTask 'default', ['coffee', 'concat']
+  grunt.registerTask 'default', ['coffee', 'concat', 'concat_css']

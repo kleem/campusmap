@@ -6,3 +6,4 @@ node_modules
 !lib/*
 lib/libs.js
 app.src.coffee
+app.css
