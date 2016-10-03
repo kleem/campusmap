@@ -1,0 +1,18 @@
+.SearchBox {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 20%;
+  min-width: 250px;
+	z-index: 4;
+}
+
+.SearchBox .innerSearchBox {
+	margin: 20px;
+	background-color: yellow;	
+  height: 48px;
+}
+
+.SearchBox.hidden {
+  display: none;
+}
