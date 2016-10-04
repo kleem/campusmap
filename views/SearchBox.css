@@ -8,11 +8,55 @@
 }
 
 .SearchBox .innerSearchBox {
-	margin: 20px;
-	background-color: yellow;	
+	margin: 10px;
+	background-color: white;	
   height: 48px;
+  border-bottom: 1px solid lightgrey;
 }
 
 .SearchBox.hidden {
   display: none;
+}
+
+/*
+.SearchBox .fa-level-down {
+  cursor: pointer;
+  position: absolute;
+  right: 20px;
+  top: 17px;
+  width: 10px;
+  height: 10px;
+  border: 1px solid transparent;
+  background-color: steelblue;
+  text-align: center;
+  padding: 8px;
+}
+*/
+
+.SearchBox .fa-stack {
+  position: absolute;
+  cursor: pointer;
+  right: 5px;
+  top: 14px;
+}
+
+.SearchBox .fa-stack .fa-square-o {
+  -webkit-transform: rotate(45deg);
+  font-size: 1.1em;
+  position: absolute;
+  top: 10px;
+  border: none;
+}
+
+.SearchBox .fa-stack .fa-level-down {
+  font-size: 0.7em;
+}
+
+.SearchBox .input_search {
+  height: 48px;
+  width: 70%;
+  border: none;
+  outline: none;
+  margin-left: 10px;
+  font-size: 16px;
 }

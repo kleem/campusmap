@@ -1,3 +1,3 @@
-class Canvas extends View
+observable observer class Canvas extends View
   constructor: (conf) ->
     super(conf)
