@@ -7,7 +7,7 @@ observer observable class NavControls extends View
     floors = @d3el.selectAll '.floor'
       .data conf.floors
 
-    floors.enter().append 'div'
+    floors.enter().append('div').append 'button'
       .attrs
         class: 'floor'
       .on 'click', (d,i) =>
