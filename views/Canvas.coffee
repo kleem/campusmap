@@ -41,5 +41,5 @@ observer class Canvas extends View
   switch_view: () =>
     @zoomable_layer.selectAll('g').style 'visibility', 'visible'
 
-    groups = @zoomable_layer.selectAll('g').filter (d,i) => i > @camera.floor
+    groups = @zoomable_layer.selectAll('g').filter (d,i) => i > @camera.get_floor()
     groups.style 'visibility', 'hidden'

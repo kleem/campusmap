@@ -20,4 +20,4 @@ observer observable class NavControls extends View
   # Highlights the selected button
   floor_change: () ->
     d3.selectAll('.floor').classed('selected', false)
-    d3.selectAll('.floor').filter((d,i) => Math.abs(i-@camera.n_floors) is @camera.floor).classed('selected', true)
+    d3.selectAll('.floor').filter((d,i) => Math.abs(i-@camera.get_n_floors()) is @camera.get_floor()).classed('selected', true)

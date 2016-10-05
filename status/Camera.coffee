@@ -1,10 +1,17 @@
 observable class Camera
-  constructor: (conf) ->
+  constructor: () ->
     @init
       events: ['change']
-
-    @n_floors = conf.n_floors
 
   set_floor: (index) ->
     @floor = index
     @trigger 'change'
+
+  get_floor: () ->
+    return @floor
+
+  set_n_floors: (n_floors) ->
+    @n_floors = n_floors
+
+  get_n_floors: () ->
+    return @n_floors
