@@ -1,14 +1,40 @@
 .DirectionsBox {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 20%;
-	min-width: 250px;
-	height: 100%;
-	background-color: rgba(255,255,255,0.5);
-	z-index: 3;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 20%;
+  min-width: 250px;
+  z-index: 4;
+}
+
+.DirectionsBox .innerDirectionsBox {
+  margin: 10px;
+  background-color: white;  
+  height: 48px;
+  border-bottom: 1px solid lightgrey;
 }
 
 .DirectionsBox.hidden {
   display: none;
 }
+
+.DirectionsBox .fa-times-circle-o {
+  position: absolute;
+  font-size: 1.7em;
+  right: 14px;
+  top: 22px;
+  -webkit-text-stroke: 1px white;
+}
+
+/* comment to commit a good version
+
+.DirectionsBox input {
+  height: 24px;
+  width: 70%;
+  border: none;
+  outline: none;
+  margin-left: 10px;
+  font-size: 16px;
+  border-bottom: 1px solid lightgrey;
+}
+*/

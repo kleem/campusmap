@@ -8,18 +8,48 @@
 	z-index: 5;
 }
 
-.ResultsBox .innerResultsBox {
+.ResultsBox .innerResultsBox p {
+  padding: 9px 10px;
+  margin: 0px;
+
+}
+
+.ResultsBox .innerResultsBox p:hover {
+  background-color: #dadada;
+}
+
+.ResultsBox .allResultsBox {
+  display: none;
   margin: 10px;
   background-color: white;  
-  height: 100px;
+  height: auto;
+  max-height: 150px;
   border-bottom: 1px solid lightgrey;
   overflow: auto;
 }
 
-.ResultsBox .innerResultsBox p {
+.ResultsBox .allResultsBox.displayed {
+  display: block;
+}
+
+.ResultsBox .noResultsBox {
+  display: none;
   margin: 10px;
+  background-color: white;  
+  height: 36px;
+  padding: 1px;
+  border-bottom: 1px solid lightgrey;
+  font-style: italic;
+}
+
+.ResultsBox .noResultsBox.displayed {
+  display: block;
 }
 
 .ResultsBox.displayed {
   display: block;
+}
+
+.ResultsBox.hidden {
+  display: none;
 }

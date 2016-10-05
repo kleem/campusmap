@@ -26,6 +26,7 @@ class AppView extends View
     new DirectionsBox 
       parent: this
       mode: mode
+      query: query
 
     new ResultsBox
       parent: this

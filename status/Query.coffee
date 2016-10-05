@@ -1,7 +1,7 @@
 observable class Query
   constructor: (conf) ->
     @init
-    	events: ['change']
+    	events: ['query_changed','results_changed']
     @graph = conf.graph
 
     @query = ''
@@ -9,8 +9,18 @@ observable class Query
 
   set: (query) ->
     @query = query
-    @results = @graph.search(@query)
-    @trigger 'change'
+    @results = null
+    @trigger 'query_changed'
+
+  execute: () ->  
+    if @query is ''
+      @results = null
+    else
+      @results = @graph.search(@query)
+    @trigger 'results_changed'
 
   get_results: () ->
     return @results
+
+  get: () ->
+    return @query

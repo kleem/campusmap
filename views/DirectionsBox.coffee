@@ -4,14 +4,36 @@ observer class DirectionsBox extends View
     @init()
     
     @mode = conf.mode
+    @query = conf.query
 
-    @d3el.append 'button'
-      .text 'x'
+    @listen_to @mode, 'change', () => @maybe_hide()
+
+    innerDiv = @d3el.append 'div'
+      .attrs
+        class: 'innerDirectionsBox'
+        
+    innerDiv.append 'span'
+      .html '<i class="fa fa-times-circle-o"></i>'
       .on 'click', () =>
         @mode.set 'search'
 
-    @listen_to @mode, 'change', () => @maybe_hide()
-      
+    ### comment to commit a good version
+
+    innerDiv.append 'input'
+      .attrs
+        class: 'input_search_from'
+        placeholder: 'Punto di partenza'
+      .on 'keyup', () =>
+        @query.set(d3.select('.input_search_from').node().value)
+
+    innerDiv.append 'input'
+      .attrs
+        class: 'input_search_to'
+        placeholder: 'Punto di arrivo'
+      .on 'keyup', () => 
+        @query.set(d3.select('.input_search_to').node().value)
+    ###
+
     @maybe_hide()
 
   maybe_hide: () ->

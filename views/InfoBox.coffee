@@ -13,5 +13,5 @@ observer class InfoBox extends View
     console.log @graph.nodes
 
   maybe_hide: () ->
-    @d3el.classed 'hidden', @mode.get() isnt 'search'
+    @d3el.classed 'hidden', @mode.get() isnt 'directions'
 
