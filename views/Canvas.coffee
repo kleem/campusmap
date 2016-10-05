@@ -3,7 +3,8 @@ observer class Canvas extends View
     super(conf)
     @init()
 
-    @nav_controls = conf.nav_controls
+    @camera = conf.camera
+
     @files = conf.files
 
     @svg = @d3el.append 'svg'
@@ -30,15 +31,15 @@ observer class Canvas extends View
 
     queue.awaitAll @ready
 
-    @listen_to @nav_controls, 'change', (index) => @switch_view(index)
+    @listen_to @camera, 'change', () => @switch_view()
 
+  # The main group within each SVG file is added to the Canvas
   ready: (error, docs) =>
-
     for d in docs
       @zoomable_layer.node().appendChild d.getElementsByTagName('g')[0]
-    
-  switch_view: (index) =>
-    @zoomable_layer.selectAll('g').style('visibility', 'visible')
 
-    groups = @zoomable_layer.selectAll('g').filter (d,i) -> i > index
-    groups.style('visibility', 'hidden')
+  switch_view: () =>
+    @zoomable_layer.selectAll('g').style 'visibility', 'visible'
+
+    groups = @zoomable_layer.selectAll('g').filter (d,i) => i > @camera.floor
+    groups.style 'visibility', 'hidden'
