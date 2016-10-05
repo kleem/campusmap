@@ -22,26 +22,12 @@ class AppView extends View
 
     graph = new Graph
 
-    query = new Query
-      graph: graph
-
-    new SearchBox 
-      parent: this
-      mode: mode
-      query: query 
-
-    new InfoBox 
+    new DirectionsPanel 
       parent: this
       mode: mode
       graph: graph
 
-    new DirectionsBox 
+    new SearchPanel 
       parent: this
       mode: mode
-      query: query
-
-    new ResultsBox
-      parent: this
-      mode: mode
-      query: query
-
+      graph: graph

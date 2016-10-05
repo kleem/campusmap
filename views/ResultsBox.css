@@ -49,7 +49,3 @@
 .ResultsBox.displayed {
   display: block;
 }
-
-.ResultsBox.hidden {
-  display: none;
-}

@@ -6,7 +6,6 @@ observer class SearchBox extends View
     @query = conf.query
     @mode = conf.mode
 
-    @listen_to @mode, 'change', () => @maybe_hide()
     @listen_to @query, 'query_changed', () => @change_value()
 
     innerDiv = @d3el.append 'div'
@@ -29,9 +28,6 @@ observer class SearchBox extends View
         @query.execute()
       .on 'focus', () =>
         @query.execute()
-
-  maybe_hide: () ->
-    @d3el.classed 'hidden', @mode.get() isnt 'search'
 
   change_value: () ->
     d3.select('.input_search').node().value = @query.get()

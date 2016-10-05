@@ -1,0 +1,7 @@
+.SearchPanel {
+
+}
+
+.SearchPanel.hidden {
+  display: none;
+}
