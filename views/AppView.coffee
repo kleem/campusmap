@@ -22,6 +22,9 @@ class AppView extends View
 
     graph = new Graph
 
+    selection = new Selection
+      graph: graph
+
     new DirectionsPanel 
       parent: this
       mode: mode
@@ -31,3 +34,6 @@ class AppView extends View
       parent: this
       mode: mode
       graph: graph
+      selection: selection
+      
+    selection.set null

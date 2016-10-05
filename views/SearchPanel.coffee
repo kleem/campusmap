@@ -5,6 +5,7 @@ observer class SearchPanel extends View
     
     @mode = conf.mode
     @graph = conf.graph
+    @selection = conf.selection
 
     @query = new Query
       graph: @graph
@@ -17,10 +18,12 @@ observer class SearchPanel extends View
     new ResultsBox
       parent: this
       query: @query
+      selection: @selection
 
     new InfoBox 
       parent: this
       graph: @graph
+      selection: @selection
 
     @listen_to @mode, 'change', () => @maybe_hide()
 

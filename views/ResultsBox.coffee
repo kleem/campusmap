@@ -4,6 +4,7 @@ observer class ResultsBox extends View
     @init()
 
     @query = conf.query
+    @selection = conf.selection
 
     @innerDiv = @d3el.append 'div'
       .attrs
@@ -51,6 +52,7 @@ observer class ResultsBox extends View
       	d.label
       .on 'click' , (d) => 
         @query.set(d.label)
+        @selection.set(d)
         
     results_text.exit().remove()
 
