@@ -4,8 +4,9 @@ observer class Canvas extends View
     @init()
 
     @camera = conf.camera
-
     @files = conf.files
+
+    @docs = []
 
     @svg = @d3el.append 'svg'
       .attrs
@@ -35,11 +36,19 @@ observer class Canvas extends View
 
   # The main group within each SVG file is added to the Canvas
   ready: (error, docs) =>
-    for d in docs
-      @zoomable_layer.node().appendChild d.getElementsByTagName('g')[0]
+    for d,i in docs
+      obj = @zoomable_layer.node().appendChild d.getElementsByTagName('g')[0]
+      @docs.push {index: i, visible: true, obj: obj}
 
   switch_view: () =>
-    @zoomable_layer.selectAll('g').style 'visibility', 'visible'
+    current_index = @camera.get_floor()
 
-    groups = @zoomable_layer.selectAll('g').filter (d,i) => i > @camera.get_floor()
-    groups.style 'visibility', 'hidden'
+    for d,i in @docs
+      if i <= current_index
+        if not d.visible
+          d.visible = true
+          d3.select(d.obj).style 'visibility', 'visible'
+      else
+        if d.visible
+          d.visible = false
+          d3.select(d.obj).style 'visibility', 'hidden'
