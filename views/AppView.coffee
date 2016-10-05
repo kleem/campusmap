@@ -20,17 +20,28 @@ class AppView extends View
       camera: camera
       files: ['data/cnr_0.svg', 'data/cnr_1.svg', 'data/cnr_2.svg', 'data/cnr_3.svg']
 
+    graph = new Graph
+
+    query = new Query
+      graph: graph
+
     new SearchBox 
       parent: this
       mode: mode
+      query: query 
 
     new InfoBox 
       parent: this
       mode: mode
+      graph: graph
 
     new DirectionsBox 
       parent: this
       mode: mode
+      query: query
 
-    
+    new ResultsBox
+      parent: this
+      mode: mode
+      query: query
 
