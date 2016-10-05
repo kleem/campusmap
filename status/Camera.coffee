@@ -3,6 +3,12 @@ observable class Camera
     @init
       events: ['change']
 
+    @zoom = d3.zoom()
+      .scaleExtent([-Infinity,Infinity])
+      .on 'zoom', () =>
+        @transform = d3.event.transform
+        @trigger 'change'
+
   set_floor: (index) ->
     @floor = index
     @trigger 'change'
@@ -15,3 +21,6 @@ observable class Camera
 
   get_n_floors: () ->
     return @n_floors
+
+  get_zoom_behavior: () ->
+    return @zoom

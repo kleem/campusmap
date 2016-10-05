@@ -14,15 +14,7 @@ observer class Canvas extends View
 
     # ZOOM
     @zoomable_layer = @svg.append 'g'
-
-    @zoom = d3.zoom()
-      .scaleExtent([-Infinity,Infinity])
-      .on 'zoom', () =>
-        @zoomable_layer
-          .attrs
-            transform: d3.event.transform
-
-    @svg.call @zoom
+    @svg.call @camera.get_zoom_behavior()
 
     # QUEUE
     queue = d3.queue()
@@ -32,13 +24,20 @@ observer class Canvas extends View
 
     queue.awaitAll @ready
 
-    @listen_to @camera, 'change', () => @switch_view()
+    @listen_to @camera, 'change', () => 
+      @zoom()
+      @switch_view()
 
   # The main group within each SVG file is added to the Canvas
   ready: (error, docs) =>
     for d,i in docs
       obj = @zoomable_layer.node().appendChild d.getElementsByTagName('g')[0]
       @docs.push {index: i, visible: true, obj: obj}
+
+  zoom: () =>
+    @zoomable_layer
+      .attrs
+        transform: @camera.transform
 
   switch_view: () =>
     current_index = @camera.get_floor()
