@@ -2,8 +2,7 @@
 	position: absolute;
 	top: 0;
 	left: 0;
-	width: 20%;
-  min-width: 250px;
+	width: 100%;
 	z-index: 4;
 }
 
@@ -14,24 +13,6 @@
   border-bottom: 1px solid lightgrey;
 }
 
-.SearchBox.hidden {
-  display: none;
-}
-
-/*
-.SearchBox .fa-level-down {
-  cursor: pointer;
-  position: absolute;
-  right: 20px;
-  top: 17px;
-  width: 10px;
-  height: 10px;
-  border: 1px solid transparent;
-  background-color: steelblue;
-  text-align: center;
-  padding: 8px;
-}
-*/
 
 .SearchBox .fa-stack {
   position: absolute;

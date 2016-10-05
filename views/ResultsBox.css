@@ -3,8 +3,7 @@
 	position: absolute;
 	top: 49px;
 	left: 0;
-	width: 20%;
-  min-width: 250px;
+	width: 100%;
 	z-index: 5;
 }
 
@@ -48,8 +47,4 @@
 
 .ResultsBox.displayed {
   display: block;
-}
-
-.ResultsBox.hidden {
-  display: none;
 }

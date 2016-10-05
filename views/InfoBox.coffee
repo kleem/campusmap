@@ -2,16 +2,31 @@ observer class InfoBox extends View
   constructor: (conf) ->
     super(conf)
     @init()
-
-    @mode = conf.mode
-    @graph = conf.graph
-
-    @listen_to @mode, 'change', () => @maybe_hide()
     
-    @maybe_hide()
+    @graph = conf.graph
+    @selection = conf.selection
 
-    console.log @graph.nodes
+    @listen_to @selection, 'change', () =>
+      @redraw()
 
-  maybe_hide: () ->
-    @d3el.classed 'hidden', @mode.get() isnt 'directions'
+    @room_img = @d3el.append 'img'
+      .attrs
+        class: 'img_room'
 
+    @content = @d3el.append 'div'
+      .attrs
+        class: 'content'
+
+  redraw: () ->
+    
+    info = @selection.get()
+
+    if info is null
+      @d3el.classed 'hidden', true
+      return
+
+    @d3el.classed 'hidden', false
+   
+    @content.text info.label
+
+    @room_img.attr 'src', "img/room_2.jpg"

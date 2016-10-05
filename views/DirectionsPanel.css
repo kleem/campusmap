@@ -1,24 +1,25 @@
-.DirectionsBox {
+.DirectionsPanel {
   position: absolute;
   top: 0;
   left: 0;
-  width: 20%;
-  min-width: 250px;
+  width: 350px;
+  height: 100%;
+  background-color: rgba(255,255,255,0.5);
   z-index: 4;
 }
 
-.DirectionsBox .innerDirectionsBox {
+.DirectionsPanel .innerDirectionsPanel {
   margin: 10px;
   background-color: white;  
   height: 48px;
   border-bottom: 1px solid lightgrey;
 }
 
-.DirectionsBox.hidden {
+.DirectionsPanel.hidden {
   display: none;
 }
 
-.DirectionsBox .fa-times-circle-o {
+.DirectionsPanel .fa-times-circle-o {
   position: absolute;
   font-size: 1.7em;
   right: 14px;
@@ -26,9 +27,7 @@
   -webkit-text-stroke: 1px white;
 }
 
-/* comment to commit a good version
-
-.DirectionsBox input {
+.DirectionsPanel input {
   height: 24px;
   width: 70%;
   border: none;
@@ -37,4 +36,3 @@
   font-size: 16px;
   border-bottom: 1px solid lightgrey;
 }
-*/

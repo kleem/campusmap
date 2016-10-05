@@ -3,8 +3,8 @@ observer class ResultsBox extends View
     super(conf)
     @init()
 
-    @mode = conf.mode
     @query = conf.query
+    @selection = conf.selection
 
     @innerDiv = @d3el.append 'div'
       .attrs
@@ -23,8 +23,6 @@ observer class ResultsBox extends View
     @allResultsBox = @innerDiv.append 'div'
       .attrs
         class: 'allResultsBox'
-
-    @listen_to @mode, 'change', () => @maybe_hide()
 
     @listen_to @query, 'results_changed', () =>
       @show_results()
@@ -54,6 +52,7 @@ observer class ResultsBox extends View
       	d.label
       .on 'click' , (d) => 
         @query.set(d.label)
+        @selection.set(d)
         
     results_text.exit().remove()
 
@@ -72,6 +71,3 @@ observer class ResultsBox extends View
     @noResultsBox.classed 'displayed', false
     @allResultsBox.classed 'displayed', true
     @show()
-
-  maybe_hide: () ->
-    @d3el.classed 'hidden', @mode.get() isnt 'search'
