@@ -6,13 +6,17 @@ observable class Query
 
     @query = ''
     @results = []
+    @selected_result = null
+  
+  get: () ->
+    return @query
 
   set: (query) ->
     @query = query
-    @results = null
     @trigger 'query_changed'
 
   execute: () ->  
+    @results = null
     if @query is ''
       @results = null
     else
@@ -22,5 +26,12 @@ observable class Query
   get_results: () ->
     return @results
 
-  get: () ->
-    return @query
+  get_selected_result: () ->
+    return @selected_result
+
+  set_selected_result: (value) ->
+    @selected_result = value
+
+  select_result: (index) ->
+    @selected_result = index % @results.length
+    @set(@results[@selected_result].label)

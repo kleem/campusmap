@@ -10,14 +10,16 @@ observer class SearchPanel extends View
     @query = new Query
       graph: @graph
 
+    results_box = new ResultsBox
+      parent: this
+      query: @query
+      selection: @selection
+
     new SearchBox 
       parent: this
       query: @query
-      mode: @mode 
-
-    new ResultsBox
-      parent: this
-      query: @query
+      mode: @mode
+      results_box: results_box
       selection: @selection
 
     new InfoBox 

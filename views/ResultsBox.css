@@ -7,13 +7,14 @@
 	z-index: 5;
 }
 
-.ResultsBox .innerResultsBox p {
-  padding: 9px 10px;
+.ResultsBox .innerResultsBox li, .ResultsBox .innerResultsBox p {
+  padding: 6px 10px;
   margin: 0px;
+  list-style-type: none;
 
 }
 
-.ResultsBox .innerResultsBox p:hover {
+.ResultsBox .innerResultsBox li:hover {
   background-color: #dadada;
 }
 
@@ -23,8 +24,17 @@
   background-color: white;  
   height: auto;
   max-height: 150px;
+  border: none !important;
   border-bottom: 1px solid lightgrey;
-  overflow: auto;
+  overflow: hidden;
+}
+
+.ResultsBox .allResultsBox .ulResultsBox {
+  border: none;
+  width: 100%;
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
 }
 
 .ResultsBox .allResultsBox.displayed {
@@ -47,4 +57,8 @@
 
 .ResultsBox.displayed {
   display: block;
+}
+
+.ResultsBox .allResultsBox .ulResultsBox li.highlighted {
+  background-color: rgba(211,211,211,0.5);
 }

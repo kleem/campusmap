@@ -29,7 +29,7 @@ class AppView extends View
       parent: this
       mode: mode
       graph: graph
-
+    
     new SearchPanel 
       parent: this
       mode: mode

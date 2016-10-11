@@ -20,13 +20,18 @@ observer class InfoBox extends View
   redraw: () ->
     
     info = @selection.get()
+    console.log info
 
     if info is null
       @d3el.classed 'hidden', true
       return
 
     @d3el.classed 'hidden', false
-   
-    @content.text info.label
+    
+    if info 
+      @content.text info.label
+      @room_img.attr 'src', "img/room_2.jpg"
+    else
+      @content.text 'Nessun Risultato trovato'
 
-    @room_img.attr 'src', "img/room_2.jpg"
+    
