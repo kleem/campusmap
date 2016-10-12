@@ -1,13 +1,11 @@
 .SearchBox {
-	position: absolute;
-	top: 0;
-	left: 0;
 	width: 100%;
 	z-index: 4;
+  order: 1;
 }
 
 .SearchBox .innerSearchBox {
-	margin: 10px;
+	margin: 10px 10px 0px 10px;
 	background-color: white;	
   height: 48px;
   border-bottom: 1px solid lightgrey;
