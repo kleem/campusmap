@@ -43,26 +43,13 @@ observer class ResultsBox extends View
 
   show_results: () =>
     results_data = @query.get_results()
-    console.log results_data
     if results_data is null
       @hide()
       return
 
     for i in results_data
       @object_results[i.id] = i
-    ###
-    if results_data.length < 5
-      console.log 'f'
-      @ulResultsBox
-        .attrs
-          size: results_data.length
-      console.log d3.select('.ulResultsBox').attr('size')
-    else
-      @ulResultsBox
-        .attrs
-          size: 5
-    ###
-
+    
     if results_data.length is 0
       @show_no_results()
     else
@@ -97,6 +84,3 @@ observer class ResultsBox extends View
     @noResultsBox.classed 'displayed', false
     @allResultsBox.classed 'displayed', true
     @show()
-
-  set_focus: (el) ->
-    @ulResultsBox.select('li.result:nth-of-type('+el+')').classed("highlighted",true)

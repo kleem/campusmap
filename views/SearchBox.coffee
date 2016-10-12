@@ -37,12 +37,20 @@ observer class SearchBox extends View
           if @query.get_selected_result() isnt null
             @selection.set(@query.get_results()[@query.get_selected_result()])
           else
-            @selection.set(@query.get_results()[0])
+            @query.set(d3.select('.input_search').node().value)
+            @query.execute()
+            @selection.set(@query.get_results()[@query.get_selected_result()])
+          document.activeElement.blur();
           @results_box.hide()
         else if d3.event.keyCode not in [37,39]
           @query.set_selected_result null
           @query.set(d3.select('.input_search').node().value)
           @query.execute()
+      .on 'focusin', () =>
+        @query.set_selected_result null
+        @query.set(d3.select('.input_search').node().value)
+        @query.execute()
+
           
   change_value: () ->
     d3.select('.input_search').node().value = @query.get()

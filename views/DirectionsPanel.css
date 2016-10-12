@@ -24,7 +24,7 @@
   font-size: 1.7em;
   right: 14px;
   top: 22px;
-  -webkit-text-stroke: 1px white;
+  -webkit-text-stroke: 0.6px white;
 }
 
 .DirectionsPanel input {

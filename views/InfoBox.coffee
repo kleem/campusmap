@@ -20,7 +20,6 @@ observer class InfoBox extends View
   redraw: () ->
     
     info = @selection.get()
-    console.log info
 
     if info is null
       @d3el.classed 'hidden', true
