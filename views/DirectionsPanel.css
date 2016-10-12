@@ -9,9 +9,8 @@
 }
 
 .DirectionsPanel .innerDirectionsPanel {
-  margin: 10px;
   background-color: white;  
-  height: 48px;
+  height: 120px;
   border-bottom: 1px solid lightgrey;
 }
 
@@ -20,19 +19,16 @@
 }
 
 .DirectionsPanel .fa-times-circle-o {
-  position: absolute;
   font-size: 1.7em;
-  right: 14px;
-  top: 22px;
   -webkit-text-stroke: 0.6px white;
 }
 
 .DirectionsPanel input {
-  height: 24px;
+  height: 38px;
   width: 70%;
   border: none;
   outline: none;
   margin-left: 10px;
-  font-size: 16px;
+  font-size: 14px;
   border-bottom: 1px solid lightgrey;
 }

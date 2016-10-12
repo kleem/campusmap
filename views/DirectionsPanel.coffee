@@ -15,7 +15,7 @@ observer class DirectionsPanel extends View
       .attrs
         class: 'innerDirectionsPanel'
         
-    innerDiv.append 'span'
+    innerDiv.append 'div'
       .html '<i class="fa fa-times-circle-o"></i>'
       .on 'click', () =>
         @mode.set 'search'
@@ -33,7 +33,6 @@ observer class DirectionsPanel extends View
         placeholder: 'Punto di arrivo'
       .on 'keyup', () => 
         @query.set(d3.select('.input_search_to').node().value)
-    
 
     new ResultsBox
       query: @query
