@@ -7,11 +7,15 @@
 	display: none;
 }
 
-.InfoBox .content {
+.InfoBox .label {
   padding: 10px;
 }
 
-.InfoBox .img_room {
+.InfoBox img {
   height: 220px;
   z-index: 2;
+}
+
+.InfoBox .message {
+  padding: 70px 0px 0px 10px;
 }
