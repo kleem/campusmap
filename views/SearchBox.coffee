@@ -6,22 +6,22 @@ observer class SearchBox extends View
     @query = conf.query
     @mode = conf.mode
     @selection = conf.selection
-    @results_box = conf.results_box
+    @results = conf.results
 
     #@listen_to @query, 'query_changed', () => @change_value()
 
-    innerDiv = @d3el.append 'div'
+    @innerDiv = @d3el.append 'div'
       .attrs
         class: 'innerSearchBox'
         
-    innerDiv.append 'span'
+    @innerDiv.append 'span'
       .attrs
         class: 'fa-stack fa-lg'
       .html '<i class="fa fa-square-o fa-stack-2x fa-rotate-90 btn-primary"></i><i class="fa fa-level-down fa-stack-1x fa-rotate-270"></i>'
       .on 'click', () =>
         @mode.set 'directions'
 
-    innerDiv.append 'input'
+    @innerDiv.append 'input'
       .attrs
         class: 'input_search'
         autofocus: true
@@ -30,7 +30,12 @@ observer class SearchBox extends View
 
         # all characters different from right and left arrows
         if d3.event.keyCode not in [37,39]
-          @query.set d3.select('.input_search').node().value
+          query_value = d3.select('.input_search').node().value
+
+          if query_value isnt ''
+            @query.set query_value
+          else
+            @results.set null
 
         ###if d3.event.keyCode is 40
           result_index = @query.get_selected_result()

@@ -22,7 +22,7 @@ observer class SearchPanel extends View
       parent: this
       query: @query
       mode: @mode
-      results_box: results_box
+      results: @results
       selection: @selection
 
     new InfoBox 
@@ -32,7 +32,6 @@ observer class SearchPanel extends View
 
     @listen_to @query, 'change', () =>
       results = @graph.search @query.query
-
       @results.set results
 
     @listen_to @mode, 'change', () => @maybe_hide()

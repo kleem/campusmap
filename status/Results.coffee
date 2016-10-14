@@ -3,7 +3,7 @@ observable class Results
     @init
       events: ['change']
 
-    @results = []
+    @results = null
     @focused = null
   
   get: () ->
@@ -11,4 +11,6 @@ observable class Results
 
   set: (results) ->
     @results = results
+    @focused = null
+
     @trigger 'change'
