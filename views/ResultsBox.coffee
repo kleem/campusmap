@@ -5,8 +5,8 @@ observer class ResultsBox extends View
 
     @query = conf.query
     @selection = conf.selection
+    @results = conf.results
     @object_results = {}
-
 
     @innerDiv = @d3el.append 'div'
       .attrs
@@ -29,20 +29,22 @@ observer class ResultsBox extends View
       .attrs
         class: 'ulResultsBox'
     
-    @listen_to @query, 'results_changed', () =>
-      @show_results()
+    @listen_to @results, 'change', () => @show_results()
 
-    @listen_to @query, 'query_changed', () =>
-      @ulResultsBox.selectAll('li.result').classed('highlighted', false)
+    #@listen_to @query, 'results_changed', () =>
+    #  @show_results()
+
+    #@listen_to @query, 'query_changed', () =>
+    #  @ulResultsBox.selectAll('li.result').classed('highlighted', false)
       
-      if @query.get_selected_result() isnt null
-        @ulResultsBox.select("li.result:nth-of-type(#{@query.get_selected_result()+1})").classed('highlighted', true)
+    #  if @query.get_selected_result() isnt null
+    #    @ulResultsBox.select("li.result:nth-of-type(#{@query.get_selected_result()+1})").classed('highlighted', true)
       
-      if @query.get_results() is null
-        @hide()
+    #  if @query.get_results() is null
+    #    @hide()
 
   show_results: () =>
-    results_data = @query.get_results()
+    results_data = @results.get()
     if results_data is null
       @hide()
       return

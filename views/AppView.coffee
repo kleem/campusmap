@@ -25,10 +25,10 @@ class AppView extends View
     selection = new Selection
       graph: graph
 
-    new DirectionsPanel 
-      parent: this
-      mode: mode
-      graph: graph
+    #new DirectionsPanel 
+    #  parent: this
+    #  mode: mode
+    #  graph: graph
     
     new SearchPanel 
       parent: this

@@ -10,9 +10,12 @@ observer class SearchPanel extends View
     @query = new Query
       graph: @graph
 
+    @results = new Results
+
     results_box = new ResultsBox
       parent: this
       query: @query
+      results: @results
       selection: @selection
 
     new SearchBox 
@@ -26,6 +29,11 @@ observer class SearchPanel extends View
       parent: this
       graph: @graph
       selection: @selection
+
+    @listen_to @query, 'change', () =>
+      results = @graph.search @query.query
+
+      @results.set results
 
     @listen_to @mode, 'change', () => @maybe_hide()
 

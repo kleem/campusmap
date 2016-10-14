@@ -8,7 +8,7 @@ observer class SearchBox extends View
     @selection = conf.selection
     @results_box = conf.results_box
 
-    @listen_to @query, 'query_changed', () => @change_value()
+    #@listen_to @query, 'query_changed', () => @change_value()
 
     innerDiv = @d3el.append 'div'
       .attrs
@@ -27,7 +27,12 @@ observer class SearchBox extends View
         autofocus: true
         placeholder: 'Cerca su CampusMap'
       .on 'keyup', () =>
-        if d3.event.keyCode is 40
+
+        # all characters different from right and left arrows
+        if d3.event.keyCode not in [37,39]
+          @query.set d3.select('.input_search').node().value
+
+        ###if d3.event.keyCode is 40
           result_index = @query.get_selected_result()
           @query.select_result if result_index is null then 0 else result_index+1
         else if d3.event.keyCode is 38
@@ -45,11 +50,11 @@ observer class SearchBox extends View
         else if d3.event.keyCode not in [37,39]
           @query.set_selected_result null
           @query.set(d3.select('.input_search').node().value)
-          @query.execute()
-      .on 'focusin', () =>
-        @query.set_selected_result null
-        @query.set(d3.select('.input_search').node().value)
-        @query.execute()
+          @query.execute()###
+      #.on 'focusin', () =>
+      #  @query.set_selected_result null
+      #  @query.set(d3.select('.input_search').node().value)
+      #  @query.execute()
 
           
   change_value: () ->
