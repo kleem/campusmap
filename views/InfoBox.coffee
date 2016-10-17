@@ -28,7 +28,7 @@ observer class InfoBox extends View
 
     # img
     image = @d3el.selectAll 'img'
-      .data if info? then ["img/room_2.jpg"] else []
+      .data if info? then [info.img] else []
 
     enter_image = image.enter().append 'img'
 
