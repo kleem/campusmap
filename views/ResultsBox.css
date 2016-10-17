@@ -9,12 +9,17 @@
 }
 
 .ResultsBox .innerResultsBox .result, .ResultsBox .innerResultsBox p {
-  padding: 6px 10px;
+  padding: 10px 10px;
   margin: 0px;
+  font-size: 15px;
+  border-bottom: 1px solid #e6e6e6;
 }
 
+.ResultsBox .innerResultsBox {
+  border-radius: 3px;
+}
 .ResultsBox .innerResultsBox .result:hover {
-  background-color: #dadada;
+  background-color: #e6e6e6;
 }
 
 .ResultsBox .allResultsBox {
@@ -22,7 +27,7 @@
   margin: 0px 10px;
   background-color: white;  
   height: auto;
-  max-height: 150px;
+  max-height: 200px;
   border: none !important;
   border-bottom: 1px solid lightgrey;
   overflow: hidden;
@@ -55,5 +60,5 @@
 }
 
 .ResultsBox .focused {
-  background-color: rgba(211,211,211,0.5);
+  background-color: #e6e6e6;
 }
