@@ -8,14 +8,12 @@
   display: block;
 }
 
-.ResultsBox .innerResultsBox li, .ResultsBox .innerResultsBox p {
+.ResultsBox .innerResultsBox .result, .ResultsBox .innerResultsBox p {
   padding: 6px 10px;
   margin: 0px;
-  list-style-type: none;
-
 }
 
-.ResultsBox .innerResultsBox li:hover {
+.ResultsBox .innerResultsBox .result:hover {
   background-color: #dadada;
 }
 

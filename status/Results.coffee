@@ -1,7 +1,7 @@
 observable class Results
   constructor: (conf) ->
     @init
-      events: ['change', 'change_focused']
+      events: ['change', 'new_focus']
 
     @results = null
     @focused = null
@@ -17,6 +17,16 @@ observable class Results
 
   get_focused: () ->
     if @focused? then @results[@focused] else null
+
+  set_focused: (x) ->
+    i = @results.indexOf x
+
+    if i is -1
+      return
+
+    @focused = i
+    @trigger 'change'
+    @trigger 'new_focus'
 
   check_focused: (d) ->
     return @results? and d is @results[@focused]
@@ -34,7 +44,7 @@ observable class Results
       @focused = null
 
     @trigger 'change'
-    @trigger 'change_focused'
+    @trigger 'new_focus'
 
   next: () ->  
 
@@ -46,4 +56,4 @@ observable class Results
       @focused = null
 
     @trigger 'change'
-    @trigger 'change_focused'
+    @trigger 'new_focus'

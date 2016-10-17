@@ -26,7 +26,9 @@ observer class SearchBox extends View
         class: 'input_search'
         autofocus: true
         placeholder: 'Cerca su CampusMap'
-      .on 'blur', () => @results.clear()
+      .on 'blur', () =>
+        # solve the preemption of blur with the click event
+        setTimeout (() => @results.clear()), 150
       .on 'focus', () => 
         text = @get_text()
 
@@ -41,6 +43,9 @@ observer class SearchBox extends View
             @query.set query_value
           else
             @results.set null
+        # enter key
+        else if d3.event.keyCode is 13
+          @results.clear()
         # up arrow keys
         else if d3.event.keyCode is 38 and this.query.query isnt ''
           @results.prev()

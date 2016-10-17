@@ -24,7 +24,7 @@ observer class ResultsBox extends View
       .attrs
         class: 'allResultsBox'
 
-    @ulResultsBox = @allResultsBox.append 'ul'
+    @ulResultsBox = @allResultsBox.append 'div'
       .attrs
         class: 'ulResultsBox'
     
@@ -45,14 +45,13 @@ observer class ResultsBox extends View
     results = @ulResultsBox.selectAll '.result'
       .data results_data, (d,i) -> d.id
 
-    results_enter = results.enter().append 'li'
+    results_enter = results.enter().append 'div'
       .attrs
         class: 'result'
-        value: (d) -> d.id
+      .on 'click' , (d) =>
+        @results.set_focused d
+        @results.clear()
       .text (d) -> d.label
-      .on 'click' , (d) => 
-        @query.set d.label
-        @selection.set d
 
     results_enter.merge(results)
       .classed 'focused', (d) => @results.check_focused d
