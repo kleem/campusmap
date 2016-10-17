@@ -14,3 +14,6 @@ observable class Results
     @focused = null
 
     @trigger 'change'
+
+  clear: () ->
+    @set null

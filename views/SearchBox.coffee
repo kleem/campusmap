@@ -26,6 +26,7 @@ observer class SearchBox extends View
         class: 'input_search'
         autofocus: true
         placeholder: 'Cerca su CampusMap'
+      .on 'blur', () => @results.clear()
       .on 'keyup', () =>
 
         # all characters different from right and left arrows
