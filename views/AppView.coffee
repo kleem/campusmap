@@ -18,7 +18,7 @@ class AppView extends View
     new Canvas 
       parent: this
       camera: camera
-      files: ['data/cnr_0.svg', 'data/cnr_1.svg', 'data/cnr_2.svg', 'data/cnr_3.svg']
+      files: ['data/cnr_no_borders_0.svg', 'data/cnr_no_borders_1.svg', 'data/cnr_no_borders_2.svg', 'data/cnr_no_borders_3.svg']
 
     graph = new Graph
 
