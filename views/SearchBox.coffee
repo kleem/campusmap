@@ -8,7 +8,7 @@ observer class SearchBox extends View
     @selection = conf.selection
     @results = conf.results
 
-    #@listen_to @query, 'query_changed', () => @change_value()
+    @listen_to @selection, 'change', () => @set_text()
 
     @innerDiv = @d3el.append 'div'
       .attrs
@@ -28,40 +28,25 @@ observer class SearchBox extends View
         placeholder: 'Cerca su CampusMap'
       .on 'blur', () => @results.clear()
       .on 'keyup', () =>
-
-        # all characters different from right and left arrows
-        if d3.event.keyCode not in [37,39]
+        # all keys different from left, up, right, down arrows
+        if d3.event.keyCode in [48..90]
           query_value = d3.select('.input_search').node().value
 
           if query_value isnt ''
             @query.set query_value
           else
             @results.set null
-
-        ###if d3.event.keyCode is 40
-          result_index = @query.get_selected_result()
-          @query.select_result if result_index is null then 0 else result_index+1
-        else if d3.event.keyCode is 38
-          result_index = @query.get_selected_result()
-          @query.select_result if result_index is null or result_index is 0 then @query.get_results().length-1 else result_index-1
-        else if d3.event.keyCode is 13
-          if @query.get_selected_result() isnt null
-            @selection.set(@query.get_results()[@query.get_selected_result()])
-          else
-            @query.set(d3.select('.input_search').node().value)
-            @query.execute()
-            @selection.set(@query.get_results()[@query.get_selected_result()])
-          document.activeElement.blur();
-          @results_box.hide()
-        else if d3.event.keyCode not in [37,39]
-          @query.set_selected_result null
-          @query.set(d3.select('.input_search').node().value)
-          @query.execute()###
-      #.on 'focusin', () =>
-      #  @query.set_selected_result null
-      #  @query.set(d3.select('.input_search').node().value)
-      #  @query.execute()
-
+        # up arrow keys
+        else if d3.event.keyCode is 38 and this.query.query isnt ''
+          @results.prev()
+        # down arrow keys
+        else if d3.event.keyCode is 40 and this.query.query isnt ''
+          @results.next()
           
-  change_value: () ->
-    d3.select('.input_search').node().value = @query.get()
+  set_text: () ->
+    selection = @selection.get()
+    
+    if selection?
+      @innerDiv.select('.input_search').node().value = selection.label
+    else
+      @innerDiv.select('.input_search').node().value = @query.get()

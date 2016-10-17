@@ -4,6 +4,9 @@
   order: 2;
 	z-index: 5;
 }
+.ResultsBox.displayed {
+  display: block;
+}
 
 .ResultsBox .innerResultsBox li, .ResultsBox .innerResultsBox p {
   padding: 6px 10px;
@@ -53,10 +56,6 @@
   display: block;
 }
 
-.ResultsBox.displayed {
-  display: block;
-}
-
-.ResultsBox .allResultsBox .ulResultsBox li.highlighted {
+.ResultsBox .focused {
   background-color: rgba(211,211,211,0.5);
 }

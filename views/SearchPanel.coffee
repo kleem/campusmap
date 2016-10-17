@@ -30,6 +30,8 @@ observer class SearchPanel extends View
       graph: @graph
       selection: @selection
 
+    @listen_to @results, 'change_focused', () => @selection.set @results.get_focused()
+
     @listen_to @query, 'change', () =>
       results = @graph.search @query.query
       @results.set results
