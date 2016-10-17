@@ -29,7 +29,7 @@ observer class SearchBox extends View
       .on 'blur', () =>
         # solve the preemption of blur with the click event
         setTimeout (() => @results.clear()), 150
-      .on 'focus', () => 
+      .on 'focus click', () => 
         text = @get_text()
 
         if text isnt ''
