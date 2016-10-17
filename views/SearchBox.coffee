@@ -21,16 +21,21 @@ observer class SearchBox extends View
       .on 'click', () =>
         @mode.set 'directions'
 
-    @innerDiv.append 'input'
+    @input = @innerDiv.append 'input'
       .attrs
         class: 'input_search'
         autofocus: true
         placeholder: 'Cerca su CampusMap'
       .on 'blur', () => @results.clear()
+      .on 'focus', () => 
+        text = @get_text()
+
+        if text isnt ''
+          @query.set text
       .on 'keyup', () =>
         # all keys different from left, up, right, down arrows
-        if d3.event.keyCode in [48..90]
-          query_value = d3.select('.input_search').node().value
+        if d3.event.keyCode in [48..90].concat([8,46])
+          query_value = @input.node().value
 
           if query_value isnt ''
             @query.set query_value
@@ -47,6 +52,9 @@ observer class SearchBox extends View
     selection = @selection.get()
     
     if selection?
-      @innerDiv.select('.input_search').node().value = selection.label
+      @input.node().value = selection.label
     else
-      @innerDiv.select('.input_search').node().value = @query.get()
+      @input.node().value = @query.get()
+
+  get_text: () ->
+    return @input.node().value
