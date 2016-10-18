@@ -2,8 +2,8 @@ var webPage = require('webpage');
 var utils = require('utils');
 var x = require('casper').selectXPath;
 var page = webPage.create();
-var casper = require('casper').create({   
-    verbose: true, 
+var casper = require('casper').create({
+    verbose: true,
     logLevel: 'debug',
     pageSettings: {
       loadImages:  true, // The WebPage instance used by Casper will
@@ -19,6 +19,10 @@ var csv = 'iit.csv';
 var links = [];
 var last_link = 0;
 
+/* write CSV header
+*/
+fs.write(csv, '"name","email","phone","building","floor","room","homepage","photo_url"\n', 'w');
+
 casper.start('http://www.iit.cnr.it/en/institute/people', function() {
   /*  get people links
   */
@@ -31,10 +35,10 @@ casper.start('http://www.iit.cnr.it/en/institute/people', function() {
 
 function open(link,i) {
 
-  
+
 
   casper.thenOpen(link, function() {
-    
+
     utils.dump("PAGE #"+i+" of "+links.length)
 
     name = casper.getElementInfo('.PostHeader').text;
@@ -64,15 +68,21 @@ function open(link,i) {
     else
       room  = '';
 
-    if (casper.exists('#descrizione-persona p')) {
-      description = ''
-      description_p = casper.getElementsInfo('#descrizione-persona p').map(function(d){
-        description += d.text 
-      })
-    } else
-      description = '';
+    // if (casper.exists('#descrizione-persona p')) {
+    //   description = ''
+    //   description_p = casper.getElementsInfo('#descrizione-persona p').map(function(d){
+    //     description += d.text
+    //   })
+    // } else
+    //   description = '';
 
-    line = '"' + name + '","' + email + '","' + tel + '","' + building + '","' + floor + '","' + room + '","' + description + '"\n'
+    if (casper.exists('#persona-left > img')) {
+      photo_url = 'http://www.iit.cnr.it/' + casper.getElementInfo("#persona-left > img").attributes.src;
+    }
+    else
+      photo_url = '';
+
+    line = '"' + name + '","' + email + '","' + tel + '","' + building + '","' + floor + '","' + room + '","' + link + '","' + photo_url + '"\n'
 
     fs.write(csv, line, 'a');
   });

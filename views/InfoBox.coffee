@@ -92,9 +92,9 @@ observer class InfoBox extends View
 
     ### profile img
     ###
-    if @d3el.datum().img_profile?
+    if @d3el.datum().photo_url? and @d3el.datum().photo_url isnt ''
       description.append 'div'
         .attrs
           class: 'profile_img'
         .styles
-          'background-image': (d) -> "url(#{d.img_profile})"
+          'background-image': (d) -> "url(#{d.photo_url})"
