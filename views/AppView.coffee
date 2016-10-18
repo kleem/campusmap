@@ -1,6 +1,7 @@
-class AppView extends View
+observer class AppView extends View
   constructor: (conf) ->
     super(conf)
+    @init()
 
     mode = new Mode
     mode.set 'search'
@@ -37,3 +38,12 @@ class AppView extends View
       selection: selection
 
     selection.set null
+
+    @listen_to selection, 'change', () ->
+      s = selection.get()
+
+      if s.floor?
+        camera.set_floor s.floor
+      else
+        camera.set_floor 3
+      
