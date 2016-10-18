@@ -2,13 +2,13 @@ observer class InfoBox extends View
   constructor: (conf) ->
     super(conf)
     @init()
-    
+
     @graph = conf.graph
     @selection = conf.selection
 
     @listen_to @selection, 'change', () =>
       s = @selection.get()
-      
+
       @d3el.datum s
       @d3el.html ''
 
@@ -94,7 +94,7 @@ observer class InfoBox extends View
     ###
     if @d3el.datum().img_profile?
       description.append 'div'
-        .append 'img'
-          .attrs
-            class: 'profile_img'
-            src: (d) -> d.img_profile
+        .attrs
+          class: 'profile_img'
+        .styles
+          'background-image': (d) -> "url(#{d.img_profile})"
