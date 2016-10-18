@@ -8,8 +8,8 @@ observer class InfoBox extends View
 
     @listen_to @selection, 'change', () =>
       s = @selection.get()
+      
       @d3el.datum s
-
       @d3el.html ''
 
       if s is null
@@ -18,97 +18,83 @@ observer class InfoBox extends View
 
       @d3el.classed 'hidden', false
 
-      if s? and s.type is 'person'
-        @draw_person()
-      else
-        @draw_place()
+      @draw_node()
 
-  draw_person: () ->
+  draw_node: () ->
     # img
     @d3el.append 'img'
       .attrs
         class: 'top_img'
-        src: 'img/person.jpg'
+        src: (d) -> if d.img? then d.img else 'img/default.jpg'
 
     # description
     description = @d3el.append 'div'
       .attrs
-        class: 'description person'
-    
-    person_img = description.append 'div'
-    person_info = description.append 'div'
+        class: 'description'
 
-    person_img.append 'img'
-      .attrs
-        class: 'profile_img'
-        src: (d) -> d.img
-
-    person_info.append 'div'
+    ### info
+    ###
+    info = description.append 'div'
+    info.append 'div'
       .attrs
         class: 'label'
       .text (d) -> d.label
 
     # place
-    place = person_info.append 'div'
-    place.append 'span'
-      .html '<i class="fa fa-map-marker" aria-hidden="true"></i> '
-    place.append 'span'
-      .text (d) -> "#{d.institute}, room #{d.room}"
+    if @d3el.datum().institute and @d3el.datum().room?
+      place = info.append 'div'
+        .attrs
+          class: 'info'
+      place.append 'div'
+        .html '<i class="fa fa-map-marker" aria-hidden="true"></i> '
+      place.append 'div'
+        .text (d) -> "#{d.institute}, room #{d.room}"
 
     # phone
-    phone = person_info.append 'div'
-    phone.append 'span'
-      .html '<i class="fa fa-phone" aria-hidden="true"></i> '
-    phone.append 'a'
-      .attrs
-        href: (d) -> "tel:#{d.phone}"
-        target: '_blank'
-      .text (d) -> d.phone
+    if @d3el.datum().phone?
+      phone = info.append 'div'
+        .attrs
+          class: 'info'
+      phone.append 'div'
+        .html '<i class="fa fa-phone" aria-hidden="true"></i> '
+      phone.append 'div'
+        .append 'a'
+          .attrs
+            href: (d) -> "tel:#{d.phone}"
+          .text (d) -> d.phone
 
     # email
-    email = person_info.append 'div'
-    email.append 'span'
-      .html '<i class="fa fa-envelope-o" aria-hidden="true"></i> '
-    email.append 'a'
-      .attrs
-        href: (d) -> "mailto:#{d.email}"
-        target: '_blank'
-      .text (d) -> d.email
-
-    # homepage
-    homepage = person_info.append 'div'
-    homepage.append 'span'
-      .html '<i class="fa fa-globe" aria-hidden="true"></i> '
-    homepage.append 'a'
-      .attrs
-        href: (d) -> d.homepage
-        target: '_blank'
-      .text (d) -> d.homepage.replace /http[s]?:\/\//, ''
-
-  draw_place: () ->
-    # img
-    @d3el.append 'img'
-      .attrs
-        class: 'top_img'
-        src: (d) -> d.img
-
-    # description
-    description = @d3el.append 'div'
-      .attrs
-        class: 'description place'
-
-    description.append 'div'
-      .attrs
-        class: 'label'
-      .text (d) -> d.label
+    if @d3el.datum().email?
+      email = info.append 'div'
+        .attrs
+          class: 'info'
+      email.append 'div'
+        .html '<i class="fa fa-envelope-o" aria-hidden="true"></i> '
+      email.append 'div'
+        .append 'a'
+          .attrs
+            href: (d) -> "mailto:#{d.email}"
+          .text (d) -> d.email
 
     # homepage
     if @d3el.datum().homepage?
-      homepage = description.append 'div'
-      homepage.append 'span'
-        .html '<i class="fa fa-globe" aria-hidden="true"></i> '
-      homepage.append 'a'
+      homepage = info.append 'div'
         .attrs
-          href: (d) -> d.homepage
-          target: '_blank'
-        .text (d) -> d.homepage.replace /http[s]?:\/\//, ''
+          class: 'info'
+      homepage.append 'div'
+        .html '<i class="fa fa-globe" aria-hidden="true"></i> '
+      homepage.append 'div'
+        .append 'a'
+          .attrs
+            href: (d) -> d.homepage
+            target: '_blank'
+          .text (d) -> d.homepage.replace /http[s]?:\/\//, ''
+
+    ### profile img
+    ###
+    if @d3el.datum().img_profile?
+      description.append 'div'
+        .append 'img'
+          .attrs
+            class: 'profile_img'
+            src: (d) -> d.img_profile

@@ -17,34 +17,36 @@
 }
 
 .InfoBox .description {
+  display: flex;
+  justify-content: space-between;
   padding: 15px;
+  font-size: 13px;
   color: #fff;
   background: steelblue; 
 }
 
-.InfoBox .description.person, .InfoBox .description.place {
-  font-size: 13px;
-}
-.InfoBox .description.person .label, .InfoBox .description.place .label {
-  font-size: 18px;
+.InfoBox .description .label {
+  font-size: 20px;
   margin-bottom: 10px;
 }
-.InfoBox .description.person a, .InfoBox .description.place a {
+.InfoBox .description a {
   color: #fff;
 }
-
-.InfoBox .place {
-  height: 100px;
-}
-
-.InfoBox .person {
+.InfoBox .info {
   display: flex;
-  justify-content: space-around;
+  margin-bottom: 5px;
 }
+.InfoBox .info > div:first-child {
+  flex-grow: 1;
+  width: 10px;
+  margin-right: 20px;
+  text-align: center;
+}
+.InfoBox .info > div:nth-child(2) {
+  width: 100%;
+}
+
 .InfoBox .profile_img {
   width: 90px;
   border-radius: 10px;
-}
-.InfoBox .description.person a {
-  color: #fff;
 }
