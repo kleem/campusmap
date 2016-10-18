@@ -51,7 +51,12 @@ observer class ResultsBox extends View
       .on 'click' , (d) =>
         @results.set_focused d
         @results.clear()
-      .text (d) -> d.label
+      .html (d) -> 
+        if d.type
+          "<i class='fa fa-user'></i> #{d.label}"
+        else
+          "<i class='fa fa-map-marker'></i> #{d.label}"
+
 
     results_enter.merge(results)
       .classed 'focused', (d) => @results.check_focused d

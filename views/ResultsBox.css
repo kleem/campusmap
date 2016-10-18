@@ -13,6 +13,13 @@
   margin: 0px;
   font-size: 15px;
   border-bottom: 1px solid #e6e6e6;
+  cursor: default;
+}
+
+.ResultsBox .innerResultsBox .result i.fa {
+  margin-right: 10px;
+  color: grey;
+  width: 7px; 
 }
 
 .ResultsBox .innerResultsBox {
