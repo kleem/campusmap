@@ -8,42 +8,32 @@ observer class InfoBox extends View
 
     @listen_to @selection, 'change', () =>
       s = @selection.get()
+      @d3el.datum s
+
+      @d3el.html ''
+
+      if s is null
+        @d3el.classed 'hidden', true
+        return
+
+      @d3el.classed 'hidden', false
 
       if s? and s.type is 'person'
         @draw_person()
       else
         @draw_place()
 
-  draw_top_image: (data) ->
-    image = @d3el.selectAll '.top_img'
-      .data data
-
-    enter_image = image.enter().append 'img'
-
-    enter_image.merge(image)
+  draw_person: () ->
+    # img
+    @d3el.append 'img'
       .attrs
         class: 'top_img'
-        src: (d) -> d
-
-    image.exit().remove()
-
-  draw_person: () ->
-    info = @selection.get()
-
-    if info is null
-      @d3el.classed 'hidden', true
-      return
-
-    @d3el.classed 'hidden', false
-
-    # img
-    @draw_top_image ['img/person.jpg']
+        src: 'img/person.jpg'
 
     # description
-    description = @d3el.selectAll '.description'
+    description = @d3el.append 'div'
       .attrs
         class: 'description person'
-      .html ''
     
     person_img = description.append 'div'
     person_info = description.append 'div'
@@ -51,19 +41,19 @@ observer class InfoBox extends View
     person_img.append 'img'
       .attrs
         class: 'profile_img'
-        src: info.img
+        src: (d) -> d.img
 
     person_info.append 'div'
       .attrs
         class: 'label'
-      .text info.label
+      .text (d) -> d.label
 
     # place
     place = person_info.append 'div'
     place.append 'span'
       .html '<i class="fa fa-map-marker" aria-hidden="true"></i> '
     place.append 'span'
-      .text "#{info.institute}, room #{info.room}"
+      .text (d) -> "#{d.institute}, room #{d.room}"
 
     # phone
     phone = person_info.append 'div'
@@ -71,9 +61,9 @@ observer class InfoBox extends View
       .html '<i class="fa fa-phone" aria-hidden="true"></i> '
     phone.append 'a'
       .attrs
-        href: "tel:#{info.phone}"
+        href: (d) -> "tel:#{d.phone}"
         target: '_blank'
-      .text info.phone
+      .text (d) -> d.phone
 
     # email
     email = person_info.append 'div'
@@ -81,9 +71,9 @@ observer class InfoBox extends View
       .html '<i class="fa fa-envelope-o" aria-hidden="true"></i> '
     email.append 'a'
       .attrs
-        href: "mailto:#{info.email}"
+        href: (d) -> "mailto:#{d.email}"
         target: '_blank'
-      .text info.email
+      .text (d) -> d.email
 
     # homepage
     homepage = person_info.append 'div'
@@ -91,44 +81,34 @@ observer class InfoBox extends View
       .html '<i class="fa fa-globe" aria-hidden="true"></i> '
     homepage.append 'a'
       .attrs
-        href: info.homepage
+        href: (d) -> d.homepage
         target: '_blank'
-      .html info.homepage.replace /http[s]?:\/\//, ''
+      .text (d) -> d.homepage.replace /http[s]?:\/\//, ''
 
-  draw_place: () ->    
-    info = @selection.get()
-
-    if info is null
-      @d3el.classed 'hidden', true
-      return
-
-    @d3el.classed 'hidden', false
-
+  draw_place: () ->
     # img
-    @draw_top_image if info? then [info.img] else []
+    @d3el.append 'img'
+      .attrs
+        class: 'top_img'
+        src: (d) -> d.img
 
     # description
-    place = @d3el.selectAll '.description'
-      .data if info? then [info.label] else []
-
-    enter_place = place.enter().append 'div'
+    description = @d3el.append 'div'
       .attrs
         class: 'description place'
 
-    enter_place.merge(place)
-      .text (d) -> d
-
-    place.exit().remove()
-
-    # message
-    message = @d3el.selectAll '.message'
-      .data if info? then [] else ['Nessun Risultato trovato']
-
-    enter_message = message.enter().append 'div'
+    description.append 'div'
       .attrs
-        class: 'message'
+        class: 'label'
+      .text (d) -> d.label
 
-    enter_message.merge(message)
-      .text (d) -> d
-
-    message.exit().remove() 
+    # homepage
+    if @d3el.datum().homepage?
+      homepage = description.append 'div'
+      homepage.append 'span'
+        .html '<i class="fa fa-globe" aria-hidden="true"></i> '
+      homepage.append 'a'
+        .attrs
+          href: (d) -> d.homepage
+          target: '_blank'
+        .text (d) -> d.homepage.replace /http[s]?:\/\//, ''
