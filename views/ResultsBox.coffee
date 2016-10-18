@@ -32,6 +32,10 @@ observer class ResultsBox extends View
 
   show_results: () =>
     results_data = @results.get()
+    query_string = @query.get()
+    if query_string.split ' '
+      query_string_capitalize = query_string.replace(/\w\S*/g, (txt) -> txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase())
+    else query_string_capitalize = query_string[0].toUpperCase() + query_string[1..-1].toLowerCase()
 
     if results_data is null
       @hide()
@@ -51,15 +55,14 @@ observer class ResultsBox extends View
       .on 'click' , (d) =>
         @results.set_focused d
         @results.clear()
-      .html (d) -> 
-        if d.type
-          "<i class='fa fa-user'></i> #{d.label}"
-        else
-          "<i class='fa fa-map-marker'></i> #{d.label}"
-
-
+      
     results_enter.merge(results)
       .classed 'focused', (d) => @results.check_focused d
+      .html (d) -> 
+        if d.type
+          "<i class='fa fa-user'></i> #{d.label.replace(query_string_capitalize,"<span class='bold'>#{query_string_capitalize}</span>")}"
+        else
+          "<i class='fa fa-map-marker'></i> #{d.label.replace(query_string_capitalize,"<span class='bold'>#{query_string_capitalize}</span>")}"
 
     results.exit().remove()
 

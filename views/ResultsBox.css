@@ -11,15 +11,19 @@
 .ResultsBox .innerResultsBox .result, .ResultsBox .innerResultsBox p {
   padding: 9px 10px;
   margin: 0px;
-  font-size: 15px;
+  font-size: 13px;
   border-bottom: 1px solid #e6e6e6;
   cursor: default;
 }
 
+.ResultsBox .innerResultsBox .result .bold {
+  font-weight: bold;
+}
+
 .ResultsBox .innerResultsBox .result i.fa {
   margin-right: 10px;
-  color: grey;
-  width: 7px; 
+  color: #B6B6B6;
+  width: 11px; 
 }
 
 .ResultsBox .innerResultsBox {
