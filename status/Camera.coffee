@@ -1,7 +1,12 @@
 observable class Camera
-  constructor: () ->
+  constructor: (conf) ->
     @init
       events: ['change']
+
+    @floors = conf.floors
+    @floors_index = {}
+    @floors.forEach (d) =>
+      @floors_index[d.id] = d
 
     @zoom = d3.zoom()
       .scaleExtent([-Infinity,Infinity])
@@ -9,18 +14,18 @@ observable class Camera
         @transform = d3.event.transform
         @trigger 'change'
 
-  set_floor: (index) ->
-    @floor = index
+  get_floors: () ->
+    return @floors
+
+  set_current_floor: (d) ->
+    @current_floor = d
     @trigger 'change'
 
-  get_floor: () ->
-    return @floor
+  set_current_floor_id: (id) ->
+    @set_current_floor @floors_index[id]
 
-  set_n_floors: (n_floors) ->
-    @n_floors = n_floors
-
-  get_n_floors: () ->
-    return @n_floors
+  get_current_floor: () ->
+    return @current_floor
 
   get_zoom_behavior: () ->
     return @zoom

@@ -4,7 +4,7 @@ observer class Canvas extends View
     @init()
 
     @camera = conf.camera
-    @files = conf.files
+    @floors = conf.floors
 
     @docs = []
 
@@ -19,12 +19,12 @@ observer class Canvas extends View
     # QUEUE
     queue = d3.queue()
 
-    for f in @files
-      queue.defer d3.xml, f
+    for f in @floors
+      queue.defer d3.xml, f.file
 
     queue.awaitAll @ready
 
-    @listen_to @camera, 'change', () => 
+    @listen_to @camera, 'change', () =>
       @zoom()
       @switch_view()
 
@@ -40,7 +40,7 @@ observer class Canvas extends View
         transform: @camera.transform
 
   switch_view: () =>
-    current_index = @camera.get_floor()
+    current_index = @camera.get_current_floor().i
 
     for d,i in @docs
       if i <= current_index

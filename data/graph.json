@@ -6,7 +6,7 @@
       "img": "img/auditorium.jpg",
       "x": 10,
       "y": 10,
-      "floor": 0
+      "floor": "T"
     },
     {
       "id": 2,
@@ -15,7 +15,7 @@
       "homepage": "http://www.area.pi.cnr.it/index.php/mensa/",
       "x": 100,
       "y": 100,
-      "floor": 0
+      "floor": "T"
     },
     {
       "id": 3,
@@ -24,7 +24,7 @@
       "homepage": "http://library.isti.cnr.it/index.php/it/",
       "x": 200,
       "y": 50,
-      "floor": 1
+      "floor": "1"
     },
     {
       "id": 4,
@@ -32,7 +32,7 @@
       "img": "img/aula.jpg",
       "x": 500,
       "y": 300,
-      "floor": 1
+      "floor": "1"
     },
     {
       "id": 5,
@@ -40,7 +40,7 @@
       "img": "img/aula.jpg",
       "x": 500,
       "y": 100,
-      "floor": 1
+      "floor": "1"
     },
     {
       "id": 6,
@@ -48,7 +48,7 @@
       "img": "img/aula.jpg",
       "x": 20,
       "y": 500,
-      "floor": 1
+      "floor": "1"
     },
     {
       "id": 7,
@@ -56,7 +56,7 @@
       "img": "img/aula.jpg",
       "x": 500,
       "y": 100,
-      "floor": 2
+      "floor": "2"
     },
     {
       "id": 8,
@@ -83,7 +83,7 @@
     {
       "id": 10,
       "label": "B65b",
-      "floor": 1
+      "floor": "1"
     }
   ],
   "links": [

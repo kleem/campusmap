@@ -31,6 +31,10 @@
 }
 
 /* hover feedback is not defined because it interferes with some touch devices */
+.NavControls :not(.under) {
+  /*background: #DDD;*/
+  color: #999;
+}
 .NavControls .selected {
   background: steelblue;
   color: white;

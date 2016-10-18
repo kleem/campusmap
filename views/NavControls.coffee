@@ -5,18 +5,21 @@ observer class NavControls extends View
 
     @camera = conf.camera
 
-    floors = @d3el.selectAll '.floor'
-      .data conf.floors
-
-    floors.enter().insert('button', 'button:first-child')
-      .attrs
-        class: 'floor'
-      .on 'click', (d,i) => @camera.set_floor i
-      .text (d) -> d.label
-
-    @listen_to @camera, 'change', () => @floor_change()
+    @listen_to @camera, 'change', () => @redraw()
 
   # Highlights the selected button
-  floor_change: () ->
-    d3.selectAll('.floor').classed('selected', false)
-    d3.selectAll('.floor').filter((d,i) => Math.abs(i-@camera.get_n_floors()) is @camera.get_floor()).classed('selected', true)
+  redraw: () ->
+    floors = @d3el.selectAll '.floor'
+      .data @camera.get_floors(), (d) -> d.id
+
+    enter_floors = floors.enter().insert('button', 'button:first-child')
+      .attrs
+        class: 'floor'
+      .on 'click', (d) => @camera.set_current_floor d
+      .text (d) -> d.id
+
+    enter_floors.merge(floors)
+      .classed 'under', (d) => d.i < @camera.get_current_floor().i
+      .classed 'selected', (d) => d is @camera.get_current_floor()
+
+    floors.exit().remove()
