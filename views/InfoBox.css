@@ -41,6 +41,9 @@
   font-size: 18px;
   margin-bottom: 10px;
 }
+.InfoBox .description.person a {
+  color: #fff;
+}
 
 .InfoBox .message {
   padding: 70px 0px 0px 10px;

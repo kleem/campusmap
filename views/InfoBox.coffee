@@ -30,11 +30,17 @@ observer class InfoBox extends View
   draw_person: () ->
     info = @selection.get()
 
+    if info is null
+      @d3el.classed 'hidden', true
+      return
+
+    @d3el.classed 'hidden', false
+
     # img
     @draw_top_image ['img/person.jpg']
 
     # description
-    description = @d3el.select '.description'
+    description = @d3el.selectAll '.description'
       .attrs
         class: 'description person'
       .html ''
@@ -52,22 +58,45 @@ observer class InfoBox extends View
         class: 'label'
       .text info.label
 
-    person_info.append 'div'
-      .text "#{info.institute} room #{info.room}"
+    # place
+    place = person_info.append 'div'
+    place.append 'span'
+      .html '<i class="fa fa-map-marker" aria-hidden="true"></i> '
+    place.append 'span'
+      .text "#{info.institute}, room #{info.room}"
 
-    person_info.append 'div'
+    # phone
+    phone = person_info.append 'div'
+    phone.append 'span'
+      .html '<i class="fa fa-phone" aria-hidden="true"></i> '
+    phone.append 'a'
+      .attrs
+        href: "tel:#{info.phone}"
+        target: '_blank'
       .text info.phone
 
-    person_info.append 'div'
+    # email
+    email = person_info.append 'div'
+    email.append 'span'
+      .html '<i class="fa fa-envelope-o" aria-hidden="true"></i> '
+    email.append 'a'
+      .attrs
+        href: "mailto:#{info.email}"
+        target: '_blank'
       .text info.email
 
-    person_info.append 'div'
-      .text info.homepage
-
+    # homepage
+    homepage = person_info.append 'div'
+    homepage.append 'span'
+      .html '<i class="fa fa-globe" aria-hidden="true"></i> '
+    homepage.append 'a'
+      .attrs
+        href: info.homepage
+        target: '_blank'
+      .html info.homepage.replace /http[s]?:\/\//, ''
 
   draw_place: () ->    
     info = @selection.get()
-
 
     if info is null
       @d3el.classed 'hidden', true
