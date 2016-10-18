@@ -22,6 +22,8 @@ observer class AppView extends View
       files: ['data/cnr_no_borders_0.svg', 'data/cnr_no_borders_1.svg', 'data/cnr_no_borders_2.svg', 'data/cnr_no_borders_3.svg']
 
     graph = new Graph
+      nodes: conf.graph.nodes
+      links: conf.graph.links
 
     selection = new Selection
       graph: graph
