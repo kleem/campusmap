@@ -7,17 +7,27 @@ observer class InfoBox extends View
     @selection = conf.selection
 
     @listen_to @selection, 'change', () =>
-      @redraw()
+      s = @selection.get()
 
-    # @room_img = @d3el.append 'img'
-    #   .attrs
-    #     class: 'img_room'
+      if s? and s.type is 'person'
+        @draw_person()
+      else
+        @draw_place()
 
-    # @content = @d3el.append 'div'
-    #   .attrs
-    #     class: 'content'
+  draw_top_image: (data) ->
+    image = @d3el.selectAll '.top_img'
+      .data data
 
-  redraw: () ->    
+    enter_image = image.enter().append 'img'
+
+    enter_image.merge(image)
+      .attrs
+        class: 'top_img'
+        src: (d) -> d
+
+    image.exit().remove()
+
+  draw_person: () ->
     info = @selection.get()
 
     if info is null
@@ -27,29 +37,88 @@ observer class InfoBox extends View
     @d3el.classed 'hidden', false
 
     # img
-    image = @d3el.selectAll 'img'
-      .data if info? then [info.img] else []
+    @draw_top_image ['img/person.jpg']
 
-    enter_image = image.enter().append 'img'
-
-    enter_image.merge(image)
+    # description
+    description = @d3el.selectAll '.description'
       .attrs
-        src: (d) -> d
+        class: 'description person'
+      .html ''
+    
+    person_img = description.append 'div'
+    person_info = description.append 'div'
 
-    image.exit().remove()
+    person_img.append 'img'
+      .attrs
+        class: 'profile_img'
+        src: info.img
 
-    # label
-    label = @d3el.selectAll '.label'
-      .data if info? then [info.label] else []
-
-    enter_label = label.enter().append 'div'
+    person_info.append 'div'
       .attrs
         class: 'label'
+      .text info.label
 
-    enter_label.merge(label)
+    # place
+    place = person_info.append 'div'
+    place.append 'span'
+      .html '<i class="fa fa-map-marker" aria-hidden="true"></i> '
+    place.append 'span'
+      .text "#{info.institute}, room #{info.room}"
+
+    # phone
+    phone = person_info.append 'div'
+    phone.append 'span'
+      .html '<i class="fa fa-phone" aria-hidden="true"></i> '
+    phone.append 'a'
+      .attrs
+        href: "tel:#{info.phone}"
+        target: '_blank'
+      .text info.phone
+
+    # email
+    email = person_info.append 'div'
+    email.append 'span'
+      .html '<i class="fa fa-envelope-o" aria-hidden="true"></i> '
+    email.append 'a'
+      .attrs
+        href: "mailto:#{info.email}"
+        target: '_blank'
+      .text info.email
+
+    # homepage
+    homepage = person_info.append 'div'
+    homepage.append 'span'
+      .html '<i class="fa fa-globe" aria-hidden="true"></i> '
+    homepage.append 'a'
+      .attrs
+        href: info.homepage
+        target: '_blank'
+      .html info.homepage.replace /http[s]?:\/\//, ''
+
+  draw_place: () ->    
+    info = @selection.get()
+
+    if info is null
+      @d3el.classed 'hidden', true
+      return
+
+    @d3el.classed 'hidden', false
+
+    # img
+    @draw_top_image if info? then [info.img] else []
+
+    # description
+    place = @d3el.selectAll '.description'
+      .data if info? then [info.label] else []
+
+    enter_place = place.enter().append 'div'
+      .attrs
+        class: 'description place'
+
+    enter_place.merge(place)
       .text (d) -> d
 
-    label.exit().remove()
+    place.exit().remove()
 
     # message
     message = @d3el.selectAll '.message'
