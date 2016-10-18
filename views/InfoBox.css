@@ -22,6 +22,17 @@
   background: steelblue; 
 }
 
+.InfoBox .description.person, .InfoBox .description.place {
+  font-size: 13px;
+}
+.InfoBox .description.person .label, .InfoBox .description.place .label {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+.InfoBox .description.person a, .InfoBox .description.place a {
+  color: #fff;
+}
+
 .InfoBox .place {
   height: 100px;
 }
@@ -34,17 +45,6 @@
   width: 90px;
   border-radius: 10px;
 }
-.InfoBox .description.person {
-  font-size: 13px;
-}
-.InfoBox .description.person .label {
-  font-size: 18px;
-  margin-bottom: 10px;
-}
 .InfoBox .description.person a {
   color: #fff;
-}
-
-.InfoBox .message {
-  padding: 70px 0px 0px 10px;
 }
