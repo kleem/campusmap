@@ -11,17 +11,35 @@
 	display: none;
 }
 
-.InfoBox .label {
-  height: 100px;
-  padding: 10px;
-  font-size: 20px;
+.InfoBox .top_img {
+  width: 100%;
+  z-index: 2;
+}
+
+.InfoBox .description {
+  padding: 15px;
   color: #fff;
   background: steelblue; 
 }
 
-.InfoBox img {
-  width: 100%;
-  z-index: 2;
+.InfoBox .place {
+  height: 100px;
+}
+
+.InfoBox .person {
+  display: flex;
+  justify-content: space-around;
+}
+.InfoBox .profile_img {
+  width: 90px;
+  border-radius: 10px;
+}
+.InfoBox .description.person {
+  font-size: 13px;
+}
+.InfoBox .description.person .label {
+  font-size: 18px;
+  margin-bottom: 10px;
 }
 
 .InfoBox .message {
