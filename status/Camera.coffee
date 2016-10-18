@@ -10,7 +10,6 @@ observable class Camera
         @trigger 'change'
 
   set_floor: (index) ->
-    console.log index
     @floor = index
     @trigger 'change'
 
