@@ -1,15 +1,14 @@
-observer observable class NavControls extends View
+observer class NavControls extends View
   constructor: (conf) ->
     super(conf)
-    @init
-      events: ['change']
+    @init()
 
     @camera = conf.camera
 
     floors = @d3el.selectAll '.floor'
       .data conf.floors
 
-    floors.enter().insert('div', 'div:first-child').append 'button'
+    floors.enter().insert('button', 'button:first-child')
       .attrs
         class: 'floor'
       .on 'click', (d,i) => @camera.set_floor i
