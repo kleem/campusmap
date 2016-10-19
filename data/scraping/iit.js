@@ -7,10 +7,10 @@ var casper = require('casper').create({
     logLevel: 'debug',
     pageSettings: {
       loadImages:  true, // The WebPage instance used by Casper will
-      loadPlugins: true, // use these settings
+      loadPlugins: false, // use these settings
       userAgent: 'Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.2 Safari/537.36',
-      XSSAuditingEnabled: true,
-      localToRemoteUrlAccessEnabled: true
+      XSSAuditingEnabled: false,
+      localToRemoteUrlAccessEnabled: false
     }
 });
 

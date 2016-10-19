@@ -19,7 +19,12 @@ var csv = 'isti.csv';
 var links = [];
 var last_link = 0;
 
+/* write CSV header
+*/
+fs.write(csv, '"name","email","phone","building","floor","room","homepage","photo_url"\n', 'w');
+
 casper.start('http://www.isti.cnr.it/about/people.php', function() {
+
   /*  get people links
   */
   anchors = casper.getElementsInfo('.content p a');
@@ -29,11 +34,12 @@ casper.start('http://www.isti.cnr.it/about/people.php', function() {
 
 });
 
-function open(link) {
+function open(link,i) {
   
   casper.thenOpen(link, function() {
 
     utils.dump("PAGE #"+i+" of "+links.length)
+    
     
     name = casper.getElementInfo('.shallow').text.slice(0,-1);
 
@@ -62,6 +68,7 @@ function open(link) {
     else
       room  = '';
     
+    /***
     if (casper.exists('#descrizione-persona p')) {
       description = ''
       description_p = casper.getElementsInfo('#descrizione-persona p').map(function(d){
@@ -72,6 +79,15 @@ function open(link) {
 
     description = '';
     line = '"' + name + '","' + email + '","' + tel + '","' + building + '","' + floor + '","' + room + '","' + description + '"\n'
+    ***/
+
+    if (casper.exists('#persona-left > img')) {
+      photo_url = 'http://www.isti.cnr.it/' + casper.getElementInfo("#persona-left > img").attributes.src;
+    }
+    else
+      photo_url = '';
+
+    line = '"' + name + '","' + email + '","' + tel + '","' + building + '","' + floor + '","' + room + '","' + link + '","' + photo_url + '"\n'
 
 
     fs.write(csv, line, 'a');
