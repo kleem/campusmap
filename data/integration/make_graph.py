@@ -30,7 +30,7 @@ with open('../scraping/iit.csv') as iit_csv:
 
 
 # CICLOPI
-graph['nodes'].append({'id': last_id, 'label': 'cicloPI', 'icon': '//lh3.ggpht.com/kg63cpruckhizjn_MxcxK0O7VSLrpbwk_VM9N1CgyKs4nHAziweQ72kejOAW7u1RC4oL=w300', 'type': 'bicycle', 'floor': 'T'})
+graph['nodes'].append({'id': last_id, 'label': 'cicloPI', 'phone': '800 005 640', 'homepage': 'http://www.ciclopi.eu/default.aspx', 'icon': '//lh3.ggpht.com/kg63cpruckhizjn_MxcxK0O7VSLrpbwk_VM9N1CgyKs4nHAziweQ72kejOAW7u1RC4oL=w300', 'type': 'bicycle', 'floor': 'T'})
 last_id += 1
 
 print json.dumps(graph)
