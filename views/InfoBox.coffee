@@ -119,7 +119,7 @@ observer class InfoBox extends View
       # listen to ciclopi service
       if not @ciclopi?
         @ciclopi = new CicloPI
-        @listen_to @ciclopi, 'change', () =>
+        @ciclopi_binding = @ciclopi.on 'change', () =>
           icon_ciclopi = icon_ciclopi_div.selectAll '.ciclopi_parking'
             .data @ciclopi.get_spots()
 
@@ -147,7 +147,8 @@ observer class InfoBox extends View
                 posti = 'posto'
               "#{available_bicycles} #{biciclette} e #{available_parkings} #{posti} disponibili"
     else
-      # stop listening
-      # FIXME should also delete the binding
-      @ciclopi.destructor()
-      delete @ciclopi
+      if @ciclopi?
+        # stop listening
+        @ciclopi.on @ciclopi_binding, null
+        @ciclopi.destructor()
+        delete @ciclopi
