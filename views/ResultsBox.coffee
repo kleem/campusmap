@@ -17,7 +17,7 @@ observer class ResultsBox extends View
     
     @noResultsBox.append 'p'
       .attrs
-        class: 'results_text'
+        class: 'no_results'
       .text () -> 'La ricerca non ha prodotto risultati'      
 
     @allResultsBox = @innerDiv.append 'div'
@@ -59,11 +59,13 @@ observer class ResultsBox extends View
     results_enter.merge(results)
       .classed 'focused', (d) => @results.check_focused d
       .html (d) -> 
-        if d.type
-          "<i class='fa fa-user'></i> #{d.label.replace(query_string_capitalize,"<span class='bold'>#{query_string_capitalize}</span>")}"
-        else
-          "<i class='fa fa-map-marker'></i> #{d.label.replace(query_string_capitalize,"<span class='bold'>#{query_string_capitalize}</span>")}"
-
+        icon = switch d.type
+          when 'person' then "<i class='fa fa-user'></i>"
+          when 'room' then "<i class='fa fa-map-marker'></i>"
+          when 'bicycle' then "<i class='fa fa-bicycle'></i>"
+        
+        return "#{icon} #{d.label.replace(query_string_capitalize,"<span class='bold'>#{query_string_capitalize}</span>")}"
+    
     results.exit().remove()
 
   show: () =>

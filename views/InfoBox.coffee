@@ -21,6 +21,7 @@ observer class InfoBox extends View
       @draw_node()
 
   draw_node: () ->
+
     # img
     @d3el.append 'img'
       .attrs
@@ -90,11 +91,24 @@ observer class InfoBox extends View
             target: '_blank'
           .text (d) -> d.homepage.replace /http[s]?:\/\//, ''
 
-    ### profile img
+    ### icon
     ###
-    if @d3el.datum().photo_url? and @d3el.datum().photo_url isnt ''
+    if @d3el.datum().icon? and @d3el.datum().icon isnt ''
       description.append 'div'
         .attrs
           class: 'profile_img'
         .styles
-          'background-image': (d) -> "url(#{d.photo_url})"
+          'background-image': (d) -> "url(#{d.icon})"
+
+
+    ### ciclopi
+    ###
+    if @d3el.datum().label is 'cicloPI'
+      d3.json 'data/scraping/ciclopi.php', (result) ->
+        bici_disponibili = result.split(',')[0]
+        posti_disponibili = result.split(',')[1]
+        ciclopi = info.append 'div'
+          .attrs
+            class: 'ciclopi'
+        ciclopi.append 'div'
+          .html "<p>#{bici_disponibili} bici disponibili</p><p>#{posti_disponibili} posti disponibili</p>"

@@ -5,12 +5,15 @@ graph = {"nodes": [], "links": []}
 last_id = 0
 rooms = {}
 
+# ROOMS and PEOPLE
+# scraped from the institutes' web pages
 with open('../scraping/iit.csv') as iit_csv:
     for d in csv.DictReader(iit_csv, delimiter=',', quotechar='"'):
         d['id'] = last_id
         last_id += 1
         d['type'] = 'person'
         d['label'] = d['name']
+        d['icon'] = d['photo_url']
         d['institute'] = 'IIT'
         graph['nodes'].append(d)
 
@@ -25,5 +28,9 @@ with open('../scraping/iit.csv') as iit_csv:
         # link the person to the room (id-based link)
         graph['links'].append({'source': d['id'], 'target': room['id'], 'type': 'located_in'})
 
+
+# CICLOPI
+graph['nodes'].append({'id': last_id, 'label': 'cicloPI', 'icon': '//lh3.ggpht.com/kg63cpruckhizjn_MxcxK0O7VSLrpbwk_VM9N1CgyKs4nHAziweQ72kejOAW7u1RC4oL=w300', 'type': 'bicycle', 'floor': 'T'})
+last_id += 1
 
 print json.dumps(graph)

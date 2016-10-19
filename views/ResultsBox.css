@@ -8,7 +8,7 @@
   display: block;
 }
 
-.ResultsBox .innerResultsBox .result, .ResultsBox .innerResultsBox p {
+.ResultsBox .innerResultsBox .result {
   padding: 9px 10px;
   margin: 0px;
   font-size: 13px;
@@ -20,9 +20,17 @@
   font-weight: bold;
 }
 
+.ResultsBox .innerResultsBox .no_results {
+  margin: 0px 0px 0px 25px;
+  padding: 9px 10px;
+  font-size: 13px;
+  cursor: default;
+}
+
+
 .ResultsBox .innerResultsBox .result i.fa {
   margin-right: 10px;
-  color: #B6B6B6;
+  color: #999;
   width: 11px; 
 }
 
@@ -60,9 +68,8 @@
   display: none;
   margin: 0px 10px;
   background-color: white;  
-  height: 36px;
-  padding: 1px;
-  border-bottom: 1px solid lightgrey;
+  height: 33px;
+  border-bottom: none;
   font-style: italic;
 }
 
