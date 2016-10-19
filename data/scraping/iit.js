@@ -90,7 +90,7 @@ function open(link,i) {
 
 casper.then(function() {
   links.forEach(function(l,i) {
-    open('http://www.iit.cnr.it/'+l,i);
+    open('http://www.iit.cnr.it'+l,i);
 
   });
 });

@@ -54,3 +54,30 @@
 	background-size: 100%;
 	background-color: white;
 }
+
+.InfoBox .ciclopi {
+  display: flex;
+  flex-direction: column;
+}
+
+.InfoBox .icon_ciclopi_div {
+  display: flex;
+  flex-direction: row;
+}
+
+.InfoBox .ciclopi_parking {
+  width: 15px;
+  height: 25px;
+  background-color: #DDD;
+  margin-left: 2px;
+}
+
+.InfoBox .ciclopi_parking i.fa-bicycle {
+  margin-top: 6px;
+  margin-left: -1px;
+  color: #333;
+}
+
+.InfoBox .text_ciclopi {
+  margin-top: 10px;
+}

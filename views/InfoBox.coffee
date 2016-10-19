@@ -105,10 +105,38 @@ observer class InfoBox extends View
     ###
     if @d3el.datum().label is 'cicloPI'
       d3.json 'data/scraping/ciclopi.php', (result) ->
-        bici_disponibili = result.split(',')[0]
-        posti_disponibili = result.split(',')[1]
+        available_bicycles = parseInt(result.split(',')[0])
+        available_parkings = parseInt(result.split(',')[1])
+        data = Array(available_bicycles).fill(true).concat(Array(available_parkings).fill(false))
+        
         ciclopi = info.append 'div'
           .attrs
             class: 'ciclopi'
-        ciclopi.append 'div'
-          .html "<p>#{bici_disponibili} bici disponibili</p><p>#{posti_disponibili} posti disponibili</p>"
+        
+        icon_ciclopi_div = ciclopi.append 'div'
+          .attrs
+            class: 'icon_ciclopi_div'
+
+        icon_ciclopi = icon_ciclopi_div.selectAll '.ciclopi_parking'
+          .data data
+
+        icon_ciclopi.enter().append 'div'
+          .attrs
+            class: 'ciclopi_parking'
+          .append 'i'
+            .attrs
+              class: (d) ->
+                if d
+                  'fa fa-bicycle fa-rotate-270'
+
+        ciclopi.append 'p'
+          .attrs
+            class: 'text_ciclopi'
+          .html () ->
+            biciclette = 'biciclette'
+            posti = 'posti'
+            if available_bicycles is 1
+              biciclette = 'bicicletta'
+            if available_parkings is 1
+              posti = 'posto'
+            "#{available_bicycles} #{biciclette} e #{available_parkings} #{posti} disponibili"
