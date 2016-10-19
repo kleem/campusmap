@@ -11,10 +11,10 @@ class Graph
       return @nodes
         .filter (n) -> 
           tokens = n.label.toLowerCase().split(/[ |-]/)
-          
-          return tokens
+
+          return (tokens
             .map (t) -> t.indexOf(string.toLowerCase()) is 0
-            .reduce (a, b) -> a or b
+            .reduce (a, b) -> a or b) or n.label.toLowerCase().indexOf(string.toLowerCase()) is 0
         .slice(0, @max_results)
 
     else
