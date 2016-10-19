@@ -104,39 +104,50 @@ observer class InfoBox extends View
     ### ciclopi
     ###
     if @d3el.datum().label is 'cicloPI'
-      d3.json 'data/scraping/ciclopi.php', (result) ->
-        available_bicycles = parseInt(result.split(',')[0])
-        available_parkings = parseInt(result.split(',')[1])
-        data = Array(available_bicycles).fill(true).concat(Array(available_parkings).fill(false))
-        
-        ciclopi = info.append 'div'
-          .attrs
-            class: 'ciclopi'
-        
-        icon_ciclopi_div = ciclopi.append 'div'
-          .attrs
-            class: 'icon_ciclopi_div'
+      ciclopi = info.append 'div'
+        .attrs
+          class: 'ciclopi'
 
-        icon_ciclopi = icon_ciclopi_div.selectAll '.ciclopi_parking'
-          .data data
+      icon_ciclopi_div = ciclopi.append 'div'
+        .attrs
+          class: 'icon_ciclopi_div'
 
-        icon_ciclopi.enter().append 'div'
-          .attrs
-            class: 'ciclopi_parking'
-          .append 'i'
+      info = ciclopi.append 'p'
+        .attrs
+          class: 'text_ciclopi'
+
+      # listen to ciclopi service
+      if not @ciclopi?
+        @ciclopi = new CicloPI
+        @listen_to @ciclopi, 'change', () =>
+          icon_ciclopi = icon_ciclopi_div.selectAll '.ciclopi_parking'
+            .data @ciclopi.get_spots()
+
+          icon_ciclopi.enter().append 'div'
+            .attrs
+              class: 'ciclopi_parking'
+            .append 'i'
+
+          icon_ciclopi.select 'i'
             .attrs
               class: (d) ->
                 if d
                   'fa fa-bicycle fa-rotate-270'
 
-        ciclopi.append 'p'
-          .attrs
-            class: 'text_ciclopi'
-          .html () ->
-            biciclette = 'biciclette'
-            posti = 'posti'
-            if available_bicycles is 1
-              biciclette = 'bicicletta'
-            if available_parkings is 1
-              posti = 'posto'
-            "#{available_bicycles} #{biciclette} e #{available_parkings} #{posti} disponibili"
+          available_bicycles = @ciclopi.get_available_bicycles()
+          available_parkings = @ciclopi.get_available_parkings()
+
+          info
+            .html () ->
+              biciclette = 'biciclette'
+              posti = 'posti'
+              if available_bicycles is 1
+                biciclette = 'bicicletta'
+              if available_parkings is 1
+                posti = 'posto'
+              "#{available_bicycles} #{biciclette} e #{available_parkings} #{posti} disponibili"
+    else
+      # stop listening
+      # FIXME should also delete the binding
+      @ciclopi.destructor()
+      delete @ciclopi
