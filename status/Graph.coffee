@@ -6,7 +6,19 @@ class Graph
     @max_results = 5
 
   search: (string) ->
-    return @nodes.filter((n) -> n.label.toLowerCase().indexOf(string.toLowerCase()) is 0 and string isnt '').slice(0, @max_results)
+
+    if string isnt ''
+      return @nodes
+        .filter (n) -> 
+          tokens = n.label.toLowerCase().split(/[ |-]/)
+          
+          return tokens
+            .map (t) -> t.indexOf(string.toLowerCase()) is 0
+            .reduce (a, b) -> a or b
+        .slice(0, @max_results)
+
+    else
+      return []
 
   get_rooms_from_node: (node_id) ->
     results = @links.filter((l) -> l.source is node_id).map (l) -> l.target
