@@ -26,7 +26,7 @@ observer class InfoBox extends View
     @d3el.append 'img'
       .attrs
         class: 'top_img'
-        src: (d) -> if d.img? then d.img else 'img/default.jpg'
+        src: (d) -> if d.img? then d.img else 'img/office.png'
 
     ### node profile
     ###
