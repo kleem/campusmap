@@ -10,7 +10,7 @@ observer class Canvas extends View
 
     @svg = @d3el.append 'svg'
       .attrs
-        viewBox: '-100 1000 11000 7000'
+        viewBox: '1200 1000 6000 5000'
 
     # ZOOM
     @zoomable_layer = @svg.append 'g'

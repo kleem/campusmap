@@ -33,4 +33,16 @@ with open('../scraping/iit.csv') as iit_csv:
 graph['nodes'].append({'id': last_id, 'label': 'cicloPI', 'img': 'img/ciclopi.jpg', 'phone': '800 005 640', 'homepage': 'http://www.ciclopi.eu/default.aspx', 'icon': '//lh3.ggpht.com/kg63cpruckhizjn_MxcxK0O7VSLrpbwk_VM9N1CgyKs4nHAziweQ72kejOAW7u1RC4oL=w300', 'type': 'bicycle', 'floor': 'T'})
 last_id += 1
 
+# Auditorium
+graph['nodes'].append({'id': last_id, 'label': 'Auditorium', 'img': 'img/auditorium.jpg', 'type': 'room', 'floor': 'T'})
+last_id += 1
+
+# Canteen
+graph['nodes'].append({'id': last_id, 'label': 'Canteen', 'img': 'img/canteen.jpg', 'type': 'room', 'floor': 'T'})
+last_id += 1
+
+# Library
+graph['nodes'].append({'id': last_id, 'label': 'Library', 'img': 'img/library.jpg', 'type': 'room', 'floor': 'T'})
+last_id += 1
+
 print json.dumps(graph)

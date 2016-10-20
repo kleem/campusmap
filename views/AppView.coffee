@@ -7,10 +7,10 @@ observer class AppView extends View
     mode.set 'search'
 
     floors = [
-      {id: 'T', file: 'data/cnr_iso_0.svg'},
-      {id: '1', file: 'data/cnr_iso_1.svg'},
-      {id: '2', file: 'data/cnr_iso_2.svg'},
-      {id: '3', file: 'data/cnr_iso_3.svg'}
+      {id: 'T', file: 'data/cnr_cavalier_0.svg'},
+      {id: '1', file: 'data/cnr_cavalier_1.svg'},
+      {id: '2', file: 'data/cnr_cavalier_2.svg'},
+      {id: '3', file: 'data/cnr_cavalier_3.svg'}
     ]
     floors.forEach (d,i) -> d.i = i
 

@@ -26,20 +26,48 @@ observer class InfoBox extends View
     @d3el.append 'img'
       .attrs
         class: 'top_img'
-        src: (d) -> if d.img? then d.img else 'img/default.jpg'
+        src: (d) -> if d.img? then d.img else 'img/office.png'
 
-    # description
-    description = @d3el.append 'div'
-      .attrs
-        class: 'description'
-
-    ### info
+    ### node profile
     ###
-    info = description.append 'div'
-    info.append 'div'
+    profile = @d3el.append 'div'
+      .attrs
+        class: 'profile'
+
+    # round icon
+    if @d3el.datum().icon? and @d3el.datum().icon isnt ''
+      profile.append 'div'
+        .attrs
+          class: 'img'
+        .styles
+          'background-image': (d) -> "url(#{d.icon})"
+
+    # label
+    profile.append 'div'
       .attrs
         class: 'label'
       .text (d) -> d.label
+
+    # directions
+    directions = profile.append 'div'
+      .attrs
+        class: 'directions'
+
+    directions.append 'div'
+      .attrs
+        class: 'direction to'
+      .html '<i class="fa fa-arrow-circle-left" aria-hidden="true"></i><div>To</div>'
+
+    directions.append 'div'
+      .attrs
+        class: 'direction from'
+      .html '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i><div>From</div>'
+
+    ### additional information
+    ###
+    info = @d3el.append 'div'
+      .attrs
+        class: 'information'
 
     # place
     if @d3el.datum().institute and @d3el.datum().room?
@@ -91,28 +119,29 @@ observer class InfoBox extends View
             target: '_blank'
           .text (d) -> d.homepage.replace /http[s]?:\/\//, ''
 
-    ### icon
+    ### specific information
     ###
-    if @d3el.datum().icon? and @d3el.datum().icon isnt ''
-      description.append 'div'
-        .attrs
-          class: 'profile_img'
-        .styles
-          'background-image': (d) -> "url(#{d.icon})"
+    spec_info = @d3el.append 'div'
+      .attrs
+        class: 'specific_information'
 
-
-    ### ciclopi
-    ###
+    # ciclopi
     if @d3el.datum().label is 'cicloPI'
-      ciclopi = info.append 'div'
+
+      ciclopi = spec_info.append 'div'
         .attrs
           class: 'ciclopi'
+
+      ciclopi.append 'div'
+        .attrs
+          class: 'label'
+        .text 'Disponibilità'
 
       icon_ciclopi_div = ciclopi.append 'div'
         .attrs
           class: 'icon_ciclopi_div'
 
-      info = ciclopi.append 'p'
+      spec_info = ciclopi.append 'p'
         .attrs
           class: 'text_ciclopi'
 
@@ -137,7 +166,7 @@ observer class InfoBox extends View
           available_bicycles = @ciclopi.get_available_bicycles()
           available_parkings = @ciclopi.get_available_parkings()
 
-          info
+          spec_info
             .html () ->
               biciclette = 'biciclette'
               posti = 'posti'
