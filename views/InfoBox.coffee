@@ -181,3 +181,9 @@ observer class InfoBox extends View
         @ciclopi.on @ciclopi_binding, null
         @ciclopi.destructor()
         delete @ciclopi
+
+    # canteen
+    menu_url = 'http://www.area.pi.cnr.it/images/'+Date.today().toString('MMMM')+'-'+Date.parse('lunedì').toString('dd')+'-'+Date.parse('venerdì').toString('dd')+'.png'
+    if @d3el.datum().label is 'Canteen'
+      spec_info
+        .html "<div class='label'>Menu</div><a href='#{menu_url}'><img style='width:100%;filter:saturate(60%);' src='#{menu_url}'/></a>"
