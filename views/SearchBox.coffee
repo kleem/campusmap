@@ -2,7 +2,7 @@ observer class SearchBox extends View
   constructor: (conf) ->
     super(conf)
     @init()
-      
+
     @query = conf.query
     @mode = conf.mode
     @selection = conf.selection
@@ -13,13 +13,6 @@ observer class SearchBox extends View
     @innerDiv = @d3el.append 'div'
       .attrs
         class: 'innerSearchBox'
-        
-    @innerDiv.append 'span'
-      .attrs
-        class: 'fa-stack fa-lg'
-      .html '<i class="fa fa-square-o fa-stack-2x fa-rotate-90 btn-primary"></i><i class="fa fa-level-down fa-stack-1x fa-rotate-270"></i>'
-      .on 'click', () =>
-        @mode.set 'directions'
 
     @input = @innerDiv.append 'input'
       .attrs
@@ -29,7 +22,7 @@ observer class SearchBox extends View
       .on 'blur', () =>
         # solve the preemption of blur with the click event
         setTimeout (() => @results.clear()), 150
-      .on 'focus click', () => 
+      .on 'focus click', () =>
         text = @get_text()
 
         if text isnt ''
@@ -52,10 +45,17 @@ observer class SearchBox extends View
         # down arrow keys
         else if d3.event.keyCode is 40 and this.query.query isnt ''
           @results.next()
-          
+
+    @innerDiv.append 'div'
+      .attrs
+        class: 'directions_button'
+      .html '<i class="fa fa-arrow-circle-right fa-2x"></i>'
+      .on 'click', () =>
+        @mode.set 'directions'
+
   set_text: () ->
     selection = @selection.get()
-    
+
     if selection?
       @input.node().value = selection.label
     else
