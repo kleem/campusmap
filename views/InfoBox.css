@@ -28,6 +28,7 @@
 .InfoBox .profile .label {
   font-size: 21px;
   margin-bottom: 10px;
+	margin-left: 4px;
   flex-grow: 1;
 }
 .InfoBox .profile .img {
