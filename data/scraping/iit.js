@@ -21,7 +21,7 @@ var last_link = 0;
 
 /* write CSV header
 */
-fs.write(csv, '"name","email","phone","building","floor","room","homepage","photo_url"\n', 'w');
+fs.write(csv, '"name","email","position","phone","building","floor","room","gateway","homepage","photo_url"\n', 'w');
 
 casper.start('http://www.iit.cnr.it/en/institute/people', function() {
   /*  get people links
@@ -68,6 +68,15 @@ function open(link,i) {
     else
       room  = '';
 
+    if (casper.exists(x("//td[contains(@class, 'label') and text() = 'Qualifica:']/following::td")))
+      position = casper.getElementInfo(x("//td[contains(@class, 'label') and text() = 'Qualifica:']/following::td")).text;
+    else
+      position  = '';
+
+    if (casper.exists(x("//td[contains(@class, 'label') and text() = 'Ingresso:']/following::td")))
+      gateway = casper.getElementInfo(x("//td[contains(@class, 'label') and text() = 'Ingresso:']/following::td")).text;
+    else
+      gateway  = '';
     // if (casper.exists('#descrizione-persona p')) {
     //   description = ''
     //   description_p = casper.getElementsInfo('#descrizione-persona p').map(function(d){
@@ -82,7 +91,7 @@ function open(link,i) {
     else
       photo_url = '';
 
-    line = '"' + name + '","' + email + '","' + tel + '","' + building + '","' + floor + '","' + room + '","' + link + '","' + photo_url + '"\n'
+    line = '"' + name + '","' + email + '","' + position + '","' + tel + '","' + building + '","' + floor + '","' + room + '","' + gateway + '","' + link + '","' + photo_url + '"\n'
 
     fs.write(csv, line, 'a');
   });
