@@ -19,6 +19,12 @@ with open('../scraping/iit.csv') as iit_csv:
         d['institute'] = 'IIT'
         graph['nodes'].append(d)
 
+        if d['label'] == '':
+            del d['floor']
+            d['fuori_sede'] = True
+        elif d['floor'] == '':
+            d['floor'] = 'T'
+
         # check if we also have to add the room
         if d['room'] not in rooms:
             rooms[d['room']] = {'id': last_id, 'label': d['room'], 'floor': d['floor'], 'gateway': d['gateway'], 'type': 'room'}
