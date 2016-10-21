@@ -187,3 +187,18 @@ observer class InfoBox extends View
     if @d3el.datum().label is 'Canteen'
       spec_info
         .html "<div class='label'>Menu</div><a href='#{menu_url}'><img style='width:100%;filter:saturate(60%);' src='#{menu_url}'/></a>"
+
+    # auditorium
+    # FIXME need a better way to do this...
+    if @d3el.datum().label is 'Auditorium'
+      @re = new RoomEvents
+        room: 'Auditorium'
+      @ec = new EventsCalendar
+        parent: spec_info
+        events: @re
+    else
+      if @re?
+        delete @re
+      if @ec?
+        @ec.destructor()
+        delete @ec
