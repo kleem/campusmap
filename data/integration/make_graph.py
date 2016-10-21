@@ -13,13 +13,15 @@ with open('../scraping/iit.csv') as iit_csv:
         last_id += 1
         d['type'] = 'person'
         d['label'] = d['name']
+        d['position'] = d['position']
+        d['gateway'] = d['gateway']
         d['icon'] = d['photo_url']
         d['institute'] = 'IIT'
         graph['nodes'].append(d)
 
         # check if we also have to add the room
         if d['room'] not in rooms:
-            rooms[d['room']] = {'id': last_id, 'label': d['room'], 'floor': d['floor'], 'type': 'room'}
+            rooms[d['room']] = {'id': last_id, 'label': d['room'], 'floor': d['floor'], 'gateway': d['gateway'], 'type': 'room'}
             last_id += 1
             graph['nodes'].append(rooms[d['room']])
 

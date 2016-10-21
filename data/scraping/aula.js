@@ -33,6 +33,14 @@ casper.start('http://prenota.isti.cnr.it/index.php?option=com_jevents&task=month
   anchors = casper.getElementsInfo('.cal_table tr td a.cal_titlelink');
   anchors.forEach(function(a) {
     
+    /** Get just the events after TODAY
+  
+    if (parseInt(a.attributes.href.split('&day=')[1].split('&')[0])>=parseInt(day)){
+      links.push({'link':a.attributes.href,'event_id':a.attributes.href.split('&uid=')[1]});
+    }    
+
+    **/
+
     links.push({'link':a.attributes.href,'event_id':a.attributes.href.split('&uid=')[1]});
     
   });
@@ -84,10 +92,27 @@ function open(link,i) {
         next_first_day =new Date(date_ok.setDate(date_ok.getDate() + 3))
         
         var days = new Date(''+from_year+'/'+from_month+'/'+from_day+'').days(new Date(''+to_year+'/'+to_month+'/'+to_day+''))
-        if (days == 1) {
-          days+=1
+        if (parseInt(to_month)-parseInt(from_month)!=0) {
+          switch(parseInt(from_month)){
+            case 1:
+              days -=3
+              break;
+            case 3:
+              days -=1
+              break;
+            case 5:
+              days -=1
+              break;
+            case 8:
+              days -=1
+              break;
+            case 10:
+              days -=1
+              break;
+
+          }
         }
-        for (var i = 0; i<days;i++){
+        for (var i = 0; i<days+1;i++){
           var newDate = new Date(from_year,from_month,from_day).addDays(i)
           result.push({'day':weekday[newDate.getDay()]+ ' ' + newDate.getDate() + ' '+months[newDate.getMonth()] + ' ' + newDate.getFullYear(), 'label':event_name,'from':from_time,'to':to_time})
         
