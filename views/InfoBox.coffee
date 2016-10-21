@@ -135,7 +135,7 @@ observer class InfoBox extends View
       ciclopi.append 'div'
         .attrs
           class: 'label'
-        .text 'Disponibilità'
+        .text 'Availability'
 
       icon_ciclopi_div = ciclopi.append 'div'
         .attrs
@@ -168,16 +168,22 @@ observer class InfoBox extends View
 
           spec_info
             .html () ->
-              biciclette = 'biciclette'
-              posti = 'posti'
+              bicycles = 'bicycles'
+              spots = 'spots'
               if available_bicycles is 1
-                biciclette = 'bicicletta'
+                bicycles = 'bicycle'
               if available_parkings is 1
-                posti = 'posto'
-              "#{available_bicycles} #{biciclette} e #{available_parkings} #{posti} disponibili"
+                spots = 'spot'
+              "#{available_bicycles} #{bicycles} and #{available_parkings} #{spots} available"
     else
       if @ciclopi?
         # stop listening
         @ciclopi.on @ciclopi_binding, null
         @ciclopi.destructor()
         delete @ciclopi
+
+    # canteen
+    menu_url = 'http://www.area.pi.cnr.it/images/'+Date.today().toString('MMMM')+'-'+Date.parse('lunedì').toString('dd')+'-'+Date.parse('venerdì').toString('dd')+'.png'
+    if @d3el.datum().label is 'Canteen'
+      spec_info
+        .html "<div class='label'>Menu</div><a href='#{menu_url}'><img style='width:100%;filter:saturate(60%);' src='#{menu_url}'/></a>"

@@ -5,6 +5,7 @@
   font-family: sans-serif;
   background: #fff;
   box-shadow: 0px 0px 8px black;
+	overflow-y: auto;
 }
 
 .InfoBox.hidden {
@@ -122,15 +123,16 @@
   flex-direction: row;
 }
 .InfoBox .ciclopi_parking {
-  width: 15px;
-  height: 25px;
+  width: 22px;
+  height: 38px;
   background-color: #DDD;
   margin-left: 2px;
 }
 .InfoBox .ciclopi_parking i.fa-bicycle {
-  margin-top: 6px;
-  margin-left: -1px;
+  margin-top: 8px;
+  margin-left: -2px;
   color: #333;
+	font-size: 20px;
 }
 .InfoBox .text_ciclopi {
   margin-top: 10px;
