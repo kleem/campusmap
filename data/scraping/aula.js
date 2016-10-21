@@ -114,7 +114,7 @@ function open(link,i) {
         }
         for (var i = 0; i<days+1;i++){
           var newDate = new Date(from_year,from_month,from_day).addDays(i)
-          result.push({'day':weekday[newDate.getDay()]+ ' ' + newDate.getDate() + ' '+months[newDate.getMonth()] + ' ' + newDate.getFullYear(), 'label':event_name,'from':from_time,'to':to_time})
+          result.push({'link':link,'day':weekday[newDate.getDay()]+ ' ' + newDate.getDate() + ' '+months[newDate.getMonth()] + ' ' + newDate.getFullYear(), 'label':event_name,'from':from_time,'to':to_time})
         
         }
         return;
@@ -131,7 +131,7 @@ function open(link,i) {
         to_time  = '';
       }
 
-      result.push({'day':from_date, 'label':event_name,'from':from_time,'to':to_time})
+      result.push({'link':link, 'day':from_date, 'label':event_name,'from':from_time,'to':to_time})
       //line = '"' + event_name + '","' + from_date + '","' + from_time + '","' + to_date + '","' + to_time + '"\n'
       //fs.write(csv, line, 'a');
 
