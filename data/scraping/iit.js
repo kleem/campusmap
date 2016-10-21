@@ -41,59 +41,62 @@ function open(link,i) {
 
     utils.dump("PAGE #"+i+" of "+links.length)
 
-    name = casper.getElementInfo('.PostHeader').text;
+    if (casper.exists('.PostHeader')) {
+      
+      name = casper.getElementInfo('.PostHeader').text;
 
-    if (casper.exists(x("//td[contains(@class, 'label') and text() = 'Email:']/following::td")))
-      email = casper.getElementInfo(x("//td[contains(@class, 'label') and text() = 'Email:']/following::td")).text;
-    else
-      email  = '';
+      if (casper.exists(x("//td[contains(@class, 'label') and text() = 'Email:']/following::td")))
+        email = casper.getElementInfo(x("//td[contains(@class, 'label') and text() = 'Email:']/following::td")).text;
+      else
+        email  = '';
 
-    if (casper.exists(x("//td[contains(@class, 'label') and text() = 'Telefono:']/following::td")))
-      tel = casper.getElementInfo(x("//td[contains(@class, 'label') and text() = 'Telefono:']/following::td")).text.replace(/\t/g, '');
-    else
-      tel = '';
+      if (casper.exists(x("//td[contains(@class, 'label') and text() = 'Telefono:']/following::td")))
+        tel = casper.getElementInfo(x("//td[contains(@class, 'label') and text() = 'Telefono:']/following::td")).text.replace(/\t/g, '');
+      else
+        tel = '';
 
-    if (casper.exists(x("//td[contains(@class, 'label') and text() = 'Edificio:']/following::td")))
-      building = casper.getElementInfo(x("//td[contains(@class, 'label') and text() = 'Edificio:']/following::td")).text;
-    else
-      building  = '';
+      if (casper.exists(x("//td[contains(@class, 'label') and text() = 'Edificio:']/following::td")))
+        building = casper.getElementInfo(x("//td[contains(@class, 'label') and text() = 'Edificio:']/following::td")).text;
+      else
+        building  = '';
 
-    if (casper.exists(x("//td[contains(@class, 'label') and text() = 'Piano:']/following::td")))
-      floor = casper.getElementInfo(x("//td[contains(@class, 'label') and text() = 'Piano:']/following::td")).text;
-    else
-      floor  = '';
+      if (casper.exists(x("//td[contains(@class, 'label') and text() = 'Piano:']/following::td")))
+        floor = casper.getElementInfo(x("//td[contains(@class, 'label') and text() = 'Piano:']/following::td")).text;
+      else
+        floor  = '';
 
-    if (casper.exists(x("//td[contains(@class, 'label') and text() = 'Stanza:']/following::td")))
-      room = casper.getElementInfo(x("//td[contains(@class, 'label') and text() = 'Stanza:']/following::td")).text;
-    else
-      room  = '';
+      if (casper.exists(x("//td[contains(@class, 'label') and text() = 'Stanza:']/following::td")))
+        room = casper.getElementInfo(x("//td[contains(@class, 'label') and text() = 'Stanza:']/following::td")).text;
+      else
+        room  = '';
 
-    if (casper.exists(x("//td[contains(@class, 'label') and text() = 'Qualifica:']/following::td")))
-      position = casper.getElementInfo(x("//td[contains(@class, 'label') and text() = 'Qualifica:']/following::td")).text;
-    else
-      position  = '';
+      if (casper.exists(x("//td[contains(@class, 'label') and text() = 'Qualifica:']/following::td")))
+        position = casper.getElementInfo(x("//td[contains(@class, 'label') and text() = 'Qualifica:']/following::td")).text;
+      else
+        position  = '';
 
-    if (casper.exists(x("//td[contains(@class, 'label') and text() = 'Ingresso:']/following::td")))
-      gateway = casper.getElementInfo(x("//td[contains(@class, 'label') and text() = 'Ingresso:']/following::td")).text;
-    else
-      gateway  = '';
-    // if (casper.exists('#descrizione-persona p')) {
-    //   description = ''
-    //   description_p = casper.getElementsInfo('#descrizione-persona p').map(function(d){
-    //     description += d.text
-    //   })
-    // } else
-    //   description = '';
+      if (casper.exists(x("//td[contains(@class, 'label') and text() = 'Ingresso:']/following::td")))
+        gateway = casper.getElementInfo(x("//td[contains(@class, 'label') and text() = 'Ingresso:']/following::td")).text;
+      else
+        gateway  = '';
+      // if (casper.exists('#descrizione-persona p')) {
+      //   description = ''
+      //   description_p = casper.getElementsInfo('#descrizione-persona p').map(function(d){
+      //     description += d.text
+      //   })
+      // } else
+      //   description = '';
 
-    if (casper.exists('#persona-left > img')) {
-      photo_url = 'http://www.iit.cnr.it/' + casper.getElementInfo("#persona-left > img").attributes.src;
+      if (casper.exists('#persona-left > img')) {
+        photo_url = 'http://www.iit.cnr.it/' + casper.getElementInfo("#persona-left > img").attributes.src;
+      }
+      else
+        photo_url = '';
+
+      line = '"' + name + '","' + email + '","' + position + '","' + tel + '","' + building + '","' + floor + '","' + room + '","' + gateway + '","' + link + '","' + photo_url + '"\n'
+
+      fs.write(csv, line, 'a');
     }
-    else
-      photo_url = '';
-
-    line = '"' + name + '","' + email + '","' + position + '","' + tel + '","' + building + '","' + floor + '","' + room + '","' + gateway + '","' + link + '","' + photo_url + '"\n'
-
-    fs.write(csv, line, 'a');
   });
 }
 
