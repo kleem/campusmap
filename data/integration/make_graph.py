@@ -40,7 +40,7 @@ graph['nodes'].append({'id': last_id, 'label': 'Auditorium', 'img': 'img/auditor
 last_id += 1
 
 # Canteen
-graph['nodes'].append({'id': last_id, 'label': 'Canteen', 'img': 'img/canteen.jpg', 'email': 'comm-mensa@area.pi.cnr.it', 'phone': '+39 050 315 2048', 'icon': 'http://www.rossicatering.it/userfiles/image/Serenissima%20logo.jpg', 'homepage': 'http://www.area.pi.cnr.it/index.php/mensa', 'type': 'room', 'floor': 'T'})
+graph['nodes'].append({'id': last_id, 'label': 'Canteen', 'img': 'img/canteen.jpg', 'email': 'comm-mensa@area.pi.cnr.it', 'phone': '+39 050 315 2048', 'icon': 'img/serenissima.png', 'homepage': 'http://www.area.pi.cnr.it/index.php/mensa', 'type': 'room', 'floor': 'T'})
 last_id += 1
 
 # Library
