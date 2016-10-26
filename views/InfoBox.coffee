@@ -202,3 +202,16 @@ observer class InfoBox extends View
       if @ec?
         @ec.destructor()
         delete @ec
+
+    if @d3el.datum().label.search 'Bus Stop' > -1
+      @bt = new BusTimetable
+        bus_stop: @d3el.datum().label.split('Bus Stop ')[1]
+      @tt = new TimeTable
+        parent: spec_info
+        timetable: @bt
+    else
+      if @bt?
+        delete @bt
+      if @tt?
+        @tt.destructor()
+        delete @tt

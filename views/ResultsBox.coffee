@@ -63,6 +63,7 @@ observer class ResultsBox extends View
           when 'person' then "<i class='fa fa-user'></i>"
           when 'room' then "<i class='fa fa-map-marker'></i>"
           when 'bicycle' then "<i class='fa fa-bicycle'></i>"
+          when 'bus' then "<i class='fa fa-bus'></i>"
         
         return "#{icon} #{d.label.replace(query_string_capitalize,"<span class='bold'>#{query_string_capitalize}</span>")}"
     

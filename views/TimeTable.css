@@ -1,0 +1,32 @@
+.TimeTable table {
+  font-size: 12px;
+  border-collapse: collapse;
+  color: #333;
+}
+
+.Timetable td {
+  text-align: center;
+}
+
+.TimeTable table td.time {
+  width: 80px;
+  border-bottom: 1px solid #d1d1d1;
+}
+
+.TimeTable table td.end_station {
+  border-bottom: 1px solid #d1d1d1;
+}
+
+.TimeTable table td.bus_name {
+  width: 60px;
+  border-bottom: 1px solid #d1d1d1;
+
+}
+
+.TimeTable table tr {
+  height: 35px;
+}
+
+.TimeTable table tr th {
+  text-align: center;
+}
