@@ -1,1 +1,1 @@
-To launch the scraping files, this is the command: casperjs file_name.js 
+To launch the scraping files, this is the command: "casperjs --ignore-ssl-errors=true --ssl-protocol=any file_name.js"

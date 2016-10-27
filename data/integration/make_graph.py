@@ -21,7 +21,13 @@ def rooms_people(file_path):
             
             d['icon'] = d['photo_url'] if d['photo_url'] != '' else 'http://www.iit.cnr.it/sites/default/files/images/people/default.male.jpg'
             
-            d['institute'] = 'IIT'
+            if file_path == '../scraping/iit.csv':
+                d['institute'] = 'IIT'
+            if file_path == '../scraping/isti.csv':
+                d['institute'] = 'ISTI'
+            if file_path == '../scraping/ilc.csv':
+                d['institute'] = 'ILC'
+
             graph['nodes'].append(d)
 
             if d['label'] == '':
@@ -43,6 +49,7 @@ def rooms_people(file_path):
 
 rooms_people('../scraping/iit.csv')
 rooms_people('../scraping/isti.csv')
+rooms_people('../scraping/ilc.csv')
 
 # CICLOPI
 graph['nodes'].append({'id': last_id, 'label': 'cicloPI', 'img': 'img/ciclopi.jpg', 'phone': '800 005 640', 'homepage': 'http://www.ciclopi.eu/default.aspx', 'icon': '//lh3.ggpht.com/kg63cpruckhizjn_MxcxK0O7VSLrpbwk_VM9N1CgyKs4nHAziweQ72kejOAW7u1RC4oL=w300', 'type': 'bicycle', 'floor': 'T'})
