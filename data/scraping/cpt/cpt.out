@@ -1,0 +1,44 @@
+Archive:  cpt.gtfs
+Implementation by.....
+  inflating: agency.txt              
+  inflating: calendar_dates.txt      
+  inflating: routes.txt              
+  inflating: shapes.txt              
+  inflating: stop_times.txt          
+  inflating: stops.txt               
+  inflating: trips.txt               
+
+Estrazione degli orari delle fermate a Cnr (STOP_ID="B0934_11"
+"B4937_11")
+
+Estrazione dei campi:
+TRIP_ID DEPARTURE_TIME 
+ROUTE_ID SERVICE_ID 
+ROUTE_SHORT_NAME ROUTE_LONG_NAME
+
+Creazione del file .json
+
+SEARCH_DATE=20161027 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+NREC=119 ========================================
+SEARCH_DATE=20161028 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+NREC=119 ========================================
+SEARCH_DATE=20161029 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+NREC=119 ========================================
+SEARCH_DATE=20161030 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+NREC=48 ========================================
+SEARCH_DATE=20161031 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+NREC=119 ========================================
+SEARCH_DATE=20161101 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+NREC=48 ========================================
+SEARCH_DATE=20161102 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+NREC=119 ========================================
+removed ‘cpt.gtfs’
+removed ‘agency.txt’
+removed ‘calendar_dates.txt’
+removed ‘file.txt’
+removed ‘routes.txt’
+removed ‘shapes.txt’
+removed ‘stops.txt’
+removed ‘stop_times.txt’
+removed ‘trips.txt’
+removed ‘url.txt’
