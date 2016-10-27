@@ -7,35 +7,42 @@ rooms = {}
 
 # ROOMS and PEOPLE
 # scraped from the institutes' web pages
-with open('../scraping/iit.csv') as iit_csv:
-    for d in csv.DictReader(iit_csv, delimiter=',', quotechar='"'):
-        d['id'] = last_id
-        last_id += 1
-        d['type'] = 'person'
-        d['label'] = d['name']
-        d['position'] = d['position']
-        d['gateway'] = d['gateway']
-        d['icon'] = d['photo_url']
-        d['institute'] = 'IIT'
-        graph['nodes'].append(d)
+def rooms_people(file_path):
+    global last_id
 
-        if d['label'] == '':
-            del d['floor']
-            d['fuori_sede'] = True
-        elif d['floor'] == '':
-            d['floor'] = 'T'
-
-        # check if we also have to add the room
-        if d['room'] not in rooms:
-            rooms[d['room']] = {'id': last_id, 'label': d['room'], 'floor': d['floor'], 'gateway': d['gateway'], 'type': 'room'}
+    with open(file_path) as csv_file:
+        for d in csv.DictReader(csv_file, delimiter=',', quotechar='"'):
+            d['id'] = last_id
             last_id += 1
-            graph['nodes'].append(rooms[d['room']])
+            d['type'] = 'person'
+            d['label'] = d['name']
+            d['position'] = d['position']
+            d['gateway'] = d['gateway']
+            
+            d['icon'] = d['photo_url'] if d['photo_url'] != '' else 'http://www.iit.cnr.it/sites/default/files/images/people/default.male.jpg'
+            
+            d['institute'] = 'IIT'
+            graph['nodes'].append(d)
 
-        room = rooms[d['room']]
+            if d['label'] == '':
+                del d['floor']
+                d['fuori_sede'] = True
+            elif d['floor'] == '':
+                d['floor'] = 'T'
 
-        # link the person to the room (id-based link)
-        graph['links'].append({'source': d['id'], 'target': room['id'], 'type': 'located_in'})
+            # check if we also have to add the room
+            if d['room'] not in rooms:
+                rooms[d['room']] = {'id': last_id, 'label': d['room'], 'floor': d['floor'], 'gateway': d['gateway'], 'type': 'room'}
+                last_id += 1
+                graph['nodes'].append(rooms[d['room']])
 
+            room = rooms[d['room']]
+
+            # link the person to the room (id-based link)
+            graph['links'].append({'source': d['id'], 'target': room['id'], 'type': 'located_in'})
+
+rooms_people('../scraping/iit.csv')
+rooms_people('../scraping/isti.csv')
 
 # CICLOPI
 graph['nodes'].append({'id': last_id, 'label': 'cicloPI', 'img': 'img/ciclopi.jpg', 'phone': '800 005 640', 'homepage': 'http://www.ciclopi.eu/default.aspx', 'icon': '//lh3.ggpht.com/kg63cpruckhizjn_MxcxK0O7VSLrpbwk_VM9N1CgyKs4nHAziweQ72kejOAW7u1RC4oL=w300', 'type': 'bicycle', 'floor': 'T'})
