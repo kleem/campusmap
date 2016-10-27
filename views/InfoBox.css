@@ -5,7 +5,7 @@
   font-family: sans-serif;
   background: #fff;
   box-shadow: 0px 0px 8px black;
-	overflow-y: overlay;
+	overflow-y: auto;
 }
 
 .InfoBox.hidden {
@@ -35,19 +35,13 @@
   font-size: 13px;
   color: #fff;
   background: #b44646;
-	min-height: 68px;
+	min-height: 60px;
 }
-.InfoBox .profile .info {
+.InfoBox .profile .label {
+  font-size: 21px;
+  margin-bottom: 10px;
 	margin-left: 4px;
   flex-grow: 1;
-}
-.InfoBox .profile .info .label {
-  font-size: 21px;
-  margin-bottom: 4px;
-}
-.InfoBox .profile .info .position {
-  font-size: 13px;
-  font-style: italic;
 }
 .InfoBox .profile .img {
   height: 90px;
@@ -57,6 +51,7 @@
   border-radius: 50%;
   background-position: 50% 30%;
   background-size: 100%;
+	background-repeat: no-repeat;
   background-color: white;
   box-shadow: 0px 3px 12px rgba(0,0,0,0.5);
 }
