@@ -5,7 +5,7 @@ WRKF1=./${CMD}_tmp1		# Orari delle fermate a $STOP_DESCRITION
 WRKF2=./${CMD}_tmp2
 WRKF3=./${CMD}_tmp3
 WRKF4=./${CMD}_tmp4
-OUTF=./cpt_test.json	# File .json dei risultati
+OUTF=./cpt.json	# File .json dei risultati
 
 trap "rm -f $WRKF1 $WRKF2 $WRKF3 $WRKF4 2>/dev/null ; exit" 0 1 2 3 15
 
@@ -56,7 +56,7 @@ INC=0
 
 CNTREC=0
 
-echo '{"bus_stop_name":"Pisa, via Volpi (CNR)", "data":' >$OUTF
+echo '[{"bus_stop_name":"Bus Stop San Cataldo", "data":' >$OUTF
 echo "[" >>$OUTF
 
 NDAYS=7
@@ -143,5 +143,5 @@ do
 done
 
 echo "]" >>$OUTF
-echo "}" >>$OUTF
+echo "}]" >>$OUTF
 
