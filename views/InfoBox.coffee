@@ -87,6 +87,9 @@ observer class InfoBox extends View
       place.append 'div'
         .html '<i class="fa fa-map-marker" aria-hidden="true"></i> '
       place.append 'div'
+        .attrs
+          class: 'room'
+        .on 'click', (d) => @selection.set @graph.get_rooms_from_node(d.id)[0]
         .text (d) -> "room #{d.room}"
 
     # phone
@@ -263,6 +266,7 @@ observer class InfoBox extends View
       enter_nodes = nodes.enter().append 'div'
         .attrs
           class: 'room_node'
+        .on 'click', (d) => @selection.set d
 
       enter_nodes.append 'div'
         .attrs
