@@ -31,7 +31,7 @@ def rooms_people(file_path, institute):
 
             # check if we also have to add the room
             if d['room'] not in rooms:
-                rooms[d['room']] = {'id': last_id, 'label': d['room'], 'floor': d['floor'], 'gateway': d['gateway'], 'type': 'room'}
+                rooms[d['room']] = {'id': last_id, 'label': d['room'], 'floor': d['floor'], 'gateway': d['gateway'], 'type': 'room', 'icon': 'img/door.png'}
                 last_id += 1
                 graph['nodes'].append(rooms[d['room']])
 
