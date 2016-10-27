@@ -7,7 +7,7 @@ rooms = {}
 
 # ROOMS and PEOPLE
 # scraped from the institutes' web pages
-def rooms_people(file_path):
+def rooms_people(file_path, institute):
     global last_id
 
     with open(file_path) as csv_file:
@@ -21,7 +21,7 @@ def rooms_people(file_path):
             
             d['icon'] = d['photo_url'] if d['photo_url'] != '' else 'http://www.iit.cnr.it/sites/default/files/images/people/default.male.jpg'
             
-            d['institute'] = 'IIT'
+            d['institute'] = institute
             graph['nodes'].append(d)
 
             if d['label'] == '':
@@ -41,8 +41,8 @@ def rooms_people(file_path):
             # link the person to the room (id-based link)
             graph['links'].append({'source': d['id'], 'target': room['id'], 'type': 'located_in'})
 
-rooms_people('../scraping/iit.csv')
-rooms_people('../scraping/isti.csv')
+rooms_people('../scraping/iit.csv', 'IIT')
+rooms_people('../scraping/isti.csv', 'ISTI')
 
 # CICLOPI
 graph['nodes'].append({'id': last_id, 'label': 'cicloPI', 'img': 'img/ciclopi.jpg', 'phone': '800 005 640', 'homepage': 'http://www.ciclopi.eu/default.aspx', 'icon': '//lh3.ggpht.com/kg63cpruckhizjn_MxcxK0O7VSLrpbwk_VM9N1CgyKs4nHAziweQ72kejOAW7u1RC4oL=w300', 'type': 'bicycle', 'floor': 'T'})
