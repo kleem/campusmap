@@ -24,3 +24,8 @@ class Graph
     results = @links.filter((l) -> l.source is node_id).map (l) -> l.target
 
     return @nodes.filter (n) -> n.id in results
+
+  get_nodes_from_room: (room_id) ->
+    node_ids = @links.filter((l) -> l.target is room_id).map (l) -> l.source
+
+    return @nodes.filter (n) -> n.id in node_ids

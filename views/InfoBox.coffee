@@ -129,6 +129,26 @@ observer class InfoBox extends View
             target: '_blank'
           .text (d) -> d.homepage.replace /http[s]?:\/\//, ''
 
+    # room
+    if @d3el.datum().type is 'room'
+      # floor
+      floor = info.append 'div'
+        .attrs
+          class: 'info'
+      floor.append 'div'
+        .html '<i class="fa fa-map-marker" aria-hidden="true"></i> '
+      floor.append 'div'
+        .text (d) -> "floor #{d.floor}"
+
+      # gateway
+      gateway = info.append 'div'
+        .attrs
+          class: 'info'
+      gateway.append 'div'
+        .html '<i class="fa fa-sign-in" aria-hidden="true"></i> '
+      gateway.append 'div'
+        .text (d) -> "gateway #{d.gateway}"
+
     ### specific information
     ###
     spec_info = @d3el.append 'div'
@@ -225,3 +245,32 @@ observer class InfoBox extends View
       if @tt?
         @tt.destructor()
         delete @tt
+
+    # nodes in room
+    if @d3el.datum().type is 'room'
+      spec_info.append 'div'
+        .attrs
+          class: 'label'
+        .text 'People'
+
+      room_nodes = spec_info.append 'div'
+        .attrs
+          class: 'room_nodes'
+
+      nodes = room_nodes.selectAll '.room_node'
+        .data @graph.get_nodes_from_room(@d3el.datum().id)
+
+      enter_nodes = nodes.enter().append 'div'
+        .attrs
+          class: 'room_node'
+
+      enter_nodes.append 'div'
+        .attrs
+          class: 'img'
+        .styles
+          'background-image': (d) -> "url(#{d.icon})"
+
+      enter_nodes.append 'div'
+        .attrs
+          class: 'node_label'
+        .text (d) -> d.label
