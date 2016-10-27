@@ -12,3 +12,11 @@
 .SearchPanel.hidden {
   display: none;
 }
+
+ /* prevent text selection when dragging the canvas */
+ .SearchPanel {
+   pointer-events: none;
+ }
+ .SearchPanel > * {
+   pointer-events: all;
+ }
