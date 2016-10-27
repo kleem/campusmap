@@ -43,10 +43,20 @@ observer class InfoBox extends View
           'background-image': (d) -> "url(#{d.icon})"
 
     # label
-    profile.append 'div'
+    profile_info = profile.append 'div'
+      .attrs
+        class: 'info'
+    
+    profile_info.append 'div'
       .attrs
         class: 'label'
       .text (d) -> d.label
+
+    if @d3el.datum().type is 'person'
+      profile_info.append 'div'
+        .attrs
+          class: 'position'
+        .text (d) -> if d.position is '' then "#{d.institute}" else "#{d.position}, #{d.institute}"
 
     # directions
     directions = profile.append 'div'
@@ -77,7 +87,7 @@ observer class InfoBox extends View
       place.append 'div'
         .html '<i class="fa fa-map-marker" aria-hidden="true"></i> '
       place.append 'div'
-        .text (d) -> "#{d.institute}, room #{d.room}"
+        .text (d) -> "room #{d.room}"
 
     # phone
     if @d3el.datum().phone?
