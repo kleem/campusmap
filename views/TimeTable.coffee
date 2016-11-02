@@ -18,10 +18,16 @@ observer class TimeTable extends View
     @listen_to @timetable, 'change', () => @redraw()
 
   redraw: () ->
+    f = new Date()
+    month = f.getMonth()+1
+    day = f.getDate()
+    day = (if day<10 then '0'+day else ''+day)
+    month = (if month<10 then '0'+month else ''+month)
+    now = f.getFullYear() + month + day
     data = @timetable.get_timetable()
       .filter (d) -> 
-        d.date is "#{Date.today().getFullYear()}#{Date.today().getMonth()+1}#{Date.today().getDate()}"
-       
+        d.date is now
+  
     time_stops = @tt.selectAll '.time_stop'
       .data data[0].timetable.filter (d,i) ->
         new Date() < new Date(Date.today().getFullYear(),Date.today().getMonth(),Date.today().getDate(),d.time.split(':')[0],d.time.split(':')[1])

@@ -1,13 +1,18 @@
 #!/bin/bash
 #
+EXEC_DATE=$(date)
+echo
+echo "Data e ora di esecuzione: $EXEC_DATE"
+
 CMD=$(basename $0)
 WRKF1=./${CMD}_tmp1		# Orari delle fermate a $STOP_DESCRITION
 WRKF2=./${CMD}_tmp2
 WRKF3=./${CMD}_tmp3
 WRKF4=./${CMD}_tmp4
+WRKF5=./${CMD}_tmp5
 OUTF=./cpt.json	# File .json dei risultati
 
-trap "rm -f $WRKF1 $WRKF2 $WRKF3 $WRKF4 2>/dev/null ; exit" 0 1 2 3 15
+trap "rm -f $WRKF1 $WRKF2 $WRKF3 $WRKF4 $WRKF5 2>/dev/null ; exit" 0 1 2 3 15
 
 STOP_TEXT="Cnr"
 
@@ -56,8 +61,8 @@ INC=0
 
 CNTREC=0
 
-echo '[{"bus_stop_name":"Bus Stop San Cataldo", "data":' >$OUTF
-echo "[" >>$OUTF
+echo '[{"bus_stop_name":"Bus Stop San Cataldo", "data":' >$WRKF5
+echo "[" >>$WRKF5
 
 NDAYS=7
 
@@ -67,8 +72,8 @@ do
 
   SEARCH_DATE=$(date '+%C%y%m%d' -d "+$INC days")
   echo "SEARCH_DATE=$SEARCH_DATE <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
-  echo "  {\"date\":\"$SEARCH_DATE\",\"timetable\":" >>$OUTF
-  echo "  [" >>$OUTF
+  echo "  {\"date\":\"$SEARCH_DATE\",\"timetable\":" >>$WRKF5
+  echo "  [" >>$WRKF5
 
   >$WRKF4
 
@@ -101,9 +106,9 @@ do
   # Quando queste righe vengono processate bisogna contarle
   # e omettere il carattere "," alla fine dell'ultima riga estratta.
   # Riga normale:
-  #    echo "    {\"time\":$TIME,\"bus_name\":$BUS_NAME,\"end_station\":$END_STATION}," >>$OUTF
+  #    echo "    {\"time\":$TIME,\"bus_name\":$BUS_NAME,\"end_station\":$END_STATION}," >>$WRKF5
   # Ultima riga:
-  #    echo "    {\"time\":$TIME,\"bus_name\":$BUS_NAME,\"end_station\":$END_STATION}" >>$OUTF
+  #    echo "    {\"time\":$TIME,\"bus_name\":$BUS_NAME,\"end_station\":$END_STATION}" >>$WRKF5
 
   if [ $NREC -ne 0 ]; then
     
@@ -121,9 +126,9 @@ do
        # echo "NREC=$NREC / CNTREC=$CNTREC"
             
        if [ $NREC -ne $CNTREC ]; then
-          echo "    {\"time\":\"$TIME,\"bus_name\":\"$BUS_NAME,\"end_station\":\"$END_STATION}," >>$OUTF
+          echo "    {\"time\":\"$TIME,\"bus_name\":\"$BUS_NAME,\"end_station\":\"$END_STATION}," >>$WRKF5
        else
-          echo "    {\"time\":\"$TIME,\"bus_name\":\"$BUS_NAME,\"end_station\":\"$END_STATION}" >>$OUTF
+          echo "    {\"time\":\"$TIME,\"bus_name\":\"$BUS_NAME,\"end_station\":\"$END_STATION}" >>$WRKF5
        fi
 
      done
@@ -133,15 +138,24 @@ do
   INC=$(( $INC + 1 ))
 
   if [ $INC -ne $NDAYS ]; then
-     echo "  ]" >>$OUTF
-     echo "  }," >>$OUTF
+     echo "  ]" >>$WRKF5
+     echo "  }," >>$WRKF5
   else
-     echo "  ]" >>$OUTF
-     echo "  }" >>$OUTF
+     echo "  ]" >>$WRKF5
+     echo "  }" >>$WRKF5
   fi
 
 done
 
-echo "]" >>$OUTF
-echo "}]" >>$OUTF
+echo "]" >>$WRKF5
+echo "}]" >>$WRKF5
+
+# Formattazione del file di output json tramite il comando "json"
+
+echo
+echo "Formattazione del file .json"
+
+pwd 
+# cat $WRKF5 | json >$OUTF
+cp $WRKF5 $OUTF
 
