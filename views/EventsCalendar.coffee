@@ -11,10 +11,16 @@ observer class EventsCalendar extends View
         class: 'label'
 
     @cal = @d3el.append 'div'
+      
+    @spin = @cal.append 'div'
+      .html '<i class="fa fa-spinner fa-spin"></i>'
 
     @listen_to @events, 'change', () => @redraw()
 
   redraw: () ->
+
+    @spin.remove()
+
     data = @events.get_events()
       .filter (d) -> new Date(d.day) >= Date.today() # keep only present or future events
 

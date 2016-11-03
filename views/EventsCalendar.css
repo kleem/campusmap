@@ -56,3 +56,7 @@
 .EventsCalendar a:hover {
   text-decoration: underline;
 }
+
+.EventsCalendar .fa-spin {
+  margin-bottom: 10px;
+}
