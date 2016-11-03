@@ -155,7 +155,6 @@ echo "}]" >>$WRKF5
 echo
 echo "Formattazione del file .json"
 
-pwd 
 # cat $WRKF5 | json >$OUTF
 cp $WRKF5 $OUTF
 
