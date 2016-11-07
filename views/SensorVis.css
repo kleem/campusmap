@@ -1,0 +1,28 @@
+.SensorVis .line {
+  stroke: #EEE;
+}
+
+.SensorVis .innerCells {
+  fill: teal;
+  shape-rendering: crispEdges;
+}
+
+.SensorVis .outerCells:hover {
+  fill: white;
+  opacity: 0.9;
+}
+
+.SensorVis .cell {
+  fill: transparent;
+  shape-rendering: crispEdges;
+}
+
+.SensorVis .day_label, .SensorVis .hour_label {
+  font-family: sans-serif;
+  font-size: 10px;
+}
+.SensorVis .day_label {
+  text-anchor: end;
+}
+.SensorVis .hour_label {
+  text-anchor: middle;

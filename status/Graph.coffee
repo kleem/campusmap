@@ -29,3 +29,4 @@ class Graph
     node_ids = @links.filter((l) -> l.target is room_id).map (l) -> l.source
 
     return @nodes.filter (n) -> n.id in node_ids
+
