@@ -142,7 +142,7 @@ observer class InfoBox extends View
         .html '<i class="fa fa-map-marker" aria-hidden="true"></i> '
       floor.append 'div'
         .text (d) -> "floor #{d.floor}"
-
+          
       # gateway
       gateway = info.append 'div'
         .attrs
@@ -151,6 +151,19 @@ observer class InfoBox extends View
         .html '<i class="fa fa-sign-in" aria-hidden="true"></i> '
       gateway.append 'div'
         .text (d) -> "gateway #{d.gateway}"
+
+    #address
+
+    if @d3el.datum().address?
+      # floor
+      address = info.append 'div'
+        .attrs
+          class: 'info'
+      address.append 'div'
+        .html '<i class="fa fa-map-marker" aria-hidden="true"></i> '
+      address.append 'div'
+        .text (d) -> "#{d.address}"
+
 
     ### specific information
     ###
@@ -250,22 +263,22 @@ observer class InfoBox extends View
         delete @tt
 
     # nodes in room
-    if @d3el.datum().type is 'room'
+    if @d3el.datum().type is 'room' or @d3el.datum().type is 'building'
       spec_info.append 'div'
         .attrs
           class: 'label'
         .text 'People'
 
-      room_nodes = spec_info.append 'div'
+      type_nodes = spec_info.append 'div'
         .attrs
-          class: 'room_nodes'
+          class: (d)-> "nodes"
 
-      nodes = room_nodes.selectAll '.room_node'
-        .data @graph.get_nodes_from_room(@d3el.datum().id)
+      nodes = type_nodes.selectAll '.node'
+          .data @graph.get_nodes_from_room(@d3el.datum().id)
 
       enter_nodes = nodes.enter().append 'div'
         .attrs
-          class: 'room_node'
+          class: 'node'
         .on 'click', (d) => @selection.set d
 
       enter_nodes.append 'div'
@@ -278,3 +291,15 @@ observer class InfoBox extends View
         .attrs
           class: 'node_label'
         .text (d) -> d.label
+
+      @rs = new RoomSensors
+        room_name: @d3el.datum().label
+      @sv = new SensorVis
+        parent: spec_info
+        data_sensor: @rs
+    else
+      if @rs?
+        delete @rs
+      if @sv?
+        @sv.destructor()
+        delete @sv

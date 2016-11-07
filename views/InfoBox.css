@@ -190,3 +190,34 @@
 .InfoBox .specific_information .room_node .node_label {
   padding: 5px 0px 0px 7px;
 }
+
+/* Building nodes
+*/
+
+.InfoBox .specific_information .nodes {
+  display: flex;
+  flex-wrap: wrap;
+}
+.InfoBox .specific_information .node {
+  display: flex;
+  width: 155px;
+  padding: 10px;
+  cursor: pointer;
+}
+.InfoBox .specific_information .node:hover {
+  background-color: #f2f2f2;
+}
+.InfoBox .specific_information .node .img {
+  height: 60px;
+  width: 60px;
+  min-width: 60px;
+  border-radius: 50%;
+  background-position: 50% 30%;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-color: white;
+  border: 1px solid #BBB;
+}
+.InfoBox .specific_information .node .node_label {
+  padding: 5px 0px 0px 7px;
+}

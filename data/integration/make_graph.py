@@ -64,4 +64,16 @@ last_id += 1
 graph['nodes'].append({'id': last_id, 'label': 'Bus Stop San Cataldo', 'img': 'img/bus_stop_san_cataldo.jpg', 'phone': '+39 800 57 0530', 'icon': 'img/cpt.png', 'homepage': 'http://www.pisa.cttnord.it/', 'type': 'bus', 'floor': 'T'})
 last_id += 1
 
+# Area della Ricerca
+graph['nodes'].append({'id': last_id, 'label': 'Area della Ricerca di Pisa', 'img': 'img/cnr.jpg', 'phone': '+39 050 315 2111', 'icon': 'img/cnr_icon.png', 'homepage': 'http://www.area.pi.cnr.it/', 'type': 'building', 'floor': 'T', 'address': 'via G. Moruzzi, 156124 Pisa, Italy'})
+last_id += 1
+
+# Responsabile Area della Ricerca
+graph['nodes'].append({'id': last_id, 'label': 'Ing. Ottavio Zirilli', 'icon': 'img/zirilli.jpg', 'phone': '+39 050 315 2012', 'mobile': '+39 348 3907732', 'email':['zirilli@area.pi.cnr.it','ottavio.zirilli@cnr.it'], 'type': 'person', 'position': 'Responsabile Area', 'floor': 'T'})
+last_id += 1
+
+graph['links'].append({'source': 786, 'target': 785, 'type': 'manager_of'})
+
+graph['links'].append({'source': 124, 'target': 785, 'type': 'manager_of'})
+
 print json.dumps(graph)
