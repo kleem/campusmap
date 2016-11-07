@@ -23,17 +23,21 @@ observer class AppView extends View
 
     camera.set_current_floor_id '3'
 
-    new Canvas
-      parent: this
-      camera: camera
-      floors: floors
-
     graph = new Graph
       nodes: conf.graph.nodes
       links: conf.graph.links
+      rooms: conf.rooms
+      centroids: conf.centroids
 
     selection = new Selection
       graph: graph
+
+    new Canvas
+      parent: this
+      camera: camera
+      selection: selection
+      graph: graph
+      floors: floors
 
     #new DirectionsPanel
     #  parent: this

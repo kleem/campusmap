@@ -4,6 +4,8 @@ observer class Canvas extends View
     @init()
 
     @camera = conf.camera
+    @selection = conf.selection
+    @graph = conf.graph
     @floors = conf.floors
 
     @docs = []
@@ -16,6 +18,15 @@ observer class Canvas extends View
     @zoomable_layer = @svg.append 'g'
     @svg.call @camera.get_zoom_behavior()
 
+    # SCALES
+    @x = d3.scaleLinear()
+      .domain [0, 454.22]
+      .range [1037.726, 7962.337]
+
+    @y = d3.scaleLinear()
+      .domain [0, 454.22]
+      .range [7111.417, 182.840]
+
     # QUEUE
     queue = d3.queue()
 
@@ -27,6 +38,8 @@ observer class Canvas extends View
     @listen_to @camera, 'change', () =>
       @zoom()
       @switch_view()
+
+    @listen_to @selection, 'change', () => @locate()
 
   # The main group within each SVG file is added to the Canvas
   ready: (error, docs) =>
@@ -51,3 +64,39 @@ observer class Canvas extends View
         if d.visible
           d.visible = false
           d3.select(d.obj).style 'visibility', 'hidden'
+
+  cavalier_conversion: (point) ->
+
+    for i in [0...point.z]
+      point.x -= 1.6
+      point.y += 1.6
+
+    return point
+
+  locate: () ->
+    selection = @selection.get()
+    
+    if selection?
+      room = @graph.get_rooms_from_node selection.id
+      centroid = @graph.get_room_centroid room[0]
+    
+      @placemark = @zoomable_layer.selectAll '.placemark'
+        .data [centroid]
+
+      @en_placemark = @placemark.enter().append 'circle'
+        .attrs
+          class: 'placemark'
+
+      @all_placemark = @en_placemark.merge(@placemark)
+      
+      @all_placemark
+        .attrs
+          r: 15
+          fill: 'red'
+          stroke: 'blue'
+          'stroke-width': 2
+          cx: (d) => @x @cavalier_conversion(d).x
+          cy: (d) => @y @cavalier_conversion(d).y
+
+      @placemark.exit().remove()
+     
