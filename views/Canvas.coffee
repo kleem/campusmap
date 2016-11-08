@@ -78,25 +78,27 @@ observer class Canvas extends View
     
     if selection?
       room = @graph.get_rooms_from_node selection.id
-      centroid = @graph.get_room_centroid room[0]
-    
-      @placemark = @zoomable_layer.selectAll '.placemark'
-        .data [centroid]
 
-      @en_placemark = @placemark.enter().append 'circle'
-        .attrs
-          class: 'placemark'
-
-      @all_placemark = @en_placemark.merge(@placemark)
+      if room.length > 0
+        centroid = @graph.get_room_centroid room[0]
       
-      @all_placemark
-        .attrs
-          r: 15
-          fill: 'red'
-          stroke: 'blue'
-          'stroke-width': 2
-          cx: (d) => @x @cavalier_conversion(d).x
-          cy: (d) => @y @cavalier_conversion(d).y
+        @placemark = @zoomable_layer.selectAll '.placemark'
+          .data [centroid]
 
-      @placemark.exit().remove()
+        @en_placemark = @placemark.enter().append 'circle'
+          .attrs
+            class: 'placemark'
+
+        @all_placemark = @en_placemark.merge(@placemark)
+        
+        @all_placemark
+          .attrs
+            r: 15
+            fill: 'red'
+            stroke: 'blue'
+            'stroke-width': 2
+            cx: (d) => @x @cavalier_conversion(d).x
+            cy: (d) => @y @cavalier_conversion(d).y
+
+        @placemark.exit().remove()
      
