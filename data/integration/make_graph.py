@@ -69,7 +69,7 @@ graph['nodes'].append({'id': last_id, 'label': 'Area della Ricerca di Pisa', 'im
 last_id += 1
 
 # Responsabile Area della Ricerca
-graph['nodes'].append({'id': last_id, 'label': 'Ing. Ottavio Zirilli', 'icon': 'img/zirilli.jpg', 'phone': '+39 050 315 2012', 'mobile': '+39 348 3907732', 'email':['zirilli@area.pi.cnr.it','ottavio.zirilli@cnr.it'], 'type': 'person', 'position': 'Responsabile Area', 'floor': 'T'})
+graph['nodes'].append({'id': last_id, 'label': 'Ing. Ottavio Zirilli', 'icon': 'img/zirilli.jpg', 'phone': '+39 050 315 2012', 'mobile': '+39 348 3907732', 'email':['zirilli@area.pi.cnr.it','ottavio.zirilli@cnr.it'], 'type': 'person', 'position': 'Responsabile Area', 'floor': '1'})
 last_id += 1
 
 graph['links'].append({'source': 786, 'target': 785, 'type': 'manager_of'})

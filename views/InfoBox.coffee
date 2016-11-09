@@ -105,18 +105,37 @@ observer class InfoBox extends View
             href: (d) -> "tel:#{d.phone}"
           .text (d) -> d.phone
 
-    # email
-    if @d3el.datum().email?
-      email = info.append 'div'
+    # mobile
+    if @d3el.datum().mobile?
+      mobile = info.append 'div'
         .attrs
           class: 'info'
+      mobile.append 'div'
+        .html '<i class="fa fa-mobile" aria-hidden="true"></i> '
+      mobile.append 'div'
+        .append 'a'
+          .attrs
+            href: (d) -> "tel:#{d.mobile}"
+          .text (d) -> d.mobile
+
+    # email
+    if @d3el.datum().email?
+      
+      emails = info.selectAll '.info_email'
+        .data (if typeof @d3el.datum().email is 'string' then [@d3el.datum().email] else @d3el.datum().email)
+      
+      email = emails.enter().append 'div'
+        .attrs
+          class: 'info info_email'
+
       email.append 'div'
         .html '<i class="fa fa-envelope-o" aria-hidden="true"></i> '
+      
       email.append 'div'
         .append 'a'
           .attrs
-            href: (d) -> "mailto:#{d.email}"
-          .text (d) -> d.email
+            href: (d) -> "mailto:#{d}"
+          .text (d) -> d
 
     # homepage
     if @d3el.datum().homepage?
@@ -292,14 +311,35 @@ observer class InfoBox extends View
           class: 'node_label'
         .text (d) -> d.label
 
-      @rs = new RoomSensors
+      ### Add data sensor of the room (punchcard)
+      ###
+      ###
+      @ds = new DataSensors
         room_name: @d3el.datum().label
       @sv = new SensorVis
         parent: spec_info
-        data_sensor: @rs
+        data_sensor: @ds
+      ###
+      
+      ### Show sensors of the room
+      ###
+      @rs = new RoomSensors
+        room_name: @d3el.datum().label
+      @s = new Sensors
+        parent: spec_info
+        sensors: @rs
+
     else
-      if @rs?
-        delete @rs
+      ###
+      if @ds?
+        delete @ds
       if @sv?
         @sv.destructor()
         delete @sv
+      ###
+      
+      if @rs?
+        delete @rs
+      if @s?
+        @s.destructor()
+        delete @s

@@ -1,0 +1,41 @@
+.Sensors .sensors {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.Sensors .sensors .sensor {
+  width: 95px;
+  height: 30px;
+  text-align: center;
+  flex-grow: 1;
+  padding: 6px;
+  cursor: pointer;
+  display: flex;
+  font-size: 11px;
+}
+
+.Sensors .sensors .sensor:hover, .Sensors .sensors .sensor.active {
+  background-color: #f2f2f2;
+}
+
+.Sensors .sensor .sensor_info {
+  font-size: 10px;
+}
+
+.Sensors .sensor .sensor_info .sensor_value {
+  margin-top: 2px;
+}
+
+.Sensors .sensors .fa {
+  width: 25px;
+  color: steelblue;
+  padding: 5px;
+}
+
+.Sensors .sensors .fa span{
+  margin-left: 2px;
+  font-weight: bold;
+  font-size:40%;
+}
+
