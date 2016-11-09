@@ -5,5 +5,12 @@
 }
 
 .Canvas svg {
-  background: #a4ad5c;
+  background: #A4AD5C;
+}
+
+.Canvas .placemark {
+  fill: #6C5353;
+  stroke: #B44646;
+  stroke-width: 10;
+  vector-effect: non-scaling-stroke;
 }

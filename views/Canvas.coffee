@@ -10,9 +10,16 @@ observer class Canvas extends View
 
     @docs = []
 
+    @min_x = 1200
+    @min_y = 1000
+    @vb_w = 6000
+    @vb_h = 5000
+
+    @placemark_radius = 50
+
     @svg = @d3el.append 'svg'
       .attrs
-        viewBox: '1200 1000 6000 5000'
+        viewBox: "#{@min_x} #{@min_y} #{@vb_w} #{@vb_h}"
 
     # ZOOM
     @zoomable_layer = @svg.append 'g'
@@ -48,6 +55,10 @@ observer class Canvas extends View
       @docs.push {index: i, visible: true, obj: obj}
 
   zoom: () =>
+    @zoomable_layer.selectAll '.placemark'
+      .attrs
+        r: @placemark_radius / @camera.transform.k
+
     @zoomable_layer
       .attrs
         transform: @camera.transform
@@ -66,18 +77,20 @@ observer class Canvas extends View
           d3.select(d.obj).style 'visibility', 'hidden'
 
   cavalier_conversion: (point) ->
-
-    for i in [0...point.z]
-      point.x -= 1.6
-      point.y += 1.6
-
-    return point
+    return {
+      x: point.x - (Math.cos(Math.PI/4) * 4.5) * point.z
+      y: point.y + (Math.sin(Math.PI/4) * 4.5) * point.z
+    }
 
   locate: () ->
     selection = @selection.get()
     
     if selection?
-      room = @graph.get_rooms_from_node selection.id
+      
+      if selection.type isnt 'room'
+        room = @graph.get_rooms_from_node selection.id
+      else
+        room = [selection]
 
       if room.length > 0
         centroid = @graph.get_room_centroid room[0]
@@ -93,12 +106,19 @@ observer class Canvas extends View
         
         @all_placemark
           .attrs
-            r: 15
-            fill: 'red'
-            stroke: 'blue'
-            'stroke-width': 2
+            r: @placemark_radius
             cx: (d) => @x @cavalier_conversion(d).x
             cy: (d) => @y @cavalier_conversion(d).y
 
         @placemark.exit().remove()
-     
+
+        t = @camera.transform
+
+        if !t?
+          t = d3.zoomTransform(this)
+          t.k = 1
+
+        t.x = -@x(centroid.x)*t.k + @min_x + @vb_w/2
+        t.y = -@y(centroid.y)*t.k + @min_y + @vb_h/2
+
+        @zoomable_layer.call(@camera.zoom.transform, t)
