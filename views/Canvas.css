@@ -12,19 +12,25 @@
   cursor: pointer;
 }
 .Canvas .placemark circle {
-  fill: #6C5353;
-  stroke: #B44646;
-  stroke-width: 10;
+  fill: #B44646;
   vector-effect: non-scaling-stroke;
   opacity: .2;
 }
+.Canvas .placemark .halo {
+  stroke: #fff;
+  stroke-width: 1.1px;
+  stroke-linejoin: round;
+}
 .Canvas .placemark text {
-  font-size: 13px;
-  pointer-events: none;
+  font-size: 12px;
+  cursor: pointer;
 }
 
 .Canvas .selected circle {
   opacity: 1;
+}
+.Canvas .selected text {
+  fill: #B44646;
 }
 
 .Canvas .hidden {

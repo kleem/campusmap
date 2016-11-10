@@ -77,7 +77,16 @@ observer class Canvas extends View
 
     @en_placemarks.append 'text'
       .attrs
-        'text-anchor': 'middle'
+        class: 'halo'
+        'text-anchor': 'start'
+        x: 7
+        dy: '0.35em'
+      .text (d) -> d.label
+
+    @en_placemarks.append 'text'
+      .attrs
+        'text-anchor': 'start'
+        x: 7
         dy: '0.35em'
       .text (d) -> d.label
 
