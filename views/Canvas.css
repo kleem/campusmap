@@ -9,8 +9,24 @@
 }
 
 .Canvas .placemark {
+  cursor: pointer;
+}
+.Canvas .placemark circle {
   fill: #6C5353;
   stroke: #B44646;
   stroke-width: 10;
   vector-effect: non-scaling-stroke;
+  opacity: .2;
+}
+.Canvas .placemark text {
+  font-size: 13px;
+  pointer-events: none;
+}
+
+.Canvas .selected circle {
+  opacity: 1;
+}
+
+.Canvas .hidden {
+  display: none;
 }

@@ -8,8 +8,10 @@ observable class Camera
     @floors.forEach (d) =>
       @floors_index[d.id] = d
 
+    @transform = d3.zoomTransform(this)
+
     @zoom = d3.zoom()
-      .scaleExtent [0.5, 8]
+      .scaleExtent [0.8, 8]
       .on 'zoom', () =>
         @transform = d3.event.transform
         @trigger 'change'

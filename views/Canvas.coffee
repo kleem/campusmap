@@ -9,13 +9,12 @@ observer class Canvas extends View
     @floors = conf.floors
 
     @docs = []
+    @placemark_radius = 50
 
     @min_x = 1200
     @min_y = 1000
     @vb_w = 6000
     @vb_h = 5000
-
-    @placemark_radius = 50
 
     @svg = @d3el.append 'svg'
       .attrs
@@ -44,9 +43,9 @@ observer class Canvas extends View
 
     @listen_to @camera, 'change', () =>
       @zoom()
-      @switch_view()
+      @switch_floor()
 
-    @listen_to @selection, 'change', () => @locate()
+    @listen_to @selection, 'change', () => @select()
 
   # The main group within each SVG file is added to the Canvas
   ready: (error, docs) =>
@@ -54,16 +53,55 @@ observer class Canvas extends View
       obj = @zoomable_layer.node().appendChild d.getElementsByTagName('g')[0]
       @docs.push {index: i, visible: true, obj: obj}
 
-  zoom: () =>
-    @zoomable_layer.selectAll '.placemark'
-      .attrs
-        r: @placemark_radius / @camera.transform.k
+  redraw_placemarks: (data) ->
+    selection = @selection.get()
 
+    if selection?
+      room = if selection.type isnt 'room' then @graph.get_rooms_from_node(selection.id)[0] else selection
+    else
+      room = null
+
+    @placemarks = @zoomable_layer.selectAll '.placemark'
+      .data data, (d) -> d.id
+
+    @en_placemarks = @placemarks.enter().append 'g'
+      .attrs
+        class: 'placemark'
+        transform: (d) => "translate(#{@x(@to_cavalier(d.centroid).x)}, #{@y(@to_cavalier(d.centroid).y)})"
+      .on 'click', (d) => @selection.set d
+      .classed 'hidden', (d) -> d isnt room
+
+    @en_placemarks.append 'circle'
+      .attrs
+        r: @placemark_radius
+
+    @en_placemarks.append 'text'
+      .attrs
+        'text-anchor': 'middle'
+        dy: '0.35em'
+      .text (d) -> d.label
+
+    selected_points = @graph.get_points_from_node selection
+
+    @all_placemarks = @en_placemarks.merge(@placemarks)
+      .classed 'selected', (d) -> d in selected_points
+      .classed 'hidden', (d) => d isnt room and @camera.transform.k < 4.5
+
+    @placemarks.exit().remove()
+
+  zoom: () =>
     @zoomable_layer
       .attrs
         transform: @camera.transform
 
-  switch_view: () =>
+    @zoomable_layer.selectAll '.placemark circle'
+      .attrs
+        r: @placemark_radius / @camera.transform.k
+
+    @zoomable_layer.selectAll '.placemark'
+      .classed 'hidden', (if @camera.transform.k > 4.5 then false else true)
+
+  switch_floor: () =>
     current_index = @camera.get_current_floor().i
 
     for d,i in @docs
@@ -76,49 +114,32 @@ observer class Canvas extends View
           d.visible = false
           d3.select(d.obj).style 'visibility', 'hidden'
 
-  cavalier_conversion: (point) ->
+    @redraw_placemarks @graph.get_rooms_at_floor(current_index)
+
+  to_cavalier: (point) ->
     return {
       x: point.x - (Math.cos(Math.PI/4) * 4.5) * point.z
       y: point.y + (Math.sin(Math.PI/4) * 4.5) * point.z
     }
 
-  locate: () ->
+  select: () ->
     selection = @selection.get()
     
     if selection?
-      
-      if selection.type isnt 'room'
-        room = @graph.get_rooms_from_node selection.id
-      else
-        room = [selection]
+      room = if selection.type isnt 'room' then @graph.get_rooms_from_node(selection.id)[0] else selection
 
-      if room.length > 0
-        centroid = @graph.get_room_centroid room[0]
-      
-        @placemark = @zoomable_layer.selectAll '.placemark'
-          .data [centroid]
+      current_index = @camera.get_current_floor().i
+      @redraw_placemarks @graph.get_rooms_at_floor(current_index)
 
-        @en_placemark = @placemark.enter().append 'circle'
-          .attrs
-            class: 'placemark'
+      # center canvas to selection
+      centroid = @graph.get_room_centroid room
+      t = @camera.transform
 
-        @all_placemark = @en_placemark.merge(@placemark)
-        
-        @all_placemark
-          .attrs
-            r: @placemark_radius
-            cx: (d) => @x @cavalier_conversion(d).x
-            cy: (d) => @y @cavalier_conversion(d).y
+      if !t?
+        t = d3.zoomTransform(this)
+        t.k = 1
 
-        @placemark.exit().remove()
+      t.x = -@x(centroid.x)*t.k + @min_x + @vb_w/2
+      t.y = -@y(centroid.y)*t.k + @min_y + @vb_h/2
 
-        t = @camera.transform
-
-        if !t?
-          t = d3.zoomTransform(this)
-          t.k = 1
-
-        t.x = -@x(centroid.x)*t.k + @min_x + @vb_w/2
-        t.y = -@y(centroid.y)*t.k + @min_y + @vb_h/2
-
-        @zoomable_layer.call(@camera.zoom.transform, t)
+      @zoomable_layer.call(@camera.zoom.transform, t)
