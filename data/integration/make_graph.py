@@ -57,8 +57,9 @@ graph['nodes'].append({'id': last_id, 'label': 'Canteen', 'img': 'img/canteen.jp
 last_id += 1
 
 # Library
-graph['nodes'].append({'id': last_id, 'label': 'Library', 'img': 'img/library.jpg', 'type': 'room', 'floor': 'T'})
-last_id += 1
+for n in graph['nodes']:
+    if n['label'] == 'Library':
+        n['img'] = 'img/library.jpg'
 
 # Bus Stop 'Volpi CNR'
 graph['nodes'].append({'id': last_id, 'label': 'Bus Stop San Cataldo', 'img': 'img/bus_stop_san_cataldo.jpg', 'phone': '+39 800 57 0530', 'icon': 'img/cpt.png', 'homepage': 'http://www.pisa.cttnord.it/', 'type': 'bus', 'floor': 'T'})
