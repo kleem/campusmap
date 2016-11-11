@@ -71,24 +71,20 @@ observer class Canvas extends View
       .on 'click', (d) => @selection.set d
       .classed 'hidden', (d) -> d isnt room
 
-    @en_placemarks.append 'circle'
-      .attrs
-        r: @placemark_radius
-
     @en_placemarks.append 'text'
       .attrs
-        class: 'halo'
-        'text-anchor': 'start'
-        x: 7
+        'text-anchor': 'middle'
         dy: '0.35em'
       .text (d) -> d.label
 
-    @en_placemarks.append 'text'
+    @en_placemarks.append 'g'
       .attrs
-        'text-anchor': 'start'
-        x: 7
-        dy: '0.35em'
-      .text (d) -> d.label
+        class: 'out_marker'
+      .append 'path'
+        .attrs
+          class: 'marker'
+          transform: 'translate(-8,-24)'
+          d: 'M 12,8 Q 12,6.34375 10.828125,5.171875 9.65625,4 8,4 6.34375,4 5.171875,5.171875 4,6.34375 4,8 4,9.65625 5.171875,10.828125 6.34375,12 8,12 9.65625,12 10.828125,10.828125 12,9.65625 12,8 z m 4,0 q 0,1.703125 -0.515625,2.796875 l -5.6875,12.09375 q -0.25,0.515625 -0.742188,0.8125 Q 8.5625,24 8,24 7.4375,24 6.945313,23.703125 6.453125,23.40625 6.21875,22.890625 L 0.515625,10.796875 Q 0,9.703125 0,8 0,4.6875 2.34375,2.34375 4.6875,0 8,0 11.3125,0 13.65625,2.34375 16,4.6875 16,8 z'
 
     selected_points = @graph.get_points_from_node selection
 
@@ -103,9 +99,9 @@ observer class Canvas extends View
       .attrs
         transform: @camera.transform
 
-    @zoomable_layer.selectAll '.placemark circle'
+    @zoomable_layer.selectAll '.placemark .out_marker'
       .attrs
-        r: @placemark_radius / @camera.transform.k
+        transform: "scale(#{10/@camera.transform.k})"
 
     @zoomable_layer.selectAll '.placemark'
       .classed 'hidden', (if @camera.transform.k > 4.5 then false else true)

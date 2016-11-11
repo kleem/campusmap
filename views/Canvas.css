@@ -3,7 +3,6 @@
   width: 100%;
   z-index: 1;
 }
-
 .Canvas svg {
   background: #A4AD5C;
 }
@@ -11,28 +10,19 @@
 .Canvas .placemark {
   cursor: pointer;
 }
-.Canvas .placemark circle {
-  fill: #B44646;
-  vector-effect: non-scaling-stroke;
-  opacity: .2;
-}
-.Canvas .placemark .halo {
-  stroke: #fff;
-  stroke-width: 1.1px;
-  stroke-linejoin: round;
+.Canvas .placemark .marker {
+  fill: #b44646;
+  opacity: 0;
 }
 .Canvas .placemark text {
   font-size: 12px;
+  font-weight: bold;
   cursor: pointer;
+  fill: rgba(0,0,0,0.45);
 }
-
-.Canvas .selected circle {
+.Canvas .selected .marker {
   opacity: 1;
 }
-.Canvas .selected text {
-  fill: #B44646;
-}
-
 .Canvas .hidden {
   display: none;
 }
