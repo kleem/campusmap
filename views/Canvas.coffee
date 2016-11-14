@@ -56,54 +56,69 @@ observer class Canvas extends View
   redraw_placemarks: (data) ->
     selection = @selection.get()
 
-    if selection?
-      room = if selection.type isnt 'room' then @graph.get_rooms_from_node(selection.id)[0] else selection
-    else
-      room = null
-
-    @placemarks = @zoomable_layer.selectAll '.placemark'
+    # Room writings
+    writings = @zoomable_layer.selectAll '.writing'
       .data data, (d) -> d.id
 
-    @en_placemarks = @placemarks.enter().append 'g'
+    en_writings = writings.enter().append 'g'
       .attrs
-        class: 'placemark'
+        class: 'writing'
         transform: (d) => "translate(#{@x(@to_cavalier(d.centroid).x)}, #{@y(@to_cavalier(d.centroid).y)})"
       .on 'click', (d) => @selection.set d
-      .classed 'hidden', (d) -> d isnt room
 
-    @en_placemarks.append 'text'
+    en_writings.append 'text'
       .attrs
         'text-anchor': 'middle'
         dy: '0.35em'
       .text (d) -> d.label
 
-    @en_placemarks.append 'g'
-      .attrs
-        class: 'out_marker'
-      .append 'path'
-        .attrs
-          class: 'marker'
-          transform: 'translate(-8,-24)'
-          d: 'M 12,8 Q 12,6.34375 10.828125,5.171875 9.65625,4 8,4 6.34375,4 5.171875,5.171875 4,6.34375 4,8 4,9.65625 5.171875,10.828125 6.34375,12 8,12 9.65625,12 10.828125,10.828125 12,9.65625 12,8 z m 4,0 q 0,1.703125 -0.515625,2.796875 l -5.6875,12.09375 q -0.25,0.515625 -0.742188,0.8125 Q 8.5625,24 8,24 7.4375,24 6.945313,23.703125 6.453125,23.40625 6.21875,22.890625 L 0.515625,10.796875 Q 0,9.703125 0,8 0,4.6875 2.34375,2.34375 4.6875,0 8,0 11.3125,0 13.65625,2.34375 16,4.6875 16,8 z'
+    all_writings = en_writings.merge(writings)
+      .classed 'hidden', (d) => @camera.transform.k < 4.5
 
+    writings.exit().remove()
+
+    # Placemarks
     selected_points = @graph.get_points_from_node selection
 
-    @all_placemarks = @en_placemarks.merge(@placemarks)
-      .classed 'selected', (d) -> d in selected_points
-      .classed 'hidden', (d) => d isnt room and @camera.transform.k < 4.5
+    placemarks = @zoomable_layer.selectAll '.placemark'
+      .data data, (d) -> d.id
 
-    @placemarks.exit().remove()
+    en_placemarks = placemarks.enter().append 'g'
+      .attrs
+        class: 'placemark'
+        transform: (d) => "translate(#{@x(@to_cavalier(d.centroid).x)}, #{@y(@to_cavalier(d.centroid).y)})"
+
+    inner_g = en_placemarks.append 'g'
+    inner_inner_g = inner_g.append 'g'
+      .attrs
+        transform: 'scale(10) translate(-10, -34)'
+
+    inner_inner_g.append 'path'
+      .attrs
+        class: 'marker'
+        d: 'm 9.8764574,31.79142 c -0.338425,-0.310215 -3.09702,-5.15494 -4.9481,-8.689995 C 1.6820824,16.901925 -0.00231761,12.48891 2.3933246e-6,10.189485 0.00400239,6.4328055 2.1654374,2.8789055 5.4922974,1.1597255 7.0703674,0.34424546 8.4572874,0.00391046 10.218242,3.5456334e-5 12.022222,-0.00396454 13.401907,0.33017046 15.006572,1.1595805 c 3.32727,1.719785 5.48861,5.27318 5.492405,9.0299045 0.002,2.29401 -1.69247,6.737965 -4.920215,12.901435 -1.85322,3.53877 -4.61567,8.388045 -4.956345,8.7005 -0.11646,0.106815 -0.25763,0.171875 -0.372925,0.171875 -0.11527,0 -0.2565346,-0.06509 -0.3730346,-0.171875 z'
+
+    inner_inner_g.append 'path'
+      .attrs
+        class: 'circle'
+        d: 'm -7.2699413,6.9825382 a 7.943903,7.943903 0 1 1 -15.8878057,0 7.943903,7.943903 0 1 1 15.8878057,0 z'
+        transform: 'matrix(1.0113978,0,0,1.0113978,25.605491,3.1820663)'
+
+    all_placemarks = en_placemarks.merge(placemarks)
+      .classed 'hidden', (d) -> d not in selected_points
+
+    placemarks.exit().remove()    
 
   zoom: () =>
     @zoomable_layer
       .attrs
         transform: @camera.transform
 
-    @zoomable_layer.selectAll '.placemark .out_marker'
+    @zoomable_layer.selectAll '.placemark > g'
       .attrs
-        transform: "scale(#{10/@camera.transform.k})"
+        transform: "scale(#{1/@camera.transform.k})"
 
-    @zoomable_layer.selectAll '.placemark'
+    @zoomable_layer.selectAll '.writing'
       .classed 'hidden', (if @camera.transform.k > 4.5 then false else true)
 
   switch_floor: () =>

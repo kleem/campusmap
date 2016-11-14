@@ -7,24 +7,27 @@
   background: #A4AD5C;
 }
 
-.Canvas .placemark {
+.Canvas .writing {
   cursor: pointer;
 }
-.Canvas .placemark .marker {
-  fill: #b44646;
-  opacity: 0;
-}
-.Canvas .placemark text {
+.Canvas .writing text {
   font-size: 12px;
   font-weight: bold;
   cursor: pointer;
   fill: rgba(0,0,0,0.45);
 }
-.Canvas .selected .marker {
-  opacity: 1;
-  stroke: #303030;
-  stroke-width: 1.2px;
+
+.Canvas .placemark .marker {
+  fill: #b44646;
 }
+.Canvas .placemark .circle {
+  fill: #fff;
+}
+.Canvas .placemark path {
+  stroke: #742d2d;
+  stroke-width: 1px;
+}
+
 .Canvas .hidden {
   display: none;
 }
