@@ -120,17 +120,20 @@ observer class Canvas extends View
 
     placemarks.exit().remove()    
 
-  zoom: () =>
-    @zoomable_layer
-      .attrs
-        transform: @camera.transform
-
+  lod: () ->
     @zoomable_layer.selectAll '.placemark > g'
       .attrs
         transform: "scale(#{1/@camera.transform.k})"
 
     @zoomable_layer.selectAll '.writing'
       .classed 'hidden', (if @camera.transform.k > 4.5 then false else true)
+
+  zoom: () =>
+    @zoomable_layer
+      .attrs
+        transform: @camera.transform
+
+    @lod()
 
   switch_floor: () =>
     current_index = @camera.get_current_floor().i
@@ -146,6 +149,8 @@ observer class Canvas extends View
           d3.select(d.obj).style 'visibility', 'hidden'
 
     @redraw_placemarks @graph.get_rooms_at_floor(current_index)
+
+    @lod()
 
   to_cavalier: (point) ->
     return {
