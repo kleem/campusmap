@@ -94,7 +94,6 @@ observer class InfoBox extends View
 
     # phone
     if @d3el.datum().phone?
-      console.log 'phone'
       phone = info.append 'div'
         .attrs
           class: 'info'
