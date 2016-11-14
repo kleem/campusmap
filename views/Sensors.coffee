@@ -43,3 +43,6 @@ observer class Sensors extends View
       .on 'click', (d) -> 
         d3.selectAll('.sensor').classed('active', false)
         d3.select(this).classed('active', true)   
+
+  destructor: () ->
+    @stop_listening()
