@@ -104,6 +104,17 @@ observer class Canvas extends View
         d: 'm -7.2699413,6.9825382 a 7.943903,7.943903 0 1 1 -15.8878057,0 7.943903,7.943903 0 1 1 15.8878057,0 z'
         transform: 'matrix(1.0113978,0,0,1.0113978,25.605491,3.1820663)'
 
+    # inner_inner_g.append 'text'
+    #   .attrs
+    #     'fill': '#303030'
+    #     'font-size': 10
+    #     'font-family': 'FontAwesome'
+    #     'text-anchor': 'middle'
+    #     x: 10.2
+    #     y: 10.35
+    #     dy: '0.35em'
+    #   .text '\uf007'
+
     all_placemarks = en_placemarks.merge(placemarks)
       .classed 'hidden', (d) -> d not in selected_points
 
@@ -146,7 +157,7 @@ observer class Canvas extends View
     selection = @selection.get()
     
     if selection?
-      room = if selection.type isnt 'room' then @graph.get_rooms_from_node(selection.id)[0] else selection
+      room = if selection.type is 'person' then @graph.get_rooms_from_node(selection.id)[0] else selection
 
       current_index = @camera.get_current_floor().i
       @redraw_placemarks @graph.get_rooms_at_floor(current_index)

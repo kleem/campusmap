@@ -29,7 +29,7 @@ class Graph
   get_rooms_at_floor: (floor) ->
     return @nodes.filter (n) => 
       n.centroid = @get_room_centroid n
-      return n.type is 'room' and (if n.floor is 'T' then 0 else parseInt(n.floor)) is floor and n.centroid?
+      return n.type in ['room', 'bicycle', 'bus'] and (if n.floor is 'T' then 0 else parseInt(n.floor)) is floor and n.centroid?
 
   get_rooms_from_node: (node_id) ->
     results = @links.filter((l) -> l.source is node_id).map (l) -> l.target
@@ -40,6 +40,8 @@ class Graph
     if node?
       return switch node.type
         when 'room' then [node]
+        when 'bicycle' then [node]
+        when 'bus' then [node]
         when 'person' then @get_rooms_from_node node.id
         else []
     else
