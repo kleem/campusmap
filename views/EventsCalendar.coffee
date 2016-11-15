@@ -92,3 +92,6 @@ observer class EventsCalendar extends View
       return start <= new Date() <= end
 
     events.exit().remove()
+
+  destructor: () ->
+    @stop_listening()

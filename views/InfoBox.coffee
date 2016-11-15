@@ -163,13 +163,14 @@ observer class InfoBox extends View
         .text (d) -> "floor #{d.floor}"
           
       # gateway
-      gateway = info.append 'div'
-        .attrs
-          class: 'info'
-      gateway.append 'div'
-        .html '<i class="fa fa-sign-in" aria-hidden="true"></i> '
-      gateway.append 'div'
-        .text (d) -> "gateway #{d.gateway}"
+      if @d3el.datum().gateway?
+        gateway = info.append 'div'
+          .attrs
+            class: 'info'
+        gateway.append 'div'
+          .html '<i class="fa fa-sign-in" aria-hidden="true"></i> '
+        gateway.append 'div'
+          .text (d) -> "gateway #{d.gateway}"
 
     #address
 
@@ -206,6 +207,9 @@ observer class InfoBox extends View
         .attrs
           class: 'icon_ciclopi_div'
 
+      @spin = icon_ciclopi_div.append 'div'
+        .html '<i class="fa fa-spinner fa-spin"></i>'
+
       spec_info = ciclopi.append 'p'
         .attrs
           class: 'text_ciclopi'
@@ -214,6 +218,7 @@ observer class InfoBox extends View
       if not @ciclopi?
         @ciclopi = new CicloPI
         @ciclopi_binding = @ciclopi.on 'change', () =>
+          @spin.remove()
           icon_ciclopi = icon_ciclopi_div.selectAll '.ciclopi_parking'
             .data @ciclopi.get_spots()
 
@@ -225,11 +230,14 @@ observer class InfoBox extends View
           icon_ciclopi.select 'i'
             .attrs
               class: (d) ->
-                if d
+                if d isnt null
                   'fa fa-bicycle fa-rotate-270'
+                else if d is null
+                  'fa fa-warning'
 
           available_bicycles = @ciclopi.get_available_bicycles()
           available_parkings = @ciclopi.get_available_parkings()
+          inactive_parkings = @ciclopi.get_inactive_parkings()
 
           spec_info
             .html () ->
@@ -239,7 +247,7 @@ observer class InfoBox extends View
                 bicycles = 'bicycle'
               if available_parkings is 1
                 spots = 'spot'
-              "#{available_bicycles} #{bicycles} and #{available_parkings} #{spots} available"
+              "#{available_bicycles} #{bicycles} and #{available_parkings} #{spots} available and #{inactive_parkings} #{spots} inactive"
     else
       if @ciclopi?
         # stop listening
@@ -282,7 +290,7 @@ observer class InfoBox extends View
         delete @tt
 
     # nodes in room
-    if @d3el.datum().type is 'room' or @d3el.datum().type is 'building'
+    if @graph.get_nodes_from_room(@d3el.datum().id).length > 0
       spec_info.append 'div'
         .attrs
           class: 'label'

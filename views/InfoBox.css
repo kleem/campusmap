@@ -157,6 +157,12 @@
   color: #333;
 	font-size: 20px;
 }
+.InfoBox .ciclopi_parking i.fa-warning {
+  margin-top: 9px;
+  margin-left: 3px;
+  color: #333;
+  font-size: 16px;
+}
 .InfoBox .text_ciclopi {
   margin-top: 10px;
 }
