@@ -226,14 +226,24 @@ observer class InfoBox extends View
             .attrs
               class: 'ciclopi_parking'
             .append 'i'
-
+          
           icon_ciclopi.select 'i'
             .attrs
               class: (d) ->
-                if d isnt null
+                if d is true
                   'fa fa-bicycle fa-rotate-270'
                 else if d is null
                   'fa fa-warning'
+              title: (d) ->
+                if d is true
+                  'bicycle available'
+                else if d is null
+                  'spot inactive'
+                else
+                  'spot available'
+
+
+
 
           available_bicycles = @ciclopi.get_available_bicycles()
           available_parkings = @ciclopi.get_available_parkings()
