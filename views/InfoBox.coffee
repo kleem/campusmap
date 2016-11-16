@@ -59,19 +59,19 @@ observer class InfoBox extends View
         .text (d) -> if d.position is '' then "#{d.institute}" else "#{d.position}, #{d.institute}"
 
     # directions
-    directions = profile.append 'div'
-      .attrs
-        class: 'directions'
+    #directions = profile.append 'div'
+    #  .attrs
+    #    class: 'directions'
 
-    directions.append 'div'
-      .attrs
-        class: 'direction to'
-      .html '<i class="fa fa-arrow-circle-left" aria-hidden="true"></i><div>To</div>'
+    #directions.append 'div'
+    #  .attrs
+    #    class: 'direction to'
+    #  .html '<i class="fa fa-arrow-circle-left" aria-hidden="true"></i><div>To</div>'
 
-    directions.append 'div'
-      .attrs
-        class: 'direction from'
-      .html '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i><div>From</div>'
+    #directions.append 'div'
+    #  .attrs
+    #    class: 'direction from'
+    #  .html '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i><div>From</div>'
 
     ### additional information
     ###
