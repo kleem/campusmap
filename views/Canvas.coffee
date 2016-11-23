@@ -118,15 +118,52 @@ observer class Canvas extends View
     all_placemarks = en_placemarks.merge(placemarks)
       .classed 'hidden', (d) -> d not in selected_points
 
-    placemarks.exit().remove()    
+    placemarks.exit().remove()
+
+  redraw_pois: (data) ->
+    
+    pois = @zoomable_layer.selectAll '.poi'
+      .data data, (d) -> d.id
+
+    en_pois = pois.enter().append 'g'
+      .attrs
+        class: 'poi'
+        transform: (d) => 
+          point = {x: d.x, y: d.y, z: (if d.floor is 'T' then 0 else parseInt(d.floor))}
+          "translate(#{@x(@to_cavalier(point).x)}, #{@y(@to_cavalier(point).y)})"
+      .on 'click', (d) => @selection.set d
+
+    inner_g = en_pois.append 'g'
+
+    inner_g.append 'circle'
+      .attrs
+        r: 40
+      .append 'title'
+        .text (d) -> d.label
+
+    inner_g.append 'text'
+      .attrs
+        'text-anchor': 'start'
+        dy: '0.35em'
+        x: 60
+      .text (d) -> d.label
+
+    pois.exit().remove()
 
   lod: () ->
     @zoomable_layer.selectAll '.placemark > g'
       .attrs
         transform: "scale(#{1/@camera.transform.k})"
 
+    @zoomable_layer.selectAll '.poi > g'
+      .attrs
+        transform: "scale(#{1/@camera.transform.k})"
+
     @zoomable_layer.selectAll '.writing'
       .classed 'hidden', (if @camera.transform.k > 4.5 then false else true)
+
+    @zoomable_layer.selectAll '.poi text'
+      .classed 'hidden', (if @camera.transform.k > 3 then false else true)
 
   zoom: () =>
     @zoomable_layer
@@ -149,6 +186,7 @@ observer class Canvas extends View
           d3.select(d.obj).style 'visibility', 'hidden'
 
     @redraw_placemarks @graph.get_rooms_at_floor(current_index)
+    @redraw_pois @graph.get_pois_at_floor(current_index)
 
     @lod()
 
@@ -169,13 +207,15 @@ observer class Canvas extends View
 
       # center canvas to selection
       centroid = @graph.get_room_centroid room
-      t = @camera.transform
+      
+      if centroid?
+        t = @camera.transform
 
-      if !t?
-        t = d3.zoomTransform(this)
-        t.k = 1
+        if !t?
+          t = d3.zoomTransform(this)
+          t.k = 1
 
-      t.x = -@x(centroid.x)*t.k + @min_x + @vb_w/2
-      t.y = -@y(centroid.y)*t.k + @min_y + @vb_h/2
+        t.x = -@x(centroid.x)*t.k + @min_x + @vb_w/2
+        t.y = -@y(centroid.y)*t.k + @min_y + @vb_h/2
 
-      @zoomable_layer.call(@camera.zoom.transform, t)
+        @zoomable_layer.call(@camera.zoom.transform, t)

@@ -31,6 +31,10 @@ class Graph
       n.centroid = @get_room_centroid n
       return n.type in ['room', 'bicycle', 'bus'] and (if n.floor is 'T' then 0 else parseInt(n.floor)) is floor and n.centroid?
 
+  get_pois_at_floor: (floor) ->
+    return @nodes.filter (n) =>
+      return n.x? and n.y? and (if n.floor is 'T' then 0 else parseInt(n.floor)) is floor
+
   get_rooms_from_node: (node_id) ->
     results = @links.filter((l) -> l.source is node_id).map (l) -> l.target
 
