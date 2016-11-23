@@ -28,6 +28,21 @@
   stroke-width: 1px;
 }
 
+.Canvas .poi {
+  cursor: pointer;
+}
+.Canvas .poi circle {
+  fill: #fff;
+  stroke: #742d2d;
+  stroke-width: 10px;
+}
+.Canvas .poi text {
+  font-size: 80px;
+}
+.Canvas .poi text:hover {
+  fill: rgba(0,0,0,0.84);
+}
+
 .Canvas .hidden {
   display: none;
 }

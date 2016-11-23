@@ -26,24 +26,41 @@ class Graph
     else
       return []
 
+  floor_to_z: (floor) ->
+    return if floor is 'T' then 0 else parseInt(floor)
+
   get_rooms_at_floor: (floor) ->
     return @nodes.filter (n) => 
       n.centroid = @get_room_centroid n
-      return n.type in ['room', 'bicycle', 'bus'] and (if n.floor is 'T' then 0 else parseInt(n.floor)) is floor and n.centroid?
+      return n.type in ['room', 'bicycle', 'bus'] and @floor_to_z(n.floor) is floor and n.centroid?
+
+  get_pois_at_floor: (floor) ->
+    return @nodes.filter (n) =>
+      return n.x? and n.y? and (if n.floor is 'T' then 0 else parseInt(n.floor)) is floor
 
   get_rooms_from_node: (node_id) ->
     results = @links.filter((l) -> l.source is node_id).map (l) -> l.target
 
     return @nodes.filter (n) -> n.id in results
 
+  get_nodes_at_floor: (floor) ->
+    # FIXME Indirect nodes are not returned
+    return @nodes.filter (n) => n.floor is floor
+
+  get_in_nodes: (node) ->
+    results = @links.filter((l) -> l.type is 'in' and l.source is node.id).map (l) -> l.target
+
+    return @nodes.filter (n) -> n.id in results
+
   get_points_from_node: (node) ->
     if node?
-      return switch node.type
-        when 'room' then [node]
-        when 'bicycle' then [node]
-        when 'bus' then [node]
-        when 'person' then @get_rooms_from_node node.id
-        else []
+      if node.x? and node.y?
+        return [{x: node.x, y: node.y, z: @floor_to_z(node.floor), node: node}]
+      else if node.centroid?
+        return [{x: node.centroid.x, y: node.centroid.y, z: @floor_to_z(node.floor), node: node}]
+      else
+        in_nodes = @get_in_nodes node
+        return in_nodes.map (n) -> {x: n.centroid.x, y: n.centroid.y, node: node}
     else
       return []
 
