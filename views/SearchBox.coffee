@@ -46,12 +46,12 @@ observer class SearchBox extends View
         else if d3.event.keyCode is 40 and this.query.query isnt ''
           @results.next()
 
-    @innerDiv.append 'div'
-      .attrs
-        class: 'directions_button'
-      .html '<i class="fa fa-arrow-circle-right fa-2x"></i>'
-      .on 'click', () =>
-        @mode.set 'directions'
+    #@innerDiv.append 'div'
+    #  .attrs
+    #    class: 'directions_button'
+    #  .html '<i class="fa fa-arrow-circle-right fa-2x"></i>'
+    #  .on 'click', () =>
+    #    @mode.set 'directions'
 
   set_text: () ->
     selection = @selection.get()
