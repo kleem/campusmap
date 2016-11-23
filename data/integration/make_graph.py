@@ -38,7 +38,7 @@ def rooms_people(file_path, institute):
             room = rooms[d['room']]
 
             # link the person to the room (id-based link)
-            graph['links'].append({'source': d['id'], 'target': room['id'], 'type': 'located_in'})
+            graph['links'].append({'source': d['id'], 'target': room['id'], 'type': 'in'})
 
 rooms_people('../scraping/iit.csv', 'IIT')
 rooms_people('../scraping/isti.csv', 'ISTI')
