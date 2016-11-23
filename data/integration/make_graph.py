@@ -110,7 +110,7 @@ graph['nodes'].append({'id': last_id, 'type': 'food_drink', 'x': 287.05, 'y': 24
 last_id += 1
 
 # BAR Mensa
-graph['nodes'].append({'id': last_id, 'type': 'food_drink', 'x': 199.28, 'y': 264.22, 'label': 'Bar Serenissima', 'floor': 'T'})
+graph['nodes'].append({'id': last_id, 'type': 'food_drink', 'x': 199.28, 'y': 264.22, 'label': 'Bar Mensa', 'floor': 'T'})
 last_id += 1
 
 # Guardiania
