@@ -242,9 +242,6 @@ observer class InfoBox extends View
                 else
                   'spot available'
 
-
-
-
           available_bicycles = @ciclopi.get_available_bicycles()
           available_parkings = @ciclopi.get_available_parkings()
           inactive_parkings = @ciclopi.get_inactive_parkings()

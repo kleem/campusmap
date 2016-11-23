@@ -1,17 +1,7 @@
-Archive:  cpt.gtfs
-Implementation by.....
-  inflating: agency.txt              
-  inflating: calendar_dates.txt      
-  inflating: routes.txt              
-  inflating: shapes.txt              
-  inflating: stop_times.txt          
-  inflating: stops.txt               
-  inflating: trips.txt               
 
-Data e ora di esecuzione: Tue Nov 15 14:55:05 CET 2016
+Data e ora di esecuzione: Wed Nov 23 12:10:03 CET 2016
 
-Estrazione degli orari delle fermate a Cnr (STOP_ID="B0934_11"
-"B4937_11")
+Estrazione degli orari delle fermate a Cnr (STOP_ID=)
 
 Estrazione dei campi:
 TRIP_ID DEPARTURE_TIME 
@@ -20,29 +10,21 @@ ROUTE_SHORT_NAME ROUTE_LONG_NAME
 
 Creazione del file .json
 
-SEARCH_DATE=20161115 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-NREC=119 ========================================
-SEARCH_DATE=20161116 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-NREC=119 ========================================
-SEARCH_DATE=20161117 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-NREC=119 ========================================
-SEARCH_DATE=20161118 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-NREC=119 ========================================
-SEARCH_DATE=20161119 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-NREC=119 ========================================
-SEARCH_DATE=20161120 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-NREC=48 ========================================
-SEARCH_DATE=20161121 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-NREC=119 ========================================
+SEARCH_DATE=20161123 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+NREC=0 ========================================
+SEARCH_DATE=20161124 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+NREC=0 ========================================
+SEARCH_DATE=20161125 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+NREC=0 ========================================
+SEARCH_DATE=20161126 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+NREC=0 ========================================
+SEARCH_DATE=20161127 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+NREC=0 ========================================
+SEARCH_DATE=20161128 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+NREC=0 ========================================
+SEARCH_DATE=20161129 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+NREC=0 ========================================
 
 Formattazione del file .json
 
-removed ‘cpt.gtfs’
-removed ‘agency.txt’
-removed ‘calendar_dates.txt’
-removed ‘routes.txt’
-removed ‘shapes.txt’
-removed ‘stops.txt’
-removed ‘stop_times.txt’
-removed ‘trips.txt’
 removed ‘url.txt’
