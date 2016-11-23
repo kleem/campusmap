@@ -58,16 +58,18 @@ for n in graph['nodes']:
         n['img'] = 'img/library.jpg'
 
 # Area della Ricerca
-graph['nodes'].append({'id': last_id, 'type': 'building', 'label': 'Area della Ricerca di Pisa', 'img': 'img/cnr.jpg', 'phone': '+39 050 315 2111', 'icon': 'img/cnr_icon.png', 'homepage': 'http://www.area.pi.cnr.it/', 'floor': 'T', 'address': 'via G. Moruzzi, 156124 Pisa, Italy'})
+graph['nodes'].append({'id': last_id, 'type': 'building', 'label': 'Area della Ricerca di Pisa', 'img': 'img/cnr.jpg', 'phone': '+39 050 315 2111', 'icon': 'img/cnr_icon.png', 'homepage': 'http://www.area.pi.cnr.it/', 'floor': '3', 'address': 'via G. Moruzzi, 156124 Pisa, Italy'})
 area_id = last_id
 last_id += 1
 
 # IIT
 graph['nodes'].append({'id': last_id, 'type': 'building', 'label': 'Istituto di Informatica e Telematica', 'img': 'img/cnr.jpg', 'phone': '+39 050 315 2112', 'icon': 'img/iit.png', 'homepage': 'http://www.iit.cnr.it/', 'floor': '3'})
+graph['links'].append({'source': last_id, 'target': area_id, 'type': 'located_in'})
 last_id += 1
 
 # ISTI
 graph['nodes'].append({'id': last_id, 'type': 'building', 'label': "Istituto di Scienza e Tecnologie dell'Informazione", 'img': 'img/cnr.jpg', 'phone': '+39 050 315 2878', 'icon': 'img/isti.jpg', 'homepage': 'http://www.isti.cnr.it/', 'floor': '3'})
+graph['links'].append({'source': last_id, 'target': area_id, 'type': 'located_in'})
 last_id += 1
 
 # Responsabile Area della Ricerca

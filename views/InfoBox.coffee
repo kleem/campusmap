@@ -297,34 +297,68 @@ observer class InfoBox extends View
         delete @tt
 
     # nodes in room
-    if @graph.get_nodes_from_room(@d3el.datum().id).length > 0
-      spec_info.append 'div'
-        .attrs
-          class: 'label'
-        .text 'People'
+    nodes = @graph.get_nodes_from_room(@d3el.datum().id)
+    if nodes.length > 0
+      people = nodes.filter (n) -> n.type is 'person'
+      institutes = nodes.filter (n) -> n.type is 'building'
 
-      type_nodes = spec_info.append 'div'
-        .attrs
-          class: (d)-> "nodes"
+      if people.length > 0
+        spec_info.append 'div'
+          .attrs
+            class: 'label'
+          .text 'People'
 
-      nodes = type_nodes.selectAll '.node'
-          .data @graph.get_nodes_from_room(@d3el.datum().id)
+        type_nodes = spec_info.append 'div'
+          .attrs
+            class: 'nodes'
 
-      enter_nodes = nodes.enter().append 'div'
-        .attrs
-          class: 'node'
-        .on 'click', (d) => @selection.set d
+        nodes = type_nodes.selectAll '.node'
+          .data people
 
-      enter_nodes.append 'div'
-        .attrs
-          class: 'img'
-        .styles
-          'background-image': (d) -> "url(#{d.icon})"
+        enter_nodes = nodes.enter().append 'div'
+          .attrs
+            class: 'node'
+          .on 'click', (d) => @selection.set d
 
-      enter_nodes.append 'div'
-        .attrs
-          class: 'node_label'
-        .text (d) -> d.label
+        enter_nodes.append 'div'
+          .attrs
+            class: 'img'
+          .styles
+            'background-image': (d) -> "url(#{d.icon})"
+
+        enter_nodes.append 'div'
+          .attrs
+            class: 'node_label'
+          .text (d) -> d.label
+
+      if institutes.length > 0
+        spec_info.append 'div'
+          .attrs
+            class: 'label'
+          .text 'Institutes'
+
+        type_nodes = spec_info.append 'div'
+          .attrs
+            class: 'nodes'
+
+        nodes = type_nodes.selectAll '.node'
+          .data institutes
+
+        enter_nodes = nodes.enter().append 'div'
+          .attrs
+            class: 'node'
+          .on 'click', (d) => @selection.set d
+
+        enter_nodes.append 'div'
+          .attrs
+            class: 'img'
+          .styles
+            'background-image': (d) -> "url(#{d.icon})"
+
+        enter_nodes.append 'div'
+          .attrs
+            class: 'node_label'
+          .text (d) -> d.label
 
       ### Add data sensor of the room (punchcard)
       ###
