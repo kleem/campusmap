@@ -1,7 +1,18 @@
+http://dati.toscana.it//dataset/rt-oraritb/resource/9dd1ed78-5854-4341-8fd2-0ecc8edb5016
+Archive:  cpt.gtfs
+Implementation by.....
+  inflating: agency.txt              
+  inflating: calendar_dates.txt      
+  inflating: routes.txt              
+  inflating: shapes.txt              
+  inflating: stop_times.txt          
+  inflating: stops.txt               
+  inflating: trips.txt               
 
-Data e ora di esecuzione: Thu Nov 24 14:55:03 CET 2016
+Data e ora di esecuzione: Thu Nov 24 15:35:06 CET 2016
 
-Estrazione degli orari delle fermate a Cnr (STOP_ID=)
+Estrazione degli orari delle fermate a Cnr (STOP_ID="B0934_11"
+"B4937_11")
 
 Estrazione dei campi:
 TRIP_ID DEPARTURE_TIME 
@@ -11,20 +22,28 @@ ROUTE_SHORT_NAME ROUTE_LONG_NAME
 Creazione del file .json
 
 SEARCH_DATE=20161124 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-NREC=0 ========================================
+NREC=119 ========================================
 SEARCH_DATE=20161125 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-NREC=0 ========================================
+NREC=119 ========================================
 SEARCH_DATE=20161126 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-NREC=0 ========================================
+NREC=119 ========================================
 SEARCH_DATE=20161127 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-NREC=0 ========================================
+NREC=48 ========================================
 SEARCH_DATE=20161128 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-NREC=0 ========================================
+NREC=119 ========================================
 SEARCH_DATE=20161129 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-NREC=0 ========================================
+NREC=119 ========================================
 SEARCH_DATE=20161130 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-NREC=0 ========================================
+NREC=119 ========================================
 
 Formattazione del file .json
 
+removed ‘cpt.gtfs’
+removed ‘agency.txt’
+removed ‘calendar_dates.txt’
+removed ‘routes.txt’
+removed ‘shapes.txt’
+removed ‘stops.txt’
+removed ‘stop_times.txt’
+removed ‘trips.txt’
 removed ‘url.txt’
