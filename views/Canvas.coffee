@@ -84,7 +84,7 @@ observer class Canvas extends View
     @writings_layer.selectAll '.writing'
       .classed 'hidden', (if @camera.transform.k > 4.5 then false else true)
 
-    @pois_layer.selectAll '.poi text'
+    @pois_layer.selectAll '.poi .label'
       .classed 'hidden', (if @camera.transform.k > 3 then false else true)
 
   switch_floor: () =>
@@ -135,7 +135,8 @@ observer class Canvas extends View
     @redraw_pois nodes_at_current_floor.filter (d) -> d.x? and d.y?
     @redraw_areas nodes_at_current_floor.filter (d) -> d.centroid?
 
-    @redraw_placemarks @graph.get_points_from_node @selection.get()
+    # FIXME this hides points in other floors, need a way to show them, at least in the nav controls
+    @redraw_placemarks @graph.get_points_from_node(@selection.get()).filter((d) => d.floor is @camera.get_current_floor().id)
 
   redraw_pois: (data) ->
     pois = @pois_layer.selectAll '.poi'
@@ -153,15 +154,42 @@ observer class Canvas extends View
 
     inner_g.append 'circle'
       .attrs
-        r: 40
+        class: 'background'
+        r: 60
+        cy: 5
       .append 'title'
         .text (d) -> d.label
 
+    inner_g.append 'circle'
+      .attrs
+        class: 'foreground'
+        r: 60
+
+    inner_g.append 'foreignObject'
+      .attrs
+        x: -50
+        y: -35
+        width: 100
+        height: 100
+      .html (d) -> "<i class='icon fa fa-fw #{d.icon}'></i>"
+
     inner_g.append 'text'
       .attrs
+        class: 'background label'
         'text-anchor': 'start'
         dy: '0.35em'
-        x: 60
+        x: 80
+      .text (d) -> d.label
+
+    inner_g.append 'text'
+      .attrs
+        class: 'foreground label'
+        'text-anchor': 'start'
+        dy: '0.35em'
+        x: 80
+      .text (d) -> d.label
+
+    en_pois.append 'title'
       .text (d) -> d.label
 
     pois.exit().remove()
@@ -223,6 +251,13 @@ observer class Canvas extends View
     #     y: 10.35
     #     dy: '0.35em'
     #   .text '\uf007'
+
+    inner_inner_g.append 'foreignObject'
+      .attrs
+        width: 20
+        height: 20
+        transform: 'translate(3.5,5.4)'
+      .html (d) -> "<i class='icon fa fa-fw #{d.node.icon}'></i>"
 
     all_placemarks = en_placemarks.merge(placemarks)
       .attrs

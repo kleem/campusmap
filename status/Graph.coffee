@@ -62,20 +62,6 @@ class Graph
   floor_to_z: (floor) ->
     return if floor is 'T' then 0 else parseInt(floor)
 
-  get_rooms_at_floor: (floor) ->
-    return @nodes.filter (n) =>
-      n.centroid = @get_room_centroid n
-      return n.type in ['room', 'bicycle', 'bus'] and @floor_to_z(n.floor) is floor and n.centroid?
-
-  get_pois_at_floor: (floor) ->
-    return @nodes.filter (n) =>
-      return n.x? and n.y? and (if n.floor is 'T' then 0 else parseInt(n.floor)) is floor
-
-  get_rooms_from_node: (node_id) ->
-    results = @links.filter((l) -> l.source is node_id).map (l) -> l.target
-
-    return @nodes.filter (n) -> n.id in results
-
   get_nodes_at_floor: (floor) ->
     return @nodes.filter (n) => n.floor is floor
 
@@ -85,21 +71,21 @@ class Graph
     return node[direction].filter((l) -> l.type is predicate).map (l) -> switch direction
         when 'incoming' then l.source
         when 'outgoing' then l.target
-    
+
   get_points_from_node: (node) ->
     if node?
       if node.x? and node.y?
-        return [{x: node.x, y: node.y, z: @floor_to_z(node.floor), node: node}]
+        return [{x: node.x, y: node.y, z: @floor_to_z(node.floor), floor: node.floor, node: node}]
       else if node.centroid?
-        return [{x: node.centroid.x, y: node.centroid.y, z: @floor_to_z(node.floor), node: node}]
+        return [{x: node.centroid.x, y: node.centroid.y, z: @floor_to_z(node.floor), floor: node.floor, node: node}]
       else
         # only takes into account direct 'in'
         points = []
         @query(node, 'in').forEach (n) =>
           if n.x? and n.y?
-            points.push {x: n.x, y: n.y, z: @floor_to_z(n.floor), node: node}
+            points.push {x: n.x, y: n.y, z: @floor_to_z(n.floor), floor: n.floor, node: node}
           else if n.centroid?
-            points.push {x: n.centroid.x, y: n.centroid.y, z: @floor_to_z(n.floor), node: node}
+            points.push {x: n.centroid.x, y: n.centroid.y, z: @floor_to_z(n.floor), floor: n.floor, node: node}
           # else do nothing
         return points
     else

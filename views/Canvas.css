@@ -31,16 +31,49 @@
 .Canvas .poi {
   cursor: pointer;
 }
-.Canvas .poi circle {
-  fill: #fff;
-  stroke: #742d2d;
-  stroke-width: 10px;
+.Canvas .poi circle.background {
+  fill: #777;
+  stroke: #777;
+  stroke-width: 3px;
 }
-.Canvas .poi text {
-  font-size: 80px;
+.Canvas .poi circle.foreground {
+  fill: #FFF;
+  stroke: #DDD;
+  stroke-width: 3px;
 }
-.Canvas .poi text:hover {
-  fill: rgba(0,0,0,0.84);
+.Canvas .poi .icon {
+  color: #7b5b5b;
+  display: block;
+  width: 100;
+  height: 100;
+  font-size: 70;
+  text-align: center;
+}
+.Canvas .placemark {
+  pointer-events: none;
+}
+.Canvas .placemark .icon {
+  color: black;
+  font-size: 10;
+}
+.Canvas .poi .label {
+  font-size: 90px;
+}
+.Canvas .poi .background.label {
+  fill: white;
+  stroke: white;
+  opacity: 0.2;
+  stroke-width: 12;
+}
+.Canvas .poi .foreground.label {
+  fill: #333;
+}
+
+.Canvas .poi:hover .icon {
+  color: #442b2b;
+}
+.Canvas .poi:hover .foreground.label {
+  fill: black;
 }
 
 .Canvas .hidden {
