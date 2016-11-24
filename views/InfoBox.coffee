@@ -283,7 +283,7 @@ observer class InfoBox extends View
         @ec.destructor()
         delete @ec
 
-    if (@d3el.datum().label).indexOf('Bus Stop') > -1
+    if @d3el.datum().type is 'bus'
       @bt = new BusTimetable
         bus_stop: @d3el.datum().label
       @tt = new TimeTable
