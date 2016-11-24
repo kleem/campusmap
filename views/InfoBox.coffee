@@ -46,7 +46,7 @@ observer class InfoBox extends View
     profile_info = profile.append 'div'
       .attrs
         class: 'info'
-    
+
     profile_info.append 'div'
       .attrs
         class: 'label'
@@ -89,7 +89,7 @@ observer class InfoBox extends View
       place.append 'div'
         .attrs
           class: 'room'
-        .on 'click', (d) => @selection.set @graph.get_rooms_from_node(d.id)[0]
+        .on 'click', (d) => @selection.set @graph.query(d, 'in')[0]
         .text (d) -> "room #{d.room}"
 
     # phone
@@ -120,17 +120,17 @@ observer class InfoBox extends View
 
     # email
     if @d3el.datum().email?
-      
+
       emails = info.selectAll '.info_email'
         .data (if typeof @d3el.datum().email is 'string' then [@d3el.datum().email] else @d3el.datum().email)
-      
+
       email = emails.enter().append 'div'
         .attrs
           class: 'info info_email'
 
       email.append 'div'
         .html '<i class="fa fa-envelope-o" aria-hidden="true"></i> '
-      
+
       email.append 'div'
         .append 'a'
           .attrs
@@ -161,7 +161,7 @@ observer class InfoBox extends View
         .html '<i class="fa fa-map-marker" aria-hidden="true"></i> '
       floor.append 'div'
         .text (d) -> "floor #{d.floor}"
-          
+
       # gateway
       if @d3el.datum().gateway?
         gateway = info.append 'div'
@@ -226,7 +226,7 @@ observer class InfoBox extends View
             .attrs
               class: 'ciclopi_parking'
             .append 'i'
-          
+
           icon_ciclopi.select 'i'
             .attrs
               class: (d) ->
@@ -297,7 +297,7 @@ observer class InfoBox extends View
         delete @tt
 
     # nodes in room
-    nodes = @graph.get_nodes_from_room(@d3el.datum().id)
+    nodes = @graph.query(@d3el.datum(), 'in', 'incoming')
     if nodes.length > 0
       people = nodes.filter (n) -> n.type is 'person'
       institutes = nodes.filter (n) -> n.type is 'building'
@@ -369,7 +369,7 @@ observer class InfoBox extends View
         parent: spec_info
         data_sensor: @ds
       ###
-      
+
       ### Show sensors of the room
       ###
       @rs = new RoomSensors
@@ -386,7 +386,7 @@ observer class InfoBox extends View
         @sv.destructor()
         delete @sv
       ###
-      
+
       if @rs?
         delete @rs
       if @s?
