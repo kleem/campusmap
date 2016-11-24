@@ -1,13 +1,46 @@
 class Graph
   constructor: (conf) ->
     @nodes = conf.nodes
-    @links = conf.links # sources are nodes such as persons or printers while targets are rooms 
+    @links = conf.links
 
-    @centroids = {}
-    @rooms = {}
+    # create indexes
+    @nodes_index = {}
+    @nodes_label_index = {} # FIXME this is temporary
+    @nodes.forEach (d) =>
+      @nodes_index[d.id] = d
+      @nodes_label_index[d.label] = d # FIXME this is temporary
+      d.incoming = []
+      d.outgoing = []
 
-    conf.centroids.forEach (c) => @centroids[c.id] = c
-    conf.rooms.forEach (r) => @rooms[r.label] = {id: r.id, label: r.label, x: parseFloat(@centroids[r.id].x), y: parseFloat(@centroids[r.id].y), z: parseInt(@centroids[r.id].z)}
+    @links.forEach (d) =>
+      d.source = @nodes_index[d.source]
+      d.target = @nodes_index[d.target]
+      d.source.outgoing.push d
+      d.target.incoming.push d
+
+    # merge rooms into the graph nodes
+    # FIXME this is temporary
+    conf.rooms.forEach (r) =>
+      if r.label not of @nodes_label_index
+        console.warn "No node found for room label #{r.label}"
+      else
+        console.debug "Found node for room #{r.label}"
+        @nodes_label_index[r.label].sketchup_id = r.id
+
+    # reindex according to the sketchup ID
+    # FIXME this is temporary
+    @nodes_sketchup_index = {}
+    @nodes.forEach (d) =>
+      @nodes_sketchup_index[d.sketchup_id] = d
+
+    # merge centroids into the graph nodes
+    # FIXME this is temporary
+    conf.centroids.forEach (c) =>
+      if c.id not of @nodes_sketchup_index
+        console.warn "No node found for centroid ID #{c.id}"
+      else
+        console.debug "Found node for centroid #{c.id}"
+        @nodes_sketchup_index[c.id].centroid = {x: +c.x, y: +c.y, z: +c.z}
 
     @max_results = 5
 
@@ -15,7 +48,7 @@ class Graph
 
     if string isnt ''
       return @nodes
-        .filter (n) -> 
+        .filter (n) ->
           tokens = n.label.toLowerCase().split(/[ |-]/)
 
           return (tokens
@@ -26,24 +59,49 @@ class Graph
     else
       return []
 
+  floor_to_z: (floor) ->
+    return if floor is 'T' then 0 else parseInt(floor)
+
   get_rooms_at_floor: (floor) ->
-    return @nodes.filter (n) => 
+    return @nodes.filter (n) =>
       n.centroid = @get_room_centroid n
-      return n.type in ['room', 'bicycle', 'bus'] and (if n.floor is 'T' then 0 else parseInt(n.floor)) is floor and n.centroid?
+      return n.type in ['room', 'bicycle', 'bus'] and @floor_to_z(n.floor) is floor and n.centroid?
+
+  get_pois_at_floor: (floor) ->
+    return @nodes.filter (n) =>
+      return n.x? and n.y? and (if n.floor is 'T' then 0 else parseInt(n.floor)) is floor
 
   get_rooms_from_node: (node_id) ->
     results = @links.filter((l) -> l.source is node_id).map (l) -> l.target
 
     return @nodes.filter (n) -> n.id in results
 
+  get_nodes_at_floor: (floor) ->
+    return @nodes.filter (n) => n.floor is floor
+
+  query: (node, predicate, direction) ->
+    direction = if direction? then direction else 'outgoing'
+
+    return node[direction].filter((l) -> l.type is predicate).map (l) -> switch direction
+        when 'incoming' then l.source
+        when 'outgoing' then l.target
+    
   get_points_from_node: (node) ->
     if node?
-      return switch node.type
-        when 'room' then [node]
-        when 'bicycle' then [node]
-        when 'bus' then [node]
-        when 'person' then @get_rooms_from_node node.id
-        else []
+      if node.x? and node.y?
+        return [{x: node.x, y: node.y, z: @floor_to_z(node.floor), node: node}]
+      else if node.centroid?
+        return [{x: node.centroid.x, y: node.centroid.y, z: @floor_to_z(node.floor), node: node}]
+      else
+        # only takes into account direct 'in'
+        points = []
+        @query(node, 'in').forEach (n) =>
+          if n.x? and n.y?
+            points.push {x: n.x, y: n.y, z: @floor_to_z(n.floor), node: node}
+          else if n.centroid?
+            points.push {x: n.centroid.x, y: n.centroid.y, z: @floor_to_z(n.floor), node: node}
+          # else do nothing
+        return points
     else
       return []
 

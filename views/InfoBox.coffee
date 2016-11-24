@@ -46,7 +46,7 @@ observer class InfoBox extends View
     profile_info = profile.append 'div'
       .attrs
         class: 'info'
-    
+
     profile_info.append 'div'
       .attrs
         class: 'label'
@@ -89,7 +89,7 @@ observer class InfoBox extends View
       place.append 'div'
         .attrs
           class: 'room'
-        .on 'click', (d) => @selection.set @graph.get_rooms_from_node(d.id)[0]
+        .on 'click', (d) => @selection.set @graph.query(d, 'in')[0]
         .text (d) -> "room #{d.room}"
 
     # phone
@@ -120,17 +120,17 @@ observer class InfoBox extends View
 
     # email
     if @d3el.datum().email?
-      
+
       emails = info.selectAll '.info_email'
         .data (if typeof @d3el.datum().email is 'string' then [@d3el.datum().email] else @d3el.datum().email)
-      
+
       email = emails.enter().append 'div'
         .attrs
           class: 'info info_email'
 
       email.append 'div'
         .html '<i class="fa fa-envelope-o" aria-hidden="true"></i> '
-      
+
       email.append 'div'
         .append 'a'
           .attrs
@@ -161,7 +161,7 @@ observer class InfoBox extends View
         .html '<i class="fa fa-map-marker" aria-hidden="true"></i> '
       floor.append 'div'
         .text (d) -> "floor #{d.floor}"
-          
+
       # gateway
       if @d3el.datum().gateway?
         gateway = info.append 'div'
@@ -226,7 +226,7 @@ observer class InfoBox extends View
             .attrs
               class: 'ciclopi_parking'
             .append 'i'
-          
+
           icon_ciclopi.select 'i'
             .attrs
               class: (d) ->
@@ -297,34 +297,68 @@ observer class InfoBox extends View
         delete @tt
 
     # nodes in room
-    if @graph.get_nodes_from_room(@d3el.datum().id).length > 0
-      spec_info.append 'div'
-        .attrs
-          class: 'label'
-        .text 'People'
+    nodes = @graph.query(@d3el.datum(), 'in', 'incoming')
+    if nodes.length > 0
+      people = nodes.filter (n) -> n.type is 'person'
+      institutes = nodes.filter (n) -> n.type is 'building'
 
-      type_nodes = spec_info.append 'div'
-        .attrs
-          class: (d)-> "nodes"
+      if people.length > 0
+        spec_info.append 'div'
+          .attrs
+            class: 'label'
+          .text 'People'
 
-      nodes = type_nodes.selectAll '.node'
-          .data @graph.get_nodes_from_room(@d3el.datum().id)
+        type_nodes = spec_info.append 'div'
+          .attrs
+            class: 'nodes'
 
-      enter_nodes = nodes.enter().append 'div'
-        .attrs
-          class: 'node'
-        .on 'click', (d) => @selection.set d
+        nodes = type_nodes.selectAll '.node'
+          .data people
 
-      enter_nodes.append 'div'
-        .attrs
-          class: 'img'
-        .styles
-          'background-image': (d) -> "url(#{d.icon})"
+        enter_nodes = nodes.enter().append 'div'
+          .attrs
+            class: 'node'
+          .on 'click', (d) => @selection.set d
 
-      enter_nodes.append 'div'
-        .attrs
-          class: 'node_label'
-        .text (d) -> d.label
+        enter_nodes.append 'div'
+          .attrs
+            class: 'img'
+          .styles
+            'background-image': (d) -> "url(#{d.icon})"
+
+        enter_nodes.append 'div'
+          .attrs
+            class: 'node_label'
+          .text (d) -> d.label
+
+      if institutes.length > 0
+        spec_info.append 'div'
+          .attrs
+            class: 'label'
+          .text 'Institutes'
+
+        type_nodes = spec_info.append 'div'
+          .attrs
+            class: 'nodes'
+
+        nodes = type_nodes.selectAll '.node'
+          .data institutes
+
+        enter_nodes = nodes.enter().append 'div'
+          .attrs
+            class: 'node'
+          .on 'click', (d) => @selection.set d
+
+        enter_nodes.append 'div'
+          .attrs
+            class: 'img'
+          .styles
+            'background-image': (d) -> "url(#{d.icon})"
+
+        enter_nodes.append 'div'
+          .attrs
+            class: 'node_label'
+          .text (d) -> d.label
 
       ### Add data sensor of the room (punchcard)
       ###
@@ -335,7 +369,7 @@ observer class InfoBox extends View
         parent: spec_info
         data_sensor: @ds
       ###
-      
+
       ### Show sensors of the room
       ###
       @rs = new RoomSensors
@@ -352,7 +386,7 @@ observer class InfoBox extends View
         @sv.destructor()
         delete @sv
       ###
-      
+
       if @rs?
         delete @rs
       if @s?

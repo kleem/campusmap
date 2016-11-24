@@ -1,7 +1,7 @@
 observable class Camera
   constructor: (conf) ->
     @init
-      events: ['change']
+      events: ['change', 'change_floor']
 
     @floors = conf.floors
     @floors_index = {}
@@ -20,8 +20,9 @@ observable class Camera
     return @floors
 
   set_current_floor: (d) ->
-    @current_floor = d
-    @trigger 'change'
+    if d isnt @current_floor
+      @current_floor = d
+      @trigger 'change_floor'
 
   set_current_floor_id: (id) ->
     @set_current_floor @floors_index[id]

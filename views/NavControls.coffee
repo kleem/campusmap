@@ -5,7 +5,7 @@ observer class NavControls extends View
 
     @camera = conf.camera
 
-    @listen_to @camera, 'change', () => @redraw()
+    @listen_to @camera, 'change_floor', () => @redraw()
 
   # Highlights the selected button
   redraw: () ->

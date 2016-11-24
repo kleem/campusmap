@@ -24,6 +24,12 @@ observer class Canvas extends View
     @zoomable_layer = @svg.append 'g'
     @svg.call @camera.get_zoom_behavior()
 
+    # LAYERS
+    @model_layer = @zoomable_layer.append 'g'
+    @writings_layer = @zoomable_layer.append 'g'
+    @pois_layer = @zoomable_layer.append 'g'
+    @placemarks_layer = @zoomable_layer.append 'g'
+
     # SCALES
     @x = d3.scaleLinear()
       .domain [0, 454.22]
@@ -43,21 +49,126 @@ observer class Canvas extends View
 
     @listen_to @camera, 'change', () =>
       @zoom()
-      @switch_floor()
+      @lod()
 
-    @listen_to @selection, 'change', () => @select()
+    @listen_to @camera, 'change_floor', () =>
+      @switch_floor()
+      @redraw()
+      @lod()
+
+    @listen_to @selection, 'change', () =>
+      @redraw()
+      @select()
+      @lod()
 
   # The main group within each SVG file is added to the Canvas
   ready: (error, docs) =>
     for d,i in docs
-      obj = @zoomable_layer.node().appendChild d.getElementsByTagName('g')[0]
+      obj = @model_layer.node().appendChild d.getElementsByTagName('g')[0]
       @docs.push {index: i, visible: true, obj: obj}
 
-  redraw_placemarks: (data) ->
-    selection = @selection.get()
+  zoom: () ->
+    @zoomable_layer
+      .attrs
+        transform: @camera.transform
 
+  lod: () ->
+    @placemarks_layer.selectAll '.placemark > g'
+      .attrs
+        transform: "scale(#{1/@camera.transform.k})"
+
+    @pois_layer.selectAll '.poi > g'
+      .attrs
+        transform: "scale(#{1/@camera.transform.k})"
+
+    @writings_layer.selectAll '.writing'
+      .classed 'hidden', (if @camera.transform.k > 4.5 then false else true)
+
+    @pois_layer.selectAll '.poi text'
+      .classed 'hidden', (if @camera.transform.k > 3 then false else true)
+
+  switch_floor: () =>
+    current_index = @camera.get_current_floor().i
+
+    for d,i in @docs
+      if i <= current_index
+        if not d.visible
+          d.visible = true
+          d3.select(d.obj).style 'visibility', 'visible'
+      else
+        if d.visible
+          d.visible = false
+          d3.select(d.obj).style 'visibility', 'hidden'
+
+  select: () ->
+    # TODO zoom animation (should be done by Camera to trigger change events)
+    # TODO better name
+    # selection = @selection.get()
+
+    # if selection?
+      # redraw the placemarks on the current floor
+      # @redraw_placemarks @graph.get_nodes_at_floor(@camera.get_current_floor().i)
+
+#      room = if selection.type is 'person' then @graph.get_rooms_from_node(selection.id)[0] else selection
+#
+#
+#      # center canvas to selection
+#      centroid = @graph.get_room_centroid room
+#
+#      if centroid?
+#        t = @camera.transform
+#
+#        if !t?
+#          t = d3.zoomTransform(this)
+#          t.k = 1
+#
+#        t.x = -@x(centroid.x)*t.k + @min_x + @vb_w/2
+#        t.y = -@y(centroid.y)*t.k + @min_y + @vb_h/2
+#
+#        @zoomable_layer.call(@camera.zoom.transform, t)
+
+  redraw: () ->
+    # FIXME this is called twice when both selection and floor change
+
+    nodes_at_current_floor = @graph.get_nodes_at_floor(@camera.get_current_floor().id)
+
+    @redraw_pois nodes_at_current_floor.filter (d) -> d.x? and d.y?
+    @redraw_areas nodes_at_current_floor.filter (d) -> d.centroid?
+
+    @redraw_placemarks @graph.get_points_from_node @selection.get()
+
+  redraw_pois: (data) ->
+    pois = @pois_layer.selectAll '.poi'
+      .data data, (d) -> d.id
+
+    en_pois = pois.enter().append 'g'
+      .attrs
+        class: 'poi'
+        transform: (d) =>
+          point = {x: d.x, y: d.y, z: (if d.floor is 'T' then 0 else parseInt(d.floor))}
+          "translate(#{@x(@to_cavalier(point).x)}, #{@y(@to_cavalier(point).y)})"
+      .on 'click', (d) => @selection.set d
+
+    inner_g = en_pois.append 'g'
+
+    inner_g.append 'circle'
+      .attrs
+        r: 40
+      .append 'title'
+        .text (d) -> d.label
+
+    inner_g.append 'text'
+      .attrs
+        'text-anchor': 'start'
+        dy: '0.35em'
+        x: 60
+      .text (d) -> d.label
+
+    pois.exit().remove()
+
+  redraw_areas: (data) ->
     # Room writings
-    writings = @zoomable_layer.selectAll '.writing'
+    writings = @writings_layer.selectAll '.writing'
       .data data, (d) -> d.id
 
     en_writings = writings.enter().append 'g'
@@ -77,16 +188,14 @@ observer class Canvas extends View
 
     writings.exit().remove()
 
+  redraw_placemarks: (data) ->
     # Placemarks
-    selected_points = @graph.get_points_from_node selection
-
-    placemarks = @zoomable_layer.selectAll '.placemark'
-      .data data, (d) -> d.id
+    placemarks = @placemarks_layer.selectAll '.placemark'
+      .data data, (d,i) -> "#{d.node.id}_#{i}"
 
     en_placemarks = placemarks.enter().append 'g'
       .attrs
         class: 'placemark'
-        transform: (d) => "translate(#{@x(@to_cavalier(d.centroid).x)}, #{@y(@to_cavalier(d.centroid).y)})"
 
     inner_g = en_placemarks.append 'g'
     inner_inner_g = inner_g.append 'g'
@@ -116,66 +225,15 @@ observer class Canvas extends View
     #   .text '\uf007'
 
     all_placemarks = en_placemarks.merge(placemarks)
-      .classed 'hidden', (d) -> d not in selected_points
-
-    placemarks.exit().remove()    
-
-  lod: () ->
-    @zoomable_layer.selectAll '.placemark > g'
       .attrs
-        transform: "scale(#{1/@camera.transform.k})"
+        transform: (d) =>
+          point = @to_cavalier(d)
+          return "translate(#{@x(point.x)}, #{@y(point.y)})"
 
-    @zoomable_layer.selectAll '.writing'
-      .classed 'hidden', (if @camera.transform.k > 4.5 then false else true)
-
-  zoom: () =>
-    @zoomable_layer
-      .attrs
-        transform: @camera.transform
-
-    @lod()
-
-  switch_floor: () =>
-    current_index = @camera.get_current_floor().i
-
-    for d,i in @docs
-      if i <= current_index
-        if not d.visible
-          d.visible = true
-          d3.select(d.obj).style 'visibility', 'visible'
-      else
-        if d.visible
-          d.visible = false
-          d3.select(d.obj).style 'visibility', 'hidden'
-
-    @redraw_placemarks @graph.get_rooms_at_floor(current_index)
-
-    @lod()
+    placemarks.exit().remove()
 
   to_cavalier: (point) ->
     return {
       x: point.x - (Math.cos(Math.PI/4) * 4.5) * point.z
       y: point.y + (Math.sin(Math.PI/4) * 4.5) * point.z
     }
-
-  select: () ->
-    selection = @selection.get()
-    
-    if selection?
-      room = if selection.type is 'person' then @graph.get_rooms_from_node(selection.id)[0] else selection
-
-      current_index = @camera.get_current_floor().i
-      @redraw_placemarks @graph.get_rooms_at_floor(current_index)
-
-      # center canvas to selection
-      centroid = @graph.get_room_centroid room
-      t = @camera.transform
-
-      if !t?
-        t = d3.zoomTransform(this)
-        t.k = 1
-
-      t.x = -@x(centroid.x)*t.k + @min_x + @vb_w/2
-      t.y = -@y(centroid.y)*t.k + @min_y + @vb_h/2
-
-      @zoomable_layer.call(@camera.zoom.transform, t)
