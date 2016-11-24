@@ -99,7 +99,7 @@ graph['nodes'].append({'id': last_id, 'type': 'service', 'icon': 'fa-newspaper-o
 last_id += 1
 
 # ATM
-graph['nodes'].append({'id': last_id, 'type': 'service', 'icon': 'fa-credit-card', 'x': 203.76, 'y': 239.68, 'label': 'ATM', 'floor': 'T'})
+graph['nodes'].append({'id': last_id, 'type': 'service', 'icon': 'fa-credit-card', 'x': 203.76, 'y': 239.68, 'label': 'Bancomat', 'floor': 'T'})
 last_id += 1
 
 # Bank
