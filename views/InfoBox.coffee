@@ -34,13 +34,18 @@ observer class InfoBox extends View
       .attrs
         class: 'profile'
 
-    # round icon
-    if @d3el.datum().icon? and @d3el.datum().icon isnt ''
+    # round icon/thumbnail
+    if @d3el.datum().thumbnail? and @d3el.datum().thumbnail isnt ''
       profile.append 'div'
         .attrs
           class: 'img'
         .styles
-          'background-image': (d) -> "url(#{d.icon})"
+          'background-image': (d) -> "url(#{d.thumbnail})"
+    else if @d3el.datum().icon?
+      profile.append 'div'
+        .attrs
+          class: 'img'
+      .html (d) -> "<i class='icon fa fa-fw #{d.icon}'></i>"
 
     # label
     profile_info = profile.append 'div'
@@ -324,7 +329,7 @@ observer class InfoBox extends View
           .attrs
             class: 'img'
           .styles
-            'background-image': (d) -> "url(#{d.icon})"
+            'background-image': (d) -> "url(#{d.thumbnail})" # FIXME icon support
 
         enter_nodes.append 'div'
           .attrs
