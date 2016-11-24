@@ -135,7 +135,8 @@ observer class Canvas extends View
     @redraw_pois nodes_at_current_floor.filter (d) -> d.x? and d.y?
     @redraw_areas nodes_at_current_floor.filter (d) -> d.centroid?
 
-    @redraw_placemarks @graph.get_points_from_node @selection.get()
+    # FIXME this hides points in other floors, need a way to show them, at least in the nav controls
+    @redraw_placemarks @graph.get_points_from_node(@selection.get()).filter((d) => d.floor is @camera.get_current_floor().id)
 
   redraw_pois: (data) ->
     pois = @pois_layer.selectAll '.poi'
