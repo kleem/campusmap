@@ -61,7 +61,7 @@ INC=0
 
 CNTREC=0
 
-echo '[{"bus_stop_name":"Bus Stop San Cataldo", "data":' >$WRKF5
+echo '[{"bus_stop_name":"Fermata Bus San Cataldo", "data":' >$WRKF5
 echo "[" >>$WRKF5
 
 NDAYS=7
