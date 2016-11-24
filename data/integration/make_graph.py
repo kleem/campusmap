@@ -126,4 +126,8 @@ last_id += 1
 graph['nodes'].append({'id': last_id, 'type': 'health', 'icon': 'fa-h-square', 'x': 278.39, 'y': 245.36, 'label': "Fondazione Toscana Gabriele Monasterio per la Ricerca Medica e di Sanita' Pubblica", 'homepage': 'https://www.ftgm.it/index.php/pisa-ospedale-di-ricerca-menu', 'floor': 'T'})
 last_id += 1
 
+# Totem
+graph['nodes'].append({'id': last_id, 'type': 'service', 'icon': 'fa-info', 'x': 231.3, 'y': 237, 'label': 'Totem', 'floor': 'T'})
+last_id += 1
+
 print json.dumps(graph)
