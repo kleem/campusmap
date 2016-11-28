@@ -130,4 +130,8 @@ last_id += 1
 graph['nodes'].append({'id': last_id, 'type': 'service', 'icon': 'fa-info', 'x': 231.3, 'y': 237, 'label': 'Totem', 'floor': 'T'})
 last_id += 1
 
+# Serra
+graph['nodes'].append({'id': last_id, 'type': 'service', 'icon': 'fa-leaf', 'x': 80, 'y': 158.4, 'label': 'Serra', 'floor': 'T'})
+last_id += 1
+
 print json.dumps(graph)
