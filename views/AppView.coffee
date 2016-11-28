@@ -43,12 +43,20 @@ observer class AppView extends View
     #  parent: this
     #  mode: mode
     #  graph: graph
+    weather_data = new WeatherData
+      
+    new WeatherInfo
+      parent: this
+      weather_data: weather_data
 
     new SearchPanel
       parent: this
       mode: mode
       graph: graph
       selection: selection
+      weather_data: weather_data
+      
+    
 
     selection.set null
 

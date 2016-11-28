@@ -1,0 +1,9 @@
+.WeatherInfo {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  width: 200px;
+  height: 100px;
+  background-color: white;
+  opacity: 0.8;
+}
