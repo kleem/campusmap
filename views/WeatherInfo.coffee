@@ -10,14 +10,17 @@ observer class WeatherInfo extends View
   to_it: (value) ->
     return value.toLowerCase().replace('north', 'N').replace('south', 'S').replace('west', 'O').replace('east', 'E')
 
-  to_meters_per_second: (value) ->
-    return @round_first_decimal(value * 0.44704)
+  to_km_per_h: (value) ->
+    return @round_first_decimal(value * 1.60934)
 
-  round_first_decimal: (value) ->
-    return Math.round(value * 10) / 10
+  to_mm: (value) ->
+    return value * 25.4
 
   to_celsius: (value) ->
     return @round_first_decimal((value-32)*(5/9))
+
+  round_first_decimal: (value) ->
+    return Math.round(value * 10) / 10
 
   redraw: () ->
     data = @weather_data.get_weather_data()
@@ -48,17 +51,17 @@ observer class WeatherInfo extends View
         class: 'other_info'
 
     other_info.append 'div'
-      .html "<div><img style='width: 18px' src='img/humidity.svg'></div><div>#{data.relative_humidity}%</div>"
+      .html "<div><img style='width: 18px' src='img/drop.svg'></div><div>#{data.relative_humidity}%</div>"
       .attrs
         title: 'Umidità'
 
     other_info.append 'div'
-      .html "<div><img style='width: 18px' src='img/drop.svg'></div><div>#{@round_first_decimal(data.davis_current_observation.rain_day_in)}%</div>"
+      .html "<div><img style='width: 18px' src='img/rain.svg'></div><div>#{@round_first_decimal(@to_mm(data.davis_current_observation.rain_day_in))} mm</div>"
       .attrs
         title: 'Precipitazioni'
 
     other_info.append 'div'
-      .html "<div><img style='width: 18px' src='img/wind.svg'></div><div>#{@to_meters_per_second(data.wind_mph)} m/s</div>"
+      .html "<div><img style='width: 18px' src='img/wind.svg'></div><div>#{@to_km_per_h(data.wind_mph)} km/h</div>"
       .attrs
         title: 'Vento'
 
