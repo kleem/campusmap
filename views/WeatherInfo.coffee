@@ -41,10 +41,10 @@ observer class WeatherInfo extends View
         class: 'min_max'    
 
     min_max.append 'div'
-      .text "#{@to_celsius(data.davis_current_observation.temp_day_high_f)}°"
+      .html "<span style='font-size: 10px'>max</span> #{@to_celsius(data.davis_current_observation.temp_day_high_f)}°"
 
     min_max.append 'div'
-      .text "#{@to_celsius(data.davis_current_observation.temp_day_low_f)}°"
+      .html "<span style='font-size: 10px'>min</span> #{@to_celsius(data.davis_current_observation.temp_day_low_f)}°"
 
     other_info = @d3el.append 'div'
       .attrs
