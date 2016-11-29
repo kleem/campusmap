@@ -6,6 +6,7 @@ observer class SearchPanel extends View
     @mode = conf.mode
     @graph = conf.graph
     @selection = conf.selection
+    @weather_data = conf.weather_data
 
     @query = new Query
       graph: @graph
@@ -29,6 +30,7 @@ observer class SearchPanel extends View
       parent: this
       graph: @graph
       selection: @selection
+      weather_data: @weather_data
 
     @listen_to @results, 'new_focus', () => @selection.set @results.get_focused()
 

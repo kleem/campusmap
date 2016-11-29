@@ -5,6 +5,7 @@ observer class InfoBox extends View
 
     @graph = conf.graph
     @selection = conf.selection
+    @weather_data = conf.weather_data
 
     @listen_to @selection, 'change', () =>
       s = @selection.get()
@@ -382,6 +383,7 @@ observer class InfoBox extends View
       @s = new Sensors
         parent: spec_info
         sensors: @rs
+        weather_data: @weather_data
 
     else
       ###
