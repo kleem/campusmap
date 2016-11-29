@@ -5,56 +5,62 @@ observer class WeatherInfo extends View
 
     @weather_data = conf.weather_data
 
-    @d3el.append 'div'
-      .text 'Weather'
-      .attrs
-        class: 'label'
-
     @listen_to @weather_data, 'change', () => @redraw()
+
+  to_it: (value) ->
+    return value.toLowerCase().replace('north', 'N').replace('south', 'S').replace('west', 'O').replace('east', 'E')
+
+  to_meters_per_second: (value) ->
+    return @round_first_decimal(value * 0.44704)
+
+  round_first_decimal: (value) ->
+    return Math.round(value * 10) / 10
+
+  to_celsius: (value) ->
+    return @round_first_decimal((value-32)*(5/9))
 
   redraw: () ->
     data = @weather_data.get_weather_data()
 
-    temperature = @d3el.selectAll '.temperature'
-      .data [data.temp_c]
+    @d3el.text ''
 
-    temperature.enter().append 'div'
+    temperatures = @d3el.append 'div'
       .attrs
         class: 'temperature'
-      .html (d) -> "<i class='fa fa-thermometer-half'></i> #{d}°"
 
-    temperature
-      .html (d) -> "<i class='fa fa-thermometer-half'></i> #{d}°"
-
-    temperature.exit().remove()
-
-    humidity = @d3el.selectAll '.humidity'
-      .data [data.relative_humidity]
-
-    humidity.enter().append 'div'
+    temperatures.append 'div'
       .attrs
-        class: 'humidity'
-      .html (d) -> "<i class='fa fa-tint'></i> #{d}°"
+        class: 'current'
+      .text "#{@to_celsius(data.temp_f)}°"
 
-    humidity
-      .html (d) -> "<i class='fa fa-tint'></i> #{d}°"
-
-    humidity.exit().remove()
-
-    wind = @d3el.selectAll '.wind'
-      .data [(parseInt(data.wind_kt)*1.86)]
-
-    wind.enter().append 'div'
+    min_max = temperatures.append 'div'
       .attrs
-        class: 'wind'
-      .html (d) -> "Wind: #{d3.format(".1f")(d)} km/h"
+        class: 'min_max'    
 
-    wind
-      .html (d) -> "Wind: #{d3.format(".1f")(d)} km/h"
+    min_max.append 'div'
+      .text "#{@to_celsius(data.davis_current_observation.temp_day_high_f)}°"
 
-    wind.exit().remove()
+    min_max.append 'div'
+      .text "#{@to_celsius(data.davis_current_observation.temp_day_low_f)}°"
 
+    other_info = @d3el.append 'div'
+      .attrs
+        class: 'other_info'
 
+    other_info.append 'div'
+      .html "<div><img style='width: 18px' src='img/humidity.svg'></div><div>#{data.relative_humidity}%</div>"
+      .attrs
+        title: 'Umidità'
+
+    other_info.append 'div'
+      .html "<div><img style='width: 18px' src='img/drop.svg'></div><div>#{@round_first_decimal(data.davis_current_observation.rain_day_in)}%</div>"
+      .attrs
+        title: 'Precipitazioni'
+
+    other_info.append 'div'
+      .html "<div><img style='width: 18px' src='img/wind.svg'></div><div>#{@to_meters_per_second(data.wind_mph)} m/s</div>"
+      .attrs
+        title: 'Vento'
 
   destructor: () ->
     @stop_listening()
