@@ -61,8 +61,8 @@ rooms_people('../scraping/ilc.csv', 'ILC')
 graph['nodes'].append({'id': last_id, 'type': 'room', 'x': 168.1479, 'y': 245.0429, 'label': 'Auditorium', 'icon': 'fa-microphone', 'img': 'img/auditorium.jpg', 'floor': 'T'})
 last_id += 1
 
-# Canteen
-graph['nodes'].append({'id': last_id, 'type': 'room', 'x': 189.3482, 'y': 273.6019, 'label': 'Mensa', 'icon': 'fa-cutlery', 'img': 'img/canteen.jpg', 'email': 'comm-mensa@area.pi.cnr.it', 'phone': '+39 050 315 2048', 'thumbnail': 'img/serenissima.png', 'homepage': 'http://www.area.pi.cnr.it/index.php/mensa', 'floor': 'T'})
+# Mensa
+graph['nodes'].append({'id': last_id, 'type': 'room', 'x': 189.3482, 'y': 273.6019, 'label': 'Mensa', 'icon': 'fa-cutlery', 'img': 'img/mensa.jpg', 'email': 'comm-mensa@area.pi.cnr.it', 'phone': '+39 050 315 2048', 'thumbnail': 'img/serenissima.png', 'homepage': 'http://www.area.pi.cnr.it/index.php/mensa', 'floor': 'T'})
 last_id += 1
 
 # Library
@@ -154,11 +154,11 @@ graph['nodes'].append({'id': last_id, 'type': 'room', 'x': 196.52, 'y': 277.80, 
 last_id += 1
 
 # Asilo Eureka
-graph['nodes'].append({'id': last_id, 'type': 'service', 'x': 101.05, 'y': 220.74, 'label': 'Asilo Eureka', 'icon': 'fa-smile-o', 'homepage': 'http://asilo.area.pi.cnr.it/', 'phone': '+39 050 315 3292', 'floor': 'T'})
+graph['nodes'].append({'id': last_id, 'type': 'service', 'x': 101.05, 'y': 220.74, 'label': 'Asilo Eureka', 'icon': 'fa-smile-o', 'img': 'img/asilo_eureka.jpg', 'homepage': 'http://asilo.area.pi.cnr.it/', 'phone': '+39 050 315 3292', 'floor': 'T'})
 last_id += 1
 
 # DAE
-graph['nodes'].append({'id': last_id, 'type': 'service', 'x': 199.40, 'y': 238.26, 'label': 'DAE', 'icon': 'fa-heartbeat', 'floor': 'T'})
+graph['nodes'].append({'id': last_id, 'type': 'service', 'x': 199.40, 'y': 238.26, 'label': 'DAE', 'img': 'img/dae.jpg', 'icon': 'fa-heartbeat', 'floor': 'T'})
 last_id += 1
 
 # CICLOPI
@@ -215,7 +215,7 @@ graph['nodes'].append({'id': last_id, 'type': 'service', 'icon': 'fa-shield', 'x
 last_id += 1
 
 # Fondazione Monasterio
-graph['nodes'].append({'id': last_id, 'type': 'health', 'icon': 'fa-h-square', 'x': 278.39, 'y': 245.36, 'label': 'Reception Fondazione Toscana Gabriele Monasterio', 'homepage': 'https://www.ftgm.it/index.php/pisa-ospedale-di-ricerca-menu', 'floor': 'T'})
+graph['nodes'].append({'id': last_id, 'type': 'health', 'icon': 'fa-h-square', 'x': 278.39, 'y': 245.36, 'label': 'Reception Fondazione Toscana Gabriele Monasterio', 'img': 'img/monasterio.jpg', 'homepage': 'https://www.ftgm.it/index.php/pisa-ospedale-di-ricerca-menu', 'floor': 'T'})
 last_id += 1
 
 # Totem
