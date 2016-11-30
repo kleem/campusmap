@@ -166,7 +166,7 @@ observer class InfoBox extends View
       floor.append 'div'
         .html '<i class="fa fa-map-marker" aria-hidden="true"></i> '
       floor.append 'div'
-        .text (d) -> "floor #{d.floor}"
+        .text (d) -> "piano #{d.floor}"
 
       # gateway
       if @d3el.datum().gateway?
@@ -176,10 +176,9 @@ observer class InfoBox extends View
         gateway.append 'div'
           .html '<i class="fa fa-sign-in" aria-hidden="true"></i> '
         gateway.append 'div'
-          .text (d) -> "gateway #{d.gateway}"
+          .text (d) -> "ingresso #{d.gateway}"
 
     #address
-
     if @d3el.datum().address?
       # floor
       address = info.append 'div'
@@ -190,6 +189,35 @@ observer class InfoBox extends View
       address.append 'div'
         .text (d) -> "#{d.address}"
 
+    # room capacity
+    if @d3el.datum().capacity?
+      capacity = info.append 'div'
+        .attrs
+          class: 'info'
+      capacity.append 'div'
+        .html '<i class="fa fa-group" aria-hidden="true"></i> '
+      capacity.append 'div'
+        .text (d) -> "Capacità #{d.capacity} persone"
+
+    # printer ip
+    if @d3el.datum().ip?
+      ip = info.append 'div'
+        .attrs
+          class: 'info'
+      ip.append 'div'
+        .html '<i class="fa fa-share-alt" aria-hidden="true"></i> '
+      ip.append 'div'
+        .text (d) -> "Indirizzo IP #{d.ip}"
+
+    # timetables
+    if @d3el.datum().timetables?
+      timetables = info.append 'div'
+        .attrs
+          class: 'info'
+      timetables.append 'div'
+        .html '<i class="fa fa-clock-o" aria-hidden="true"></i> '
+      timetables.append 'div'
+        .text (d) -> "#{d.timetables}"
 
     ### specific information
     ###
@@ -207,7 +235,7 @@ observer class InfoBox extends View
       ciclopi.append 'div'
         .attrs
           class: 'label'
-        .text 'Availability'
+        .text 'Disponibilità'
 
       icon_ciclopi_div = ciclopi.append 'div'
         .attrs
@@ -242,11 +270,11 @@ observer class InfoBox extends View
                   'fa fa-warning'
               title: (d) ->
                 if d is true
-                  'bicycle available'
+                  'biciclette disponibili'
                 else if d is null
-                  'spot inactive'
+                  'stalli inattivi'
                 else
-                  'spot available'
+                  'stalli attivi'
 
           available_bicycles = @ciclopi.get_available_bicycles()
           available_parkings = @ciclopi.get_available_parkings()
@@ -260,7 +288,7 @@ observer class InfoBox extends View
                 bicycles = 'bicycle'
               if available_parkings is 1
                 spots = 'spot'
-              "#{available_bicycles} #{bicycles} and #{available_parkings} #{spots} available and #{inactive_parkings} #{spots} inactive"
+              "#{available_bicycles} #{bicycles} e #{available_parkings} #{spots} disponibili e #{inactive_parkings} #{spots} inattivi"
     else
       if @ciclopi?
         # stop listening
@@ -302,69 +330,40 @@ observer class InfoBox extends View
         @tt.destructor()
         delete @tt
 
-    # nodes in room
-    nodes = @graph.query(@d3el.datum(), 'in', 'incoming')
-    if nodes.length > 0
-      people = nodes.filter (n) -> n.type is 'person'
-      institutes = nodes.filter (n) -> n.type is 'building'
+    if @d3el.datum().type is 'building'
+      new SpecificInfo_Building
+        graph: @graph
+        node: @d3el.datum()
+        container: spec_info
+        selection: @selection
 
-      if people.length > 0
-        spec_info.append 'div'
-          .attrs
-            class: 'label'
-          .text 'People'
+    if @d3el.datum().type is 'institute'
+      new SpecificInfo_Institute
+        graph: @graph
+        node: @d3el.datum()
+        container: spec_info
+        selection: @selection
 
-        type_nodes = spec_info.append 'div'
-          .attrs
-            class: 'nodes'
+    if @d3el.datum().type is 'research_unit'
+      new SpecificInfo_ResearchUnit
+        graph: @graph
+        node: @d3el.datum()
+        container: spec_info
+        selection: @selection
 
-        nodes = type_nodes.selectAll '.node'
-          .data people
+    if @d3el.datum().type is 'person'
+      new SpecificInfo_Person
+        graph: @graph
+        node: @d3el.datum()
+        container: spec_info
+        selection: @selection
 
-        enter_nodes = nodes.enter().append 'div'
-          .attrs
-            class: 'node'
-          .on 'click', (d) => @selection.set d
-
-        enter_nodes.append 'div'
-          .attrs
-            class: 'img'
-          .styles
-            'background-image': (d) -> "url(#{d.thumbnail})" # FIXME icon support
-
-        enter_nodes.append 'div'
-          .attrs
-            class: 'node_label'
-          .text (d) -> d.label
-
-      if institutes.length > 0
-        spec_info.append 'div'
-          .attrs
-            class: 'label'
-          .text 'Institutes'
-
-        type_nodes = spec_info.append 'div'
-          .attrs
-            class: 'nodes'
-
-        nodes = type_nodes.selectAll '.node'
-          .data institutes
-
-        enter_nodes = nodes.enter().append 'div'
-          .attrs
-            class: 'node'
-          .on 'click', (d) => @selection.set d
-
-        enter_nodes.append 'div'
-          .attrs
-            class: 'img'
-          .styles
-            'background-image': (d) -> "url(#{d.icon})"
-
-        enter_nodes.append 'div'
-          .attrs
-            class: 'node_label'
-          .text (d) -> d.label
+    if @d3el.datum().type is 'room'
+      new SpecificInfo_Room
+        graph: @graph
+        node: @d3el.datum()
+        container: spec_info
+        selection: @selection
 
       ### Add data sensor of the room (punchcard)
       ###
@@ -384,7 +383,6 @@ observer class InfoBox extends View
         parent: spec_info
         sensors: @rs
         weather_data: @weather_data
-
     else
       ###
       if @ds?

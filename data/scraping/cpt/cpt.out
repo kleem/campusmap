@@ -9,7 +9,7 @@ Implementation by.....
   inflating: stops.txt               
   inflating: trips.txt               
 
-Data e ora di esecuzione: Mon Nov 28 16:45:07 CET 2016
+Data e ora di esecuzione: Tue Nov 29 12:25:06 CET 2016
 
 Estrazione degli orari delle fermate a Cnr (STOP_ID="B0934_11"
 "B4937_11")
@@ -21,8 +21,6 @@ ROUTE_SHORT_NAME ROUTE_LONG_NAME
 
 Creazione del file .json
 
-SEARCH_DATE=20161128 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-NREC=119 ========================================
 SEARCH_DATE=20161129 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 NREC=119 ========================================
 SEARCH_DATE=20161130 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -35,6 +33,8 @@ SEARCH_DATE=20161203 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 NREC=119 ========================================
 SEARCH_DATE=20161204 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 NREC=48 ========================================
+SEARCH_DATE=20161205 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+NREC=119 ========================================
 
 Formattazione del file .json
 
