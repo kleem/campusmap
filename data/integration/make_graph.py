@@ -194,7 +194,7 @@ graph['nodes'].append({'id': last_id, 'type': 'service', 'icon': 'fa-shield', 'x
 last_id += 1
 
 # Fondazione Monasterio
-graph['nodes'].append({'id': last_id, 'type': 'health', 'icon': 'fa-h-square', 'x': 278.39, 'y': 245.36, 'label': "Fondazione Toscana Gabriele Monasterio per la Ricerca Medica e di Sanita' Pubblica", 'homepage': 'https://www.ftgm.it/index.php/pisa-ospedale-di-ricerca-menu', 'floor': 'T'})
+graph['nodes'].append({'id': last_id, 'type': 'health', 'icon': 'fa-h-square', 'x': 278.39, 'y': 245.36, 'label': 'Reception Fondazione Toscana Gabriele Monasterio', 'homepage': 'https://www.ftgm.it/index.php/pisa-ospedale-di-ricerca-menu', 'floor': 'T'})
 last_id += 1
 
 # Totem
