@@ -182,10 +182,10 @@ graph['nodes'].append({'id': last_id, 'type': 'service', 'icon': 'fa-euro', 'x':
 last_id += 1
 
 # Stampanti
-graph['nodes'].append({'id': last_id, 'type': 'service', 'icon': 'fa-print', 'x': 161.66, 'y': 190.31, 'label': 'HP Color Laserjet CP6015dn', 'ip': '146.48.98.195', 'floor': '1'})
+graph['nodes'].append({'id': last_id, 'type': 'service', 'icon': 'fa-print', 'x': 161.66, 'y': 190.31, 'label': 'HP Color Laserjet CP6015dn', 'img': 'img/HP_Color_Laserjet_CP6015dn.jpg', 'ip': '146.48.98.195', 'floor': '1'})
 last_id += 1
 
-graph['nodes'].append({'id': last_id, 'type': 'service', 'icon': 'fa-print', 'x': 162.74, 'y': 189.55, 'label': 'HP Laserjet 9040dn', 'ip': '146.48.96.71', 'floor': '1'})
+graph['nodes'].append({'id': last_id, 'type': 'service', 'icon': 'fa-print', 'x': 162.74, 'y': 189.55, 'label': 'HP Laserjet 9040dn', 'img': 'img/HP_Laserjet_9040dn.jpg', 'ip': '146.48.96.71', 'floor': '1'})
 last_id += 1
 
 # TeCIP
