@@ -44,6 +44,8 @@ class Graph
 
     @max_results = 5
 
+  get_node: (id) -> @nodes_index[id]
+
   search: (string) ->
 
     if string isnt ''

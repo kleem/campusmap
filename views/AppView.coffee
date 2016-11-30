@@ -44,7 +44,7 @@ observer class AppView extends View
     #  mode: mode
     #  graph: graph
     weather_data = new WeatherData
-      
+
     new WeatherInfo
       parent: this
       weather_data: weather_data
@@ -55,10 +55,10 @@ observer class AppView extends View
       graph: graph
       selection: selection
       weather_data: weather_data
-      
-    
 
-    selection.set null
+
+
+    selection.unset()
 
     @listen_to selection, 'change', () ->
       s = selection.get()
