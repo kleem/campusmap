@@ -1,7 +1,7 @@
 .NavControls {
   position: absolute;
-  bottom: 20px;
-  right: 20px;
+  bottom: 10px;
+  right: 10px;
   background: white;
   border-radius: 3px;
   box-shadow: 0px 1px 5px rgba(0,0,0,0.4);
