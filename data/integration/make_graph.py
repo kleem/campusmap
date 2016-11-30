@@ -193,7 +193,7 @@ graph['nodes'].append({'id': last_id, 'type': 'building', 'icon': 'fa-building',
 last_id += 1
 
 # BAR IFC
-graph['nodes'].append({'id': last_id, 'type': 'food_drink', 'icon': 'fa-coffee', 'x': 287.05, 'y': 240.73, 'label': 'Bar IFC', 'floor': 'T'})
+graph['nodes'].append({'id': last_id, 'type': 'food_drink', 'icon': 'fa-coffee', 'x': 287.05, 'y': 240.73, 'label': 'Bar IFC','img': 'img/bar_ifc.jpg', 'floor': 'T'})
 last_id += 1
 
 # BAR Mensa
