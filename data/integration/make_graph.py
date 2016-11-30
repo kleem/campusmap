@@ -5,6 +5,8 @@ graph = {"nodes": [], "links": []}
 last_id = 0
 rooms = {}
 
+wafi = {}
+
 # ROOMS and PEOPLE
 # scraped from the institutes' web pages
 def rooms_people(file_path, institute):
@@ -24,6 +26,15 @@ def rooms_people(file_path, institute):
             d['institute'] = institute
 
             graph['nodes'].append(d)
+
+            if d['name'] == 'Andrea Marchetti':
+                wafi['am'] = d['id']
+            elif d['name'] == 'Maria Claudia Buzzi':
+                wafi['cb'] = d['id']
+            elif d['name'] == 'Maurizio Tesconi':
+                wafi['mt'] = d['id']
+            elif d['name'] == 'Matteo Abrate':
+                wafi['ma'] = d['id']
 
             if d['label'] == '':
                 del d['floor']
@@ -68,13 +79,23 @@ area_id = last_id
 last_id += 1
 
 # IIT
-graph['nodes'].append({'id': last_id, 'type': 'building', 'icon': 'fa-sitemap', 'label': 'Istituto di Informatica e Telematica', 'img': 'img/cnr.jpg', 'phone': '+39 050 315 2112', 'thumbnail': 'img/iit.png', 'homepage': 'http://www.iit.cnr.it/', 'floor': '3'})
+iit = last_id
+graph['nodes'].append({'id': last_id, 'type': 'institute', 'icon': 'fa-sitemap', 'label': 'Istituto di Informatica e Telematica', 'img': 'img/cnr.jpg', 'phone': '+39 050 315 2112', 'thumbnail': 'img/iit.png', 'homepage': 'http://www.iit.cnr.it/'})
 graph['links'].append({'source': last_id, 'target': area_id, 'type': 'located_in'})
 last_id += 1
 
 # ISTI
-graph['nodes'].append({'id': last_id, 'type': 'building', 'icon': 'fa-sitemap', 'label': "Istituto di Scienza e Tecnologie dell'Informazione", 'img': 'img/cnr.jpg', 'phone': '+39 050 315 2878', 'thumbnail': 'img/isti.jpg', 'homepage': 'http://www.isti.cnr.it/', 'floor': '3'})
+graph['nodes'].append({'id': last_id, 'type': 'institute', 'icon': 'fa-sitemap', 'label': "Istituto di Scienza e Tecnologie dell'Informazione", 'img': 'img/cnr.jpg', 'phone': '+39 050 315 2878', 'thumbnail': 'img/isti.jpg', 'homepage': 'http://www.isti.cnr.it/'})
 graph['links'].append({'source': last_id, 'target': area_id, 'type': 'located_in'})
+last_id += 1
+
+# WAFI
+graph['nodes'].append({'id': last_id, 'type': 'research_unit', 'icon': 'fa-sitemap', 'label': "Web Applications for the Future Internet", 'homepage': 'http://wafi.iit.cnr.it/'})
+graph['links'].append({'source': last_id, 'target': iit, 'type': 'part_of'})
+graph['links'].append({'source': wafi['cb'], 'target': last_id, 'type': 'part_of'})
+graph['links'].append({'source': wafi['am'], 'target': last_id, 'type': 'part_of'})
+graph['links'].append({'source': wafi['mt'], 'target': last_id, 'type': 'part_of'})
+graph['links'].append({'source': wafi['ma'], 'target': last_id, 'type': 'part_of'})
 last_id += 1
 
 # Responsabile Area della Ricerca
