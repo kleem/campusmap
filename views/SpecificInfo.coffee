@@ -28,7 +28,8 @@ class SpecificInfo extends View
         .attrs
           class: 'img'
         .styles
-          'background-image': (d) -> "url(#{d.thumbnail})" # FIXME icon support
+          'background-image': (d) -> "url(#{d.thumbnail})"
+        .html (d) -> if d.icon? and not d.thumbnail? then "<i class='icon fa fa-fw #{d.icon}'></i>" else ''
 
       enter_nodes.append 'div'
         .attrs
