@@ -14,11 +14,11 @@ observer class ResultsBox extends View
     @noResultsBox = @innerDiv.append 'div'
       .attrs
         class: 'noResultsBox'
-    
+
     @noResultsBox.append 'p'
       .attrs
         class: 'no_results'
-      .text () -> 'La ricerca non ha prodotto risultati'      
+      .text () -> 'La ricerca non ha prodotto risultati'
 
     @allResultsBox = @innerDiv.append 'div'
       .attrs
@@ -27,7 +27,7 @@ observer class ResultsBox extends View
     @ulResultsBox = @allResultsBox.append 'div'
       .attrs
         class: 'ulResultsBox'
-    
+
     @listen_to @results, 'change', () => @show_results()
 
   show_results: () =>
@@ -40,7 +40,7 @@ observer class ResultsBox extends View
     if results_data is null
       @hide()
       return
-    
+
     if results_data.length is 0
       @show_no_results()
     else
@@ -55,19 +55,11 @@ observer class ResultsBox extends View
       .on 'click' , (d) =>
         @results.set_focused d
         @results.clear()
-      
+
     results_enter.merge(results)
       .classed 'focused', (d) => @results.check_focused d
-      .html (d) -> 
-        icon = switch d.type
-          when 'person' then "<i class='fa fa-user'></i>"
-          when 'room' then "<i class='fa fa-map-marker'></i>"
-          when 'bicycle' then "<i class='fa fa-bicycle'></i>"
-          when 'bus' then "<i class='fa fa-bus'></i>"
-          when 'building' then "<i class='fa fa-building'></i>"
-        
-        return "#{icon} #{d.label.replace(query_string_capitalize,"<span class='bold'>#{query_string_capitalize}</span>")}"
-    
+      .html (d) -> "<i class='fa fa-fw #{d.icon}'></i> #{d.label.replace(query_string_capitalize,"<span class='bold'>#{query_string_capitalize}</span>")}"
+
     results.exit().remove()
 
   show: () =>
