@@ -197,7 +197,7 @@ graph['nodes'].append({'id': last_id, 'type': 'food_drink', 'icon': 'fa-coffee',
 last_id += 1
 
 # BAR Mensa
-graph['nodes'].append({'id': last_id, 'type': 'food_drink', 'icon': 'fa-coffee', 'x': 199.28, 'y': 264.22, 'label': 'Bar Mensa', 'img': 'bar_mensa.jpg', 'floor': 'T'})
+graph['nodes'].append({'id': last_id, 'type': 'food_drink', 'icon': 'fa-coffee', 'x': 199.28, 'y': 264.22, 'label': 'Bar Mensa', 'img': 'img/bar_mensa.jpg', 'floor': 'T'})
 last_id += 1
 
 # Distributori automatici
