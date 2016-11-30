@@ -62,7 +62,12 @@ observer class InfoBox extends View
       profile_info.append 'div'
         .attrs
           class: 'position'
-        .text (d) -> if d.position is '' then "#{d.institute}" else "#{d.position}, #{d.institute}"
+        .text (d) ->
+          if d.position is ''
+            "#{d.institute}"
+          else if not(d.institute?)
+            "#{d.position}"
+          else "#{d.position}, #{d.institute}"
 
     # directions
     #directions = profile.append 'div'
