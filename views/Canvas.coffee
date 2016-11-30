@@ -197,7 +197,7 @@ observer class Canvas extends View
   redraw_areas: (data) ->
     # Room writings
     writings = @writings_layer.selectAll '.writing'
-      .data data, (d) -> d.id
+      .data data.filter((d) -> not(d.x? and d.y?)), (d) -> d.id
 
     en_writings = writings.enter().append 'g'
       .attrs
@@ -240,17 +240,6 @@ observer class Canvas extends View
         class: 'circle'
         d: 'm -7.2699413,6.9825382 a 7.943903,7.943903 0 1 1 -15.8878057,0 7.943903,7.943903 0 1 1 15.8878057,0 z'
         transform: 'matrix(1.0113978,0,0,1.0113978,25.605491,3.1820663)'
-
-    # inner_inner_g.append 'text'
-    #   .attrs
-    #     'fill': '#303030'
-    #     'font-size': 10
-    #     'font-family': 'FontAwesome'
-    #     'text-anchor': 'middle'
-    #     x: 10.2
-    #     y: 10.35
-    #     dy: '0.35em'
-    #   .text '\uf007'
 
     inner_inner_g.append 'foreignObject'
       .attrs

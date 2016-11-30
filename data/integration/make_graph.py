@@ -58,11 +58,11 @@ rooms_people('../scraping/isti.csv', 'ISTI')
 rooms_people('../scraping/ilc.csv', 'ILC')
 
 # Auditorium
-graph['nodes'].append({'id': last_id, 'type': 'room', 'label': 'Auditorium', 'icon': 'fa-microphone', 'img': 'img/auditorium.jpg', 'floor': 'T'})
+graph['nodes'].append({'id': last_id, 'type': 'room', 'x': 168.1479, 'y': 245.0429, 'label': 'Auditorium', 'icon': 'fa-microphone', 'img': 'img/auditorium.jpg', 'floor': 'T'})
 last_id += 1
 
 # Canteen
-graph['nodes'].append({'id': last_id, 'type': 'room', 'label': 'Mensa', 'icon': 'fa-cutlery', 'img': 'img/canteen.jpg', 'email': 'comm-mensa@area.pi.cnr.it', 'phone': '+39 050 315 2048', 'thumbnail': 'img/serenissima.png', 'homepage': 'http://www.area.pi.cnr.it/index.php/mensa', 'floor': 'T'})
+graph['nodes'].append({'id': last_id, 'type': 'room', 'x': 189.3482, 'y': 273.6019, 'label': 'Mensa', 'icon': 'fa-cutlery', 'img': 'img/canteen.jpg', 'email': 'comm-mensa@area.pi.cnr.it', 'phone': '+39 050 315 2048', 'thumbnail': 'img/serenissima.png', 'homepage': 'http://www.area.pi.cnr.it/index.php/mensa', 'floor': 'T'})
 last_id += 1
 
 # Library
@@ -70,6 +70,8 @@ for n in graph['nodes']:
     if n['label'] == 'Library':
         n['icon'] = 'fa-book'
         n['img'] = 'img/library.jpg'
+        n['x'] = 186.9286
+        n['y'] = 216.4720
 
 # Area della Ricerca
 graph['nodes'].append({'id': last_id, 'type': 'building', 'icon': 'fa-building', 'label': 'Area della Ricerca di Pisa', 'img': 'img/cnr.jpg', 'phone': '+39 050 315 2111', 'thumbnail': 'img/cnr_icon.png', 'homepage': 'http://www.area.pi.cnr.it/', 'floor': '3', 'address': 'via G. Moruzzi, 156124 Pisa, Italy'})
@@ -107,8 +109,56 @@ last_id += 1
 ### External points
 ###
 
-# Bus Stop 'Volpi CNR'
+# Fermata Bus San Cataldo
 graph['nodes'].append({'id': last_id, 'type': 'bus', 'x': 50.34, 'y': 211.28, 'label': 'Fermata Bus San Cataldo', 'img': 'img/bus_stop_san_cataldo.jpg', 'phone': '+39 800 57 0530', 'icon': 'fa-bus', 'thumbnail': 'img/cpt.png', 'homepage': 'http://www.pisa.cttnord.it/', 'floor': 'T'})
+last_id += 1
+
+# Biblioteca ILC
+graph['nodes'].append({'id': last_id, 'type': 'room', 'x': 186.78, 'y': 126.98, 'label': 'Biblioteca ILC', 'homepage': 'http://www.ilc.cnr.it/it/content/biblioteca', 'phone': '+39 050 315 2869', 'timetables': 'giorni feriali 9:30-16:00 (su appuntamento)', 'icon': 'fa-book', 'floor': '1'})
+last_id += 1
+
+# Aula Faedo
+graph['nodes'].append({'id': last_id, 'type': 'room', 'x': 214.36, 'y': 191.09, 'label': 'Aula Faedo', 'icon': 'fa-microphone', 'floor': '1'})
+last_id += 1
+
+# C40
+graph['nodes'].append({'id': last_id, 'type': 'room', 'x': 228.77, 'y': 183.13, 'label': 'C40', 'icon': 'fa-microphone', 'floor': '1'})
+last_id += 1
+
+# A32
+graph['nodes'].append({'id': last_id, 'type': 'room', 'x': 165.23, 'y': 220.33, 'label': 'A32', 'icon': 'fa-microphone', 'floor': '1'})
+last_id += 1
+
+# B76
+graph['nodes'].append({'id': last_id, 'type': 'room', 'x': 147.79, 'y': 183.24, 'label': 'B76', 'icon': 'fa-microphone', 'floor': '1'})
+last_id += 1
+
+# Aula 27
+graph['nodes'].append({'id': last_id, 'type': 'room', 'x': 167.73, 'y': 213.46, 'label': 'Aula 27', 'icon': 'fa-microphone', 'floor': 'T', 'capacity': 80})
+last_id += 1
+
+# Aula 28
+graph['nodes'].append({'id': last_id, 'type': 'room', 'x': 182.27, 'y': 213.46, 'label': 'Aula 28', 'icon': 'fa-microphone', 'floor': 'T', 'capacity': 80})
+last_id += 1
+
+# Aula 29
+graph['nodes'].append({'id': last_id, 'type': 'room', 'x': 196.43, 'y': 213.46, 'label': 'Aula 29', 'icon': 'fa-microphone', 'floor': 'T', 'capacity': 80})
+last_id += 1
+
+# Aula 30
+graph['nodes'].append({'id': last_id, 'type': 'room', 'x': 199.94, 'y': 220.22, 'label': 'Aula 30', 'icon': 'fa-microphone', 'floor': 'T', 'capacity': 25})
+last_id += 1
+
+# Aula 40
+graph['nodes'].append({'id': last_id, 'type': 'room', 'x': 196.52, 'y': 277.80, 'label': 'Aula 40 Franco Denoth', 'icon': 'fa-microphone', 'floor': '1', 'capacity': 40})
+last_id += 1
+
+# Asilo Eureka
+graph['nodes'].append({'id': last_id, 'type': 'service', 'x': 101.05, 'y': 220.74, 'label': 'Asilo Eureka', 'icon': 'fa-smile-o', 'homepage': 'http://asilo.area.pi.cnr.it/', 'phone': '+39 050 315 3292', 'floor': 'T'})
+last_id += 1
+
+# DAE
+graph['nodes'].append({'id': last_id, 'type': 'service', 'x': 199.40, 'y': 238.26, 'label': 'DAE', 'icon': 'fa-heartbeat', 'floor': 'T'})
 last_id += 1
 
 # CICLOPI
@@ -119,12 +169,23 @@ last_id += 1
 graph['nodes'].append({'id': last_id, 'type': 'service', 'icon': 'fa-newspaper-o', 'x': 274.01, 'y': 235.52, 'label': 'Edicola', 'floor': 'T'})
 last_id += 1
 
-# ATM
+# ATM Auditorium
 graph['nodes'].append({'id': last_id, 'type': 'service', 'icon': 'fa-credit-card', 'x': 203.76, 'y': 239.68, 'label': 'Bancomat', 'floor': 'T'})
+last_id += 1
+
+# ATM IFC
+graph['nodes'].append({'id': last_id, 'type': 'service', 'icon': 'fa-credit-card', 'x': 275.38, 'y': 250.79, 'label': 'Bancomat', 'floor': 'T'})
 last_id += 1
 
 # Bank
 graph['nodes'].append({'id': last_id, 'type': 'service', 'icon': 'fa-euro', 'x': 260.11, 'y': 359.67, 'label': 'Banca Nazionale del Lavoro (BNL)', 'phone': '+39 050 571856', 'floor': 'T'})
+last_id += 1
+
+# Stampanti
+graph['nodes'].append({'id': last_id, 'type': 'service', 'icon': 'fa-print', 'x': 161.66, 'y': 190.31, 'label': 'HP Color Laserjet CP6015dn', 'ip': '146.48.98.195', 'floor': '1'})
+last_id += 1
+
+graph['nodes'].append({'id': last_id, 'type': 'service', 'icon': 'fa-print', 'x': 162.74, 'y': 189.55, 'label': 'HP Laserjet 9040dn', 'ip': '146.48.96.71', 'floor': '1'})
 last_id += 1
 
 # TeCIP
@@ -136,7 +197,17 @@ graph['nodes'].append({'id': last_id, 'type': 'food_drink', 'icon': 'fa-coffee',
 last_id += 1
 
 # BAR Mensa
-graph['nodes'].append({'id': last_id, 'type': 'food_drink', 'icon': 'fa-coffee', 'x': 199.28, 'y': 264.22, 'label': 'Bar Mensa', 'floor': 'T'})
+graph['nodes'].append({'id': last_id, 'type': 'food_drink', 'icon': 'fa-coffee', 'x': 199.28, 'y': 264.22, 'label': 'Bar Mensa', 'img': 'bar_mensa.jpg', 'floor': 'T'})
+last_id += 1
+
+# Distributori automatici
+graph['nodes'].append({'id': last_id, 'type': 'food_drink', 'icon': 'fa-coffee', 'x': 327.72, 'y': 190.19, 'label': 'Distributori automatici', 'floor': '1'})
+last_id += 1
+
+graph['nodes'].append({'id': last_id, 'type': 'food_drink', 'icon': 'fa-coffee', 'x': 295.08, 'y': 128.04, 'label': 'Distributori automatici', 'floor': '1'})
+last_id += 1
+
+graph['nodes'].append({'id': last_id, 'type': 'food_drink', 'icon': 'fa-coffee', 'x': 151.32, 'y': 197.38, 'label': 'Distributori automatici', 'floor': 'T'})
 last_id += 1
 
 # Guardiania
@@ -144,7 +215,7 @@ graph['nodes'].append({'id': last_id, 'type': 'service', 'icon': 'fa-shield', 'x
 last_id += 1
 
 # Fondazione Monasterio
-graph['nodes'].append({'id': last_id, 'type': 'health', 'icon': 'fa-h-square', 'x': 278.39, 'y': 245.36, 'label': "Fondazione Toscana Gabriele Monasterio per la Ricerca Medica e di Sanita' Pubblica", 'homepage': 'https://www.ftgm.it/index.php/pisa-ospedale-di-ricerca-menu', 'floor': 'T'})
+graph['nodes'].append({'id': last_id, 'type': 'health', 'icon': 'fa-h-square', 'x': 278.39, 'y': 245.36, 'label': 'Reception Fondazione Toscana Gabriele Monasterio', 'homepage': 'https://www.ftgm.it/index.php/pisa-ospedale-di-ricerca-menu', 'floor': 'T'})
 last_id += 1
 
 # Totem
