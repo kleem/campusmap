@@ -32,3 +32,6 @@ observable class Camera
 
   get_zoom_behavior: () ->
     return @zoom
+
+  is_last_floor: (floor) ->
+    return @floors[@floors.length-1] is floor
