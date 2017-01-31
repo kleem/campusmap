@@ -110,11 +110,11 @@ last_id += 1
 ###
 
 # Fermata Bus San Cataldo
-graph['nodes'].append({'id': last_id, 'type': 'bus', 'x': 50.34, 'y': 211.28, 'label': 'Fermata Bus San Cataldo', 'img': 'img/bus_stop_san_cataldo.jpg', 'phone': '+39 800 57 0530', 'icon': 'fa-bus', 'thumbnail': 'img/cpt.png', 'homepage': 'http://www.pisa.cttnord.it/', 'floor': 'T'})
+graph['nodes'].append({'id': last_id, 'type': 'bus', 'x': 50.34, 'y': 211.28, 'label': 'Fermata Bus San Cataldo', 'img': 'img/bus.jpg', 'phone': '+39 800 57 0530', 'icon': 'fa-bus', 'thumbnail': 'img/cpt.png', 'homepage': 'http://www.pisa.cttnord.it/', 'floor': 'T'})
 last_id += 1
 
 # Biblioteca ILC
-graph['nodes'].append({'id': last_id, 'type': 'room', 'x': 186.78, 'y': 126.98, 'label': 'Biblioteca ILC', 'homepage': 'http://www.ilc.cnr.it/it/content/biblioteca', 'phone': '+39 050 315 2869', 'timetables': 'giorni feriali 9:30-16:00 (su appuntamento)', 'icon': 'fa-book', 'floor': '1'})
+graph['nodes'].append({'id': last_id, 'type': 'room', 'x': 186.78, 'y': 126.98, 'label': 'Biblioteca ILC', 'homepage': 'http://www.ilc.cnr.it/it/content/biblioteca', 'phone': '+39 050 315 2869', 'timetables': 'giorni feriali 9:30-16:00 (su appuntamento)', 'icon': 'fa-book', 'floor': '1', 'img': 'img/biblioteca_ILC.jpg'})
 last_id += 1
 
 # Aula Faedo
@@ -122,7 +122,7 @@ graph['nodes'].append({'id': last_id, 'type': 'room', 'x': 214.36, 'y': 191.09, 
 last_id += 1
 
 # C40
-graph['nodes'].append({'id': last_id, 'type': 'room', 'x': 228.77, 'y': 183.13, 'label': 'C40', 'icon': 'fa-microphone', 'floor': '1'})
+graph['nodes'].append({'id': last_id, 'type': 'room', 'x': 228.77, 'y': 183.13, 'label': 'C40', 'icon': 'fa-microphone', 'floor': '1', 'img': 'img/C40.jpg'})
 last_id += 1
 
 # A32
@@ -166,19 +166,19 @@ graph['nodes'].append({'id': last_id, 'type': 'bicycle', 'x': 233.81, 'y': 335.9
 last_id += 1
 
 # Edicola
-graph['nodes'].append({'id': last_id, 'type': 'service', 'icon': 'fa-newspaper-o', 'x': 274.01, 'y': 235.52, 'label': 'Edicola', 'floor': 'T'})
+graph['nodes'].append({'id': last_id, 'type': 'service', 'icon': 'fa-newspaper-o', 'x': 274.01, 'y': 235.52, 'label': 'Edicola', 'floor': 'T', 'img': 'img/edicola.jpg'})
 last_id += 1
 
 # ATM Auditorium
-graph['nodes'].append({'id': last_id, 'type': 'service', 'icon': 'fa-credit-card', 'x': 203.76, 'y': 239.68, 'label': 'Bancomat', 'floor': 'T'})
+graph['nodes'].append({'id': last_id, 'type': 'service', 'icon': 'fa-credit-card', 'x': 203.76, 'y': 239.68, 'label': 'Bancomat Banco Popolare', 'floor': 'T', 'img': 'img/atm_auditorium.jpg'})
 last_id += 1
 
 # ATM IFC
-graph['nodes'].append({'id': last_id, 'type': 'service', 'icon': 'fa-credit-card', 'x': 275.38, 'y': 250.79, 'label': 'Bancomat', 'floor': 'T'})
+graph['nodes'].append({'id': last_id, 'type': 'service', 'icon': 'fa-credit-card', 'x': 275.38, 'y': 250.79, 'label': 'Bancomat BNL', 'floor': 'T', 'img': 'img/atm_IFC.jpg'})
 last_id += 1
 
 # Bank
-graph['nodes'].append({'id': last_id, 'type': 'service', 'icon': 'fa-euro', 'x': 260.11, 'y': 359.67, 'label': 'Banca Nazionale del Lavoro (BNL)', 'phone': '+39 050 571856', 'floor': 'T'})
+graph['nodes'].append({'id': last_id, 'type': 'service', 'icon': 'fa-euro', 'x': 260.11, 'y': 359.67, 'label': 'Banca Nazionale del Lavoro (BNL)', 'phone': '+39 050 571856', 'floor': 'T', 'img': 'img/bnl.jpg'})
 last_id += 1
 
 # Stampanti
@@ -189,7 +189,7 @@ graph['nodes'].append({'id': last_id, 'type': 'service', 'icon': 'fa-print', 'x'
 last_id += 1
 
 # TeCIP
-graph['nodes'].append({'id': last_id, 'type': 'building', 'icon': 'fa-building', 'x': 364.85, 'y': 320.02, 'label': "Istituto di tecnologie della comunicazione, dell'informazione e della percezione (TeCIP)", 'phone': '+39 050 88 2099', 'thumbnail': 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Uni_scuolasupsantanapisa_2.jpg/250px-Uni_scuolasupsantanapisa_2.jpg', 'homepage': 'http://www.sssup.it/tecip_en', 'floor': 'T'})
+graph['nodes'].append({'id': last_id, 'type': 'building', 'icon': 'fa-building', 'x': 364.85, 'y': 320.02, 'label': "Istituto di tecnologie della comunicazione, dell'informazione e della percezione (TeCIP)", 'phone': '+39 050 88 2099', 'thumbnail': 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Uni_scuolasupsantanapisa_2.jpg/250px-Uni_scuolasupsantanapisa_2.jpg', 'homepage': 'http://www.sssup.it/tecip_en', 'floor': 'T', 'img': 'img/tecip.jpg'})
 last_id += 1
 
 # BAR IFC
@@ -201,17 +201,17 @@ graph['nodes'].append({'id': last_id, 'type': 'food_drink', 'icon': 'fa-coffee',
 last_id += 1
 
 # Distributori automatici
-graph['nodes'].append({'id': last_id, 'type': 'food_drink', 'icon': 'fa-coffee', 'x': 327.72, 'y': 190.19, 'label': 'Distributori automatici', 'floor': '1'})
+graph['nodes'].append({'id': last_id, 'type': 'food_drink', 'icon': 'fa-coffee', 'x': 327.72, 'y': 190.19, 'label': 'Distributori automatici', 'floor': '1', 'img': 'img/distributori_IFC.jpg'})
 last_id += 1
 
-graph['nodes'].append({'id': last_id, 'type': 'food_drink', 'icon': 'fa-coffee', 'x': 295.08, 'y': 128.04, 'label': 'Distributori automatici', 'floor': '1'})
+graph['nodes'].append({'id': last_id, 'type': 'food_drink', 'icon': 'fa-coffee', 'x': 295.08, 'y': 128.04, 'label': 'Distributori automatici', 'floor': '1', 'img': 'img/distributori_IBF.jpg'})
 last_id += 1
 
 graph['nodes'].append({'id': last_id, 'type': 'food_drink', 'icon': 'fa-coffee', 'x': 151.32, 'y': 197.38, 'label': 'Distributori automatici', 'floor': 'T'})
 last_id += 1
 
 # Guardiania
-graph['nodes'].append({'id': last_id, 'type': 'service', 'icon': 'fa-shield', 'x': 244.11, 'y': 356.72, 'label': 'Guardiania', 'floor': 'T'})
+graph['nodes'].append({'id': last_id, 'type': 'service', 'icon': 'fa-shield', 'x': 244.11, 'y': 356.72, 'label': 'Guardiania', 'floor': 'T', 'img': 'img/guardiania.jpg'})
 last_id += 1
 
 # Fondazione Monasterio
@@ -219,7 +219,7 @@ graph['nodes'].append({'id': last_id, 'type': 'health', 'icon': 'fa-h-square', '
 last_id += 1
 
 # Totem
-graph['nodes'].append({'id': last_id, 'type': 'service', 'icon': 'fa-info', 'x': 231.3, 'y': 237, 'label': 'Totem', 'floor': 'T'})
+graph['nodes'].append({'id': last_id, 'type': 'service', 'icon': 'fa-info', 'x': 231.3, 'y': 237, 'label': 'Totem', 'floor': 'T', 'img': 'img/totem_esterno.jpg'})
 last_id += 1
 
 # Serra
