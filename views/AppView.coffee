@@ -39,10 +39,12 @@ observer class AppView extends View
       graph: graph
       floors: floors
 
-    #new DirectionsPanel
-    #  parent: this
-    #  mode: mode
-    #  graph: graph
+    user = new User
+
+    inituser = new InitUser
+      parent: this
+      user: user
+
     weather_data = new WeatherData
 
     new WeatherInfo
@@ -55,8 +57,6 @@ observer class AppView extends View
       graph: graph
       selection: selection
       weather_data: weather_data
-
-
 
     selection.unset()
 
