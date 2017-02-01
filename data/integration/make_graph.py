@@ -70,11 +70,12 @@ for n in graph['nodes']:
     if n['label'] == 'Library':
         n['icon'] = 'fa-book'
         n['img'] = 'img/library.jpg'
+        n['homepage'] = 'http://library.isti.cnr.it/'
         n['x'] = 186.9286
         n['y'] = 216.4720
 
 # Area della Ricerca
-graph['nodes'].append({'id': last_id, 'type': 'building', 'icon': 'fa-building', 'label': 'Area della Ricerca di Pisa', 'img': 'img/cnr.jpg', 'phone': '+39 050 315 2111', 'thumbnail': 'img/cnr_icon.png', 'homepage': 'http://www.area.pi.cnr.it/', 'floor': '3', 'address': 'via G. Moruzzi, 156124 Pisa, Italy'})
+graph['nodes'].append({'id': last_id, 'type': 'building', 'icon': 'fa-building', 'label': 'Area della Ricerca di Pisa', 'img': 'img/cnr.jpg', 'address': 'via G. Moruzzi, 1 56124 Pisa, Italy', 'phone': '+39 050 315 2111', 'thumbnail': 'img/cnr_icon.png', 'homepage': 'http://www.area.pi.cnr.it/', 'floor': '3'})
 area_id = last_id
 last_id += 1
 
@@ -86,6 +87,61 @@ last_id += 1
 
 # ISTI
 graph['nodes'].append({'id': last_id, 'type': 'institute', 'icon': 'fa-sitemap', 'label': "Istituto di Scienza e Tecnologie dell'Informazione", 'img': 'img/cnr.jpg', 'phone': '+39 050 315 2878', 'thumbnail': 'img/isti.jpg', 'homepage': 'http://www.isti.cnr.it/'})
+graph['links'].append({'source': last_id, 'target': area_id, 'type': 'located_in'})
+last_id += 1
+
+# IFC
+graph['nodes'].append({'id': last_id, 'type': 'institute', 'icon': 'fa-sitemap', 'label': "Istituto di Fisiologia Clinica", 'img': 'img/cnr.jpg', 'thumbnail': 'img/ifc.png', 'homepage': 'http://www.ifc.cnr.it'})
+graph['links'].append({'source': last_id, 'target': area_id, 'type': 'located_in'})
+last_id += 1
+
+# IGG
+graph['nodes'].append({'id': last_id, 'type': 'institute', 'icon': 'fa-sitemap', 'label': "Istituto di Geoscienze e Georisorse", 'img': 'img/cnr.jpg', 'thumbnail': 'img/igg.png', 'homepage': 'http://www.igg.cnr.it/'})
+graph['links'].append({'source': last_id, 'target': area_id, 'type': 'located_in'})
+last_id += 1
+
+# ILC
+graph['nodes'].append({'id': last_id, 'type': 'institute', 'icon': 'fa-sitemap', 'label': "Istituto di Linguistica Computazionale", 'img': 'img/cnr.jpg', 'thumbnail': 'img/ilc.jpg', 'homepage': 'http://www.ilc.cnr.it/'})
+graph['links'].append({'source': last_id, 'target': area_id, 'type': 'located_in'})
+last_id += 1
+
+# IN
+graph['nodes'].append({'id': last_id, 'type': 'institute', 'icon': 'fa-sitemap', 'label': "Istituto di Neuroscienze", 'img': 'img/cnr.jpg', 'thumbnail': 'img/in.gif', 'homepage': 'http://www.in.cnr.it/'})
+graph['links'].append({'source': last_id, 'target': area_id, 'type': 'located_in'})
+last_id += 1
+
+# IBF
+graph['nodes'].append({'id': last_id, 'type': 'institute', 'icon': 'fa-sitemap', 'label': "Istituto di Biofisica", 'img': 'img/cnr.jpg', 'thumbnail': 'img/ibf.png', 'homepage': 'http://www.ibf.cnr.it/'})
+graph['links'].append({'source': last_id, 'target': area_id, 'type': 'located_in'})
+last_id += 1
+
+# IBBA
+graph['nodes'].append({'id': last_id, 'type': 'institute', 'icon': 'fa-sitemap', 'label': "Istituto di Biologia e Biotecnologia Agraria", 'img': 'img/cnr.jpg', 'thumbnail': 'img/ibba.png', 'homepage': 'http://www.ibba.cnr.it/'})
+graph['links'].append({'source': last_id, 'target': area_id, 'type': 'located_in'})
+last_id += 1
+
+# ICCOM
+graph['nodes'].append({'id': last_id, 'type': 'institute', 'icon': 'fa-sitemap', 'label': "Istituto di Chimica dei Composti Organo Metallici", 'img': 'img/cnr.jpg', 'thumbnail': 'img/iccom.png', 'homepage': 'http://www.iccom.cnr.it/'})
+graph['links'].append({'source': last_id, 'target': area_id, 'type': 'located_in'})
+last_id += 1
+
+# ITB
+graph['nodes'].append({'id': last_id, 'type': 'institute', 'icon': 'fa-sitemap', 'label': "Istituto di Tecnologie Biomediche", 'img': 'img/cnr.jpg', 'thumbnail': 'img/itb.png', 'homepage': 'http://www.itb.cnr.it/'})
+graph['links'].append({'source': last_id, 'target': area_id, 'type': 'located_in'})
+last_id += 1
+
+# INO
+graph['nodes'].append({'id': last_id, 'type': 'institute', 'icon': 'fa-sitemap', 'label': "Istituto Nazionale di Ottica", 'img': 'img/cnr.jpg', 'thumbnail': 'img/ino.jpg', 'homepage': 'http://www.ino.it/'})
+graph['links'].append({'source': last_id, 'target': area_id, 'type': 'located_in'})
+last_id += 1
+
+# IPCF
+graph['nodes'].append({'id': last_id, 'type': 'institute', 'icon': 'fa-sitemap', 'label': "Istituto per i Processi Chimico-Fisici", 'img': 'img/cnr.jpg', 'thumbnail': 'img/ipcf.jpg', 'homepage': 'http://www.ipcf.cnr.it/'})
+graph['links'].append({'source': last_id, 'target': area_id, 'type': 'located_in'})
+last_id += 1
+
+# ISE
+graph['nodes'].append({'id': last_id, 'type': 'institute', 'icon': 'fa-sitemap', 'label': "Istituto per lo Studio degli Ecosistemi", 'img': 'img/cnr.jpg', 'thumbnail': 'img/ise.png', 'homepage': 'http://www.ise.cnr.it/'})
 graph['links'].append({'source': last_id, 'target': area_id, 'type': 'located_in'})
 last_id += 1
 
