@@ -129,7 +129,7 @@ observer class Canvas extends View
 
   redraw: () ->
     # FIXME this is called twice when both selection and floor change
-
+    
     nodes_at_current_floor = @graph.get_nodes_at_floor(@camera.get_current_floor().id)
 
     @redraw_pois nodes_at_current_floor.filter (d) -> d.x? and d.y?
@@ -139,6 +139,7 @@ observer class Canvas extends View
     @redraw_placemarks @graph.get_points_from_node(@selection.get()).filter((d) => d.floor is @camera.get_current_floor().id)
 
   redraw_pois: (data) ->
+    
     pois = @pois_layer.selectAll '.poi'
       .data data, (d) -> d.id
 
@@ -147,8 +148,9 @@ observer class Canvas extends View
         class: 'poi'
         transform: (d) =>
           point = {x: d.x, y: d.y, z: (if d.floor is 'T' then 0 else parseInt(d.floor))}
-          "translate(#{@x(@to_cavalier(point).x)}, #{@y(@to_cavalier(point).y)})"
-      .on 'click', (d) => @selection.set d
+          "translate(#{@x(@to_cavalier(point).x)}, #{@y(@to_cavalier(point).y)})"          
+      .on 'mousedown', (d) => 
+        @selection.set d
 
     inner_g = en_pois.append 'g'
 
@@ -203,7 +205,8 @@ observer class Canvas extends View
       .attrs
         class: 'writing'
         transform: (d) => "translate(#{@x(@to_cavalier(d.centroid).x)}, #{@y(@to_cavalier(d.centroid).y)})"
-      .on 'click', (d) => @selection.set d
+      .on 'mousedown', (d) => 
+        @selection.set d
 
     en_writings.append 'text'
       .attrs
