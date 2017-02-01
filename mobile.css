@@ -1,11 +1,52 @@
-@media (max-width:800px)  {
+@media (max-width:750px)  {
+  body {
+    margin:0;
+    padding:0;
+    width:100%;
+    height:100%;
+  }
+  .AppView {
+    position:absolute;
+    overflow:scroll;
+  }
   .WeatherInfo {
     display: none;
   }
-}
-@media (max-width:400px)  {
+  .InfoBox .specific_information .node {
+    width: 130px;
+  }
   .SearchPanel {
+    position: absolute;
     width: 100%;
+  }
+  .SearchBox {
+    position: absolute;
+  }
+  .ResultsBox {
+    margin-top: 60px;
+  }
+  .InfoBox {
+    position: absolute;
+    top: 90%;
+    height: 110%;
+    overflow-y: hidden;
+  }
+  .InfoBox .top_img {
+    width: 100%;
+    height: auto;
+    display: none;
+  }
+  .InfoBox .profile .img {
+    margin-top: 0px;
+  }
+  .NavControls {
+    top: 70px;
+    bottom: auto;
+  }
+}
+@media (min-width:620px)  {
+  .InfoBox {
+    height: 130%;
   }
 }
 
