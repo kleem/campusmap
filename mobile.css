@@ -9,8 +9,41 @@
     position:absolute;
     overflow:scroll;
   }
+  .SearchBox .innerSearchBox, .SearchBox .innerSearchBox .input_search {
+    height: 45px;
+  }
+  .SearchBox .innerSearchBox .input_search{
+    font-size: 16px;
+  }
   .WeatherInfo {
-    display: none;
+    position: absolute;
+    top: 57px;
+    left: 10px;
+    display: flex;
+    width: 76%;
+    max-width: 300px;
+    padding: 3px;
+  }
+  .WeatherInfo .temperature {
+    margin-bottom: 0px;
+  }
+  .WeatherInfo .temperature .current {
+    font-size: 20px;
+    margin-right: 10px;
+  }
+  .WeatherInfo .other_info {
+    position: absolute;
+    right: 10px;
+    margin-bottom: 0px;
+    margin-left: 3px;
+
+  }
+  .WeatherInfo .other_info div img {
+    width: 12px !important;
+  }
+  .WeatherInfo .other_info > div {
+    padding: 5px;
+    font-size: 10px;
   }
   .InfoBox .specific_information .node {
     width: 130px;
@@ -23,13 +56,12 @@
     position: absolute;
   }
   .ResultsBox {
-    margin-top: 60px;
+    margin-top: 56px;
   }
   .InfoBox {
     position: absolute;
     top: 90%;
-    height: 110%;
-    overflow-y: hidden;
+    height: auto;
   }
   .InfoBox .top_img {
     width: 100%;
@@ -44,12 +76,6 @@
     bottom: auto;
   }
 }
-@media (min-width:620px)  {
-  .InfoBox {
-    height: 130%;
-  }
-}
-
 
 @media (min-width:320px)  { /* smartphones, portrait iPhone, portrait 480x320 phones (Android) */ 
 
