@@ -6,7 +6,7 @@ module.exports = (grunt) ->
         dest: 'lib/libs.js'
     concat_css:
       dist:
-        src: ['index.css', '*/*.css']
+        src: ['index.css', '*/*.css','mobile.css']
         dest: 'app.css'
     coffee:
       compile:
@@ -23,6 +23,7 @@ module.exports = (grunt) ->
       files: [
         'index.coffee',
         '*/*.coffee',
+        'mobile.css',
         'index.css',
         '*/*.css'
       ]

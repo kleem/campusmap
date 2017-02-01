@@ -1,4 +1,4 @@
-http://dati.toscana.it//dataset/rt-oraritb/resource/34290f1a-61b9-47fc-9862-8ad037c35112
+<li>CPT.gtfs: servizio bus svolto da CPT SCARL sulle linee urbane ed extraurbane di Pisa</li> http://dati.toscana.it//dataset/rt-oraritb/resource/9fe5fa0d-dfbc-49e2-a840-427c17f15d2f
 Archive:  cpt.gtfs
 Implementation by.....
   inflating: agency.txt              
@@ -9,7 +9,7 @@ Implementation by.....
   inflating: stops.txt               
   inflating: trips.txt               
 
-Data e ora di esecuzione: Tue Nov 29 12:25:06 CET 2016
+Data e ora di esecuzione: Wed Feb  1 12:45:07 CET 2017
 
 Estrazione degli orari delle fermate a Cnr (STOP_ID="B0934_11"
 "B4937_11")
@@ -21,19 +21,19 @@ ROUTE_SHORT_NAME ROUTE_LONG_NAME
 
 Creazione del file .json
 
-SEARCH_DATE=20161129 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+SEARCH_DATE=20170201 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 NREC=119 ========================================
-SEARCH_DATE=20161130 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+SEARCH_DATE=20170202 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 NREC=119 ========================================
-SEARCH_DATE=20161201 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+SEARCH_DATE=20170203 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 NREC=119 ========================================
-SEARCH_DATE=20161202 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+SEARCH_DATE=20170204 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 NREC=119 ========================================
-SEARCH_DATE=20161203 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-NREC=119 ========================================
-SEARCH_DATE=20161204 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+SEARCH_DATE=20170205 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 NREC=48 ========================================
-SEARCH_DATE=20161205 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+SEARCH_DATE=20170206 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+NREC=119 ========================================
+SEARCH_DATE=20170207 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 NREC=119 ========================================
 
 Formattazione del file .json

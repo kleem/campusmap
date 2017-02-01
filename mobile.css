@@ -1,0 +1,87 @@
+@media (max-width:750px)  {
+  body {
+    margin:0;
+    padding:0;
+    width:100%;
+    height:100%;
+  }
+  .AppView {
+    position:absolute;
+    overflow:scroll;
+  }
+  .WeatherInfo {
+    display: none;
+  }
+  .InfoBox .specific_information .node {
+    width: 130px;
+  }
+  .SearchPanel {
+    position: absolute;
+    width: 100%;
+  }
+  .SearchBox {
+    position: absolute;
+  }
+  .ResultsBox {
+    margin-top: 60px;
+  }
+  .InfoBox {
+    position: absolute;
+    top: 90%;
+    height: 110%;
+    overflow-y: hidden;
+  }
+  .InfoBox .top_img {
+    width: 100%;
+    height: auto;
+    display: none;
+  }
+  .InfoBox .profile .img {
+    margin-top: 0px;
+  }
+  .NavControls {
+    top: 70px;
+    bottom: auto;
+  }
+}
+@media (min-width:620px)  {
+  .InfoBox {
+    height: 130%;
+  }
+}
+
+
+@media (min-width:320px)  { /* smartphones, portrait iPhone, portrait 480x320 phones (Android) */ 
+
+
+}
+@media (min-width:480px)  { /* smartphones, Android phones, landscape iPhone */ 
+
+
+}
+@media (min-width:600px)  { /* portrait tablets, portrait iPad, e-readers (Nook/Kindle), landscape 800x480 phones (Android) */ 
+
+
+}
+@media (min-width:801px)  { /* tablet, landscape iPad, lo-res laptops ands desktops */ 
+
+
+}
+@media (min-width:1025px) { /* big landscape tablets, laptops, and desktops */ 
+
+
+}
+@media (min-width:1281px) { /* hi-res laptops and desktops */ 
+
+
+}
+
+
+
+/*
+.WeatherInfo {
+  display: none;
+}
+*/
+
+
