@@ -2,7 +2,7 @@
   display: none;
 	width: 100%;
   order: 2;
-	z-index: 5;
+	z-index: 3;
 }
 .ResultsBox.displayed {
   display: block;
