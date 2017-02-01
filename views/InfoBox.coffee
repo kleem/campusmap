@@ -103,6 +103,31 @@ observer class InfoBox extends View
         .on 'click', (d) => @selection.set @graph.query(d, 'in')[0]
         .text (d) -> "room #{d.room}"
 
+    #address
+    if @d3el.datum().address?
+      # floor
+      address = info.append 'div'
+        .attrs
+          class: 'info'
+      address.append 'div'
+        .html '<i class="fa fa-map-marker" aria-hidden="true"></i> '
+      address.append 'div'
+        .text (d) -> "#{d.address}"
+
+    # homepage
+    if @d3el.datum().homepage?
+      homepage = info.append 'div'
+        .attrs
+          class: 'info'
+      homepage.append 'div'
+        .html '<i class="fa fa-globe" aria-hidden="true"></i> '
+      homepage.append 'div'
+        .append 'a'
+          .attrs
+            href: (d) -> d.homepage
+            target: '_blank'
+          .text (d) -> d.homepage.replace /http[s]?:\/\//, ''
+
     # phone
     if @d3el.datum().phone?
       phone = info.append 'div'
@@ -148,20 +173,6 @@ observer class InfoBox extends View
             href: (d) -> "mailto:#{d}"
           .text (d) -> d
 
-    # homepage
-    if @d3el.datum().homepage?
-      homepage = info.append 'div'
-        .attrs
-          class: 'info'
-      homepage.append 'div'
-        .html '<i class="fa fa-globe" aria-hidden="true"></i> '
-      homepage.append 'div'
-        .append 'a'
-          .attrs
-            href: (d) -> d.homepage
-            target: '_blank'
-          .text (d) -> d.homepage.replace /http[s]?:\/\//, ''
-
     # room
     if @d3el.datum().type is 'room'
       # floor
@@ -182,17 +193,6 @@ observer class InfoBox extends View
           .html '<i class="fa fa-sign-in" aria-hidden="true"></i> '
         gateway.append 'div'
           .text (d) -> "ingresso #{d.gateway}"
-
-    #address
-    if @d3el.datum().address?
-      # floor
-      address = info.append 'div'
-        .attrs
-          class: 'info'
-      address.append 'div'
-        .html '<i class="fa fa-map-marker" aria-hidden="true"></i> '
-      address.append 'div'
-        .text (d) -> "#{d.address}"
 
     # room capacity
     if @d3el.datum().capacity?
